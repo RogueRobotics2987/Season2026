@@ -5,6 +5,8 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -36,6 +38,8 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
+    public SlewRateLimiter filter = new SlewRateLimiter(8);
+
     public RobotContainer() {
         configureBindings();
     }
@@ -45,11 +49,16 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+            drivetrain.applyRequest(() -> {
+
+                double triggerOutput = Math.min(joystick.getRightTriggerAxis(),1);
+                Voltage outPutMulti = Volts.of(filter.calculate(triggerOutput));
+                
+            
+                return drive.withVelocityX(joystick.getLeftY() * MaxSpeed * outPutMulti.magnitude()) // Drive forward with negative Y (forward)
                     .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-            )
+                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
+            })
         );
 
         // Idle while the robot is disabled. This ensures the configured
