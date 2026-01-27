@@ -6,6 +6,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
@@ -50,15 +51,22 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() -> {
-
-                double triggerOutput = Math.min(joystick.getRightTriggerAxis(),1);
-                Voltage outPutMulti = Volts.of(filter.calculate(triggerOutput));
                 
-            
-                return drive.withVelocityX(joystick.getLeftY() * MaxSpeed * outPutMulti.magnitude()) // Drive forward with negative Y (forward)
+                double outputMultiplier = Math.min(joystick.getRightTriggerAxis() + 0.25, 1);
+
+                // SmartDashboard.putNumber("Gas Pedal Value: ", value);
+
+                // Voltage outputMultiplier = Volts.of(filter.calculate(value));
+
+                SmartDashboard.putNumber("Gas Pedal Multipler: ", outputMultiplier);
+
+                SmartDashboard.putNumber("Velocity: ", joystick.getLeftY() * MaxSpeed * outputMultiplier);
+
+               return drive.withVelocityX(joystick.getLeftY() * MaxSpeed * outputMultiplier) // Drive forward with negative Y (forward)
                     .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
             })
+    
         );
 
         // Idle while the robot is disabled. This ensures the configured
