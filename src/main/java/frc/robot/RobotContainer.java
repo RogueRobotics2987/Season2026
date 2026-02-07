@@ -5,7 +5,10 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -18,6 +21,10 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.ApriltagSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.KickerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SpindexSubsystem;
 
 import frc.robot.subsystems.ClimberSubsystem;
@@ -37,10 +44,22 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    private final ApriltagSubsystem visionSubsystem = new ApriltagSubsystem(drivetrain);
+
+    private final TurretSubsystem turretSubsystem = new TurretSubsystem(drivetrain);
+
+    private final KickerSubsystem m_KickerSubsystem = new KickerSubsystem();
+
+    public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+
     public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
 
     private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
+    public SlewRateLimiter filter = new SlewRateLimiter(8); // 8 / s
+
+    private boolean brakeEnabled = false;
     public RobotContainer() {
         configureBindings();
     }
@@ -50,12 +69,22 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-            )
-        );
+            drivetrain.applyRequest(() -> {
+                double value = Math.min(joystick.getRightTriggerAxis() + 0.25, 1);
+                Voltage outputMultiplier = Volts.of(filter.calculate(value));
+
+                if (brakeEnabled &&
+                    joystick.getLeftX() > -0.1 && joystick.getLeftX() < 0.1 &&
+                    joystick.getLeftY() > -0.1 && joystick.getLeftY() < 0.1 &&
+                    joystick.getRightX() > -0.1 && joystick.getRightX() < 0.1
+                ){
+                    return brake;
+                } else {
+                    return drive.withVelocityX(joystick.getLeftY() * MaxSpeed * outputMultiplier.magnitude()) // Drive forward with negative Y (forward)
+                        .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
+                }
+            }));
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
