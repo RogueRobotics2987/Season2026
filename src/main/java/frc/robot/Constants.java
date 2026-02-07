@@ -23,4 +23,12 @@ public class Constants {
     public static final double turretOffsetX = 0.00635; // set to 1 for testing
     public static final double turretOffsetY = -0.10795; // set to 1 for testing
 
+    public static final double spindexOnSpeed = 4.1;
+    public static final double spindexOffSpeed = 0;
+    public static final double spindexGearRatio = 20.0;
+
+    public static final double kP = 20.0;
+    public static final double kI = 0;
+    public static final double kD = 0;
+
 }
