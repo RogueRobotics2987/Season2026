@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,7 +24,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMoter.getConfigurator().apply(slot0Configs);
 
     var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  25;
+    feedback.SensorToMechanismRatio =  Constants.climberNumber;
     climberMoter.getConfigurator().apply(feedback);
 
     System.out.println ("Guess what? Hello world!");
