@@ -23,7 +23,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMoter.getConfigurator().apply(slot0Configs);
 
     var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  1234;
+    feedback.SensorToMechanismRatio =  25;
     climberMoter.getConfigurator().apply(feedback);
 
     System.out.println ("Guess what? Hello world!");
