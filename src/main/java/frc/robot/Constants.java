@@ -32,5 +32,10 @@ public class Constants {
     public static final double kP = 20.0;
     public static final double kI = 0;
     public static final double kD = 0;
+
+    public static final double intake_kP = 0.1;
+    public static final double intake_kI = 0;
+    public static final double intake_kD = 0.1;
+
     
 }
