@@ -13,10 +13,11 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimberSubsystem extends SubsystemBase {
-  private final TalonFX climberMoter = new TalonFX(20, "rio");
+  private final TalonFX climberMoter = new TalonFX(20, "rio"); //instantiation (Creatig the object)
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-     var slot0Configs = new Slot0Configs();
+    // type is Slot0Configs, name is slot0Configs, value is a Slot0Configs object
+    var slot0Configs = new Slot0Configs();
     slot0Configs.kP = 20; // An error of 1 rotation results in 2.4 V output
     slot0Configs.kI = 0; // no output for integrated error
     slot0Configs.kD = 0; // A velocity of 1 rps results in 0.1 V output
