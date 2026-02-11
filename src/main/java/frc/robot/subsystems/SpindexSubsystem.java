@@ -42,12 +42,11 @@ public class SpindexSubsystem extends SubsystemBase {
 
   public void start(){
    final VelocityVoltage m_request = new VelocityVoltage(Constants.spindexOnSpeed).withSlot(0);
+   SpindexMotor.setControl(m_request);
   }
   public void stop(){
    final VelocityVoltage m_request = new VelocityVoltage(Constants.spindexOffSpeed).withSlot(0);
+   SpindexMotor.setControl(m_request);
   }
 }
 
-  
-// add two public void functions, start & stop
-// in these functions, it should set the velocity to a certain speed, defined in constants
