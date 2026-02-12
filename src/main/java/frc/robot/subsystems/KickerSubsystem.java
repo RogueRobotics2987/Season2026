@@ -60,11 +60,9 @@ public class KickerSubsystem extends SubsystemBase {
    motorkicker11.setControl(m_request);
   };
 
-  
+   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
-    motorkicker11.setControl(m_request.withVelocity(100));
   }
 }
