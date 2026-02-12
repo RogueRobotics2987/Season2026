@@ -32,9 +32,9 @@ public class TurretSubsystem extends SubsystemBase  {
     
     // The PID Controller for the turret motor
     var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = 50; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = 0; // no output for integrated error
-    slot0Configs.kD = 0; // A velocity of 1 rps results in 0.1 V output
+    slot0Configs.kP = Constants.kP; // An error of 1 rotation results in 2.4 V output
+    slot0Configs.kI = Constants.kI; // no output for integrated error
+    slot0Configs.kD = Constants.kD; // A velocity of 1 rps results in 0.1 V output
 
     motor.getConfigurator().apply(slot0Configs);
 

@@ -23,9 +23,13 @@ public class Constants {
     public static final double turretOffsetX = 0.00635; // set to 1 for testing
     public static final double turretOffsetY = -0.10795; // set to 1 for testing
 
+    public static final double spindexOnSpeed = 4.1;
+    public static final double spindexOffSpeed = 0;
+    public static final double spindexGearRatio = 20.0;
+    public static final double climberNumber = 25;
     public static final double Kicker16 = 1;
-    
-    public static final double kP = 20;
+
+    public static final double kP = 20.0;
     public static final double kI = 0;
     public static final double kD = 0;
 
@@ -35,4 +39,9 @@ public class Constants {
     public static final double kickerkD = 0;
     
 
+    public static final double intake_kP = 0.1;
+    public static final double intake_kI = 0;
+    public static final double intake_kD = 0.1;
+
+    
 }
