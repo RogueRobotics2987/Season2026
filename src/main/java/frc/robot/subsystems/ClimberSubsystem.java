@@ -18,14 +18,14 @@ public class ClimberSubsystem extends SubsystemBase {
   public ClimberSubsystem() {
     // type is Slot0Configs, name is slot0Configs, value is a Slot0Configs object
     var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = 20; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = 0; // no output for integrated error
-    slot0Configs.kD = 0; // A velocity of 1 rps results in 0.1 V output
+    slot0Configs.kP = Constants.climberKP; // An error of 1 rotation results in 2.4 V output
+    slot0Configs.kI = Constants.climberKI; // no output for integrated error
+    slot0Configs.kD = Constants.climberKD; // A velocity of 1 rps results in 0.1 V output
 
     climberMoter.getConfigurator().apply(slot0Configs);
 
     var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  Constants.climberNumber;
+    feedback.SensorToMechanismRatio =  Constants.climberGearRatio;
     climberMoter.getConfigurator().apply(feedback);
 
     System.out.println ("Guess what? Hello world!");
@@ -38,8 +38,7 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-    climberMoter.setControl(m_request.withPosition(100)); 
+    
   }
   
   //make public void function that is climb to peramiters will set desired posion to var that will connect to a magic num, sec public unclimb set back to diffrent var then connets to magic
@@ -47,10 +46,10 @@ public class ClimberSubsystem extends SubsystemBase {
   public void climberUp(){
     final PositionVoltage m_request = new PositionVoltage(20).withSlot(0);
     climberMoter.setControl(m_request.withPosition(100));
-    }
+  }
 
    public void climberDown(){
     final PositionVoltage m_request = new PositionVoltage(20).withSlot(0);
     climberMoter.setControl(m_request.withPosition(0));
-    }
+  }
 }

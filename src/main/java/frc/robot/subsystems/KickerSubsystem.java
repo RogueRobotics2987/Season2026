@@ -20,9 +20,9 @@ public class KickerSubsystem extends SubsystemBase {
 
     System.out.println ("uyuioiytriytr");
     var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = Constants.kP; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = Constants.kI; // no output for integrated error
-    slot0Configs.kD = Constants.kD; // A velocity of 1 rps results in 0.1 V output
+    slot0Configs.kP = Constants.kickerKP; // An error of 1 rotation results in 2.4 V output
+    slot0Configs.kI = Constants.kickerKI; // no output for integrated error
+    slot0Configs.kD = Constants.kickerKD; // A velocity of 1 rps results in 0.1 V output
 
     motorkicker11.getConfigurator().apply(slot0Configs);
 
