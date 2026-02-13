@@ -49,7 +49,10 @@ public class Constants {
     public static final double intake_kI = 0;
     public static final double intake_kD = 0.1;
 
-    public static final double kickerOnspeed = 100;
+    public static final double kickerOnspeed = -60;
     public static final double kickerOffspeed = 0;
+
+    public static final double shooterOnSpeed = 60;
+    public static final double shooterOffSpeed = 0;
     
 }
