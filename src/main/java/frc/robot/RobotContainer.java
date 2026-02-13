@@ -109,16 +109,12 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         
-        joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::shooter_on));
-        joystick.povDown().onTrue(turretSubsystem.runOnce(turretSubsystem::shooter_off));
+        joystick.povUp().whileTrue(turretSubsystem.runOnce(turretSubsystem::shooter_on));
+        joystick.povUp().whileFalse(turretSubsystem.runOnce(turretSubsystem::shooter_off));
 
         
-        joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::shooter_on));
-        joystick.povDown().onTrue(turretSubsystem.runOnce(turretSubsystem::shooter_off));
-
        
-        joystick.povUp().onTrue(m_KickerSubsystem.runOnce(m_KickerSubsystem::Start));
-        joystick.povUp().onFalse(m_KickerSubsystem.runOnce(m_KickerSubsystem::Stop)); 
+       
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }

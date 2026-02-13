@@ -56,7 +56,7 @@ public class Constants {
     public static final double shooterWheelKP = 0;
     public static final double shooterWheelKI = 0;
     public static final double shooterWheelKD = 0;
-    public static final int shooterWheelCanID = 20;
+    public static final int shooterWheelCanID = 17;
     public static final double shooterOnVelocity = 0.5;
     public static final double shooterOffVelocity = 0;
 
