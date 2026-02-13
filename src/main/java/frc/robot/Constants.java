@@ -29,7 +29,6 @@ public class Constants {
     public static final double climberGearRatio = 25;
     public static final double Kicker16 = 1;
 
-
     public static final double climberKP = 20.0;
     public static final double climberKI = 0;
     public static final double climberKD = 0;
@@ -50,6 +49,7 @@ public class Constants {
     public static final double intake_kI = 0;
     public static final double intake_kD = 0.1;
 
-
+    public static final double kickerOnspeed = 100;
+    public static final double kickerOffspeed = 0;
     
 }
