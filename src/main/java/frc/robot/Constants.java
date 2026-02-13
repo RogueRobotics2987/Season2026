@@ -27,6 +27,7 @@ public class Constants {
     public static final double spindexOffSpeed = 0;
     public static final double spindexGearRatio = 20.0;
     public static final double climberGearRatio = 25;
+    public static final double intakeArmGearRatio = 50;
     public static final double Kicker16 = 1;
 
 
@@ -48,8 +49,17 @@ public class Constants {
 
     public static final double intake_kP = 0.1;
     public static final double intake_kI = 0;
-    public static final double intake_kD = 0.1;
+    public static final double intake_kD = 0;
 
+    public static final double intakeOutAngle = 0.363;
+    public static final double intakeInAngle  = 0;
 
+    public static final int intakeArmCANID = 14;
+    public static final int intakeWheelCANID = 15;
+    public static final int intakeArmCANCoderID = 19;
+
+    public static final double intakeStartSpeed = 0.4;
+    public static final double intakeStopSpeed = 0;
+    
     
 }
