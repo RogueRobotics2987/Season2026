@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ApriltagSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
-
+import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.math.controller.PIDController;
 
 import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import frc.robot.Constants;
@@ -24,8 +25,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurretSubsystem extends SubsystemBase  {
   
   private CommandSwerveDrivetrain T_driveTrain;
-  private final TalonFX motor = new TalonFX(20, "rio");
- 
+  private final TalonFX turretMotor = new TalonFX(Constants.turretMotorCanID, "rio");
+  private final TalonFX shooterWheelMotor = new TalonFX(Constants.shooterWheelCanID, "rio");
+
   /** Creates a new TurretSubsystem. */
   public TurretSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
@@ -36,20 +38,45 @@ public class TurretSubsystem extends SubsystemBase  {
     slot0Configs.kI = Constants.turretKI; // no output for integrated error
     slot0Configs.kD = Constants.turretKD; // A velocity of 1 rps results in 0.1 V output
 
-    motor.getConfigurator().apply(slot0Configs);
+    turretMotor.getConfigurator().apply(slot0Configs);
 
-    // 20 to 1 gear ratio
-    double gearRatio = 20.0;
+
 
     // Turns on continuos wrap for the turret
     var closedLoopGeneral = new ClosedLoopGeneralConfigs();
     closedLoopGeneral.ContinuousWrap = true; 
-    motor.getConfigurator().apply(closedLoopGeneral); 
+    turretMotor.getConfigurator().apply(closedLoopGeneral); 
+
+    
+    var feedback = new FeedbackConfigs();
+    feedback.SensorToMechanismRatio =  Constants.turretGearRatio;
+    turretMotor.getConfigurator().apply(feedback);
+
+
+
+    var wheelSlot0Configs = new Slot0Configs();
+    wheelSlot0Configs.kP = Constants.shooterWheelKP; // An error of 1 rotation results in 2.4 V output
+    wheelSlot0Configs.kI = Constants.shooterWheelKI; // no output for integrated error
+    wheelSlot0Configs.kD = Constants.shooterWheelKD; // A velocity of 1 rps results in 0.1 V output
+
+    shooterWheelMotor.getConfigurator().apply(wheelSlot0Configs);
+
 
     // Applys the gear ratio to the config
-    var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  gearRatio;
-    motor.getConfigurator().apply(feedback);
+    var shooterWheelFeedback = new FeedbackConfigs();
+    shooterWheelFeedback.SensorToMechanismRatio =  Constants.shooterWheelGearRatio;
+    shooterWheelMotor.getConfigurator().apply(shooterWheelFeedback);
+
+  }
+
+
+  public void shooter_on(){
+    final VelocityVoltage m_request = new VelocityVoltage(Constants.shooterOnVelocity).withSlot(0); //leave pos blank
+    shooterWheelMotor.setControl(m_request);//used to be motor
+  }
+  public void shooter_off(){
+    final VelocityVoltage m_request = new VelocityVoltage(Constants.shooterOffVelocity).withSlot(0); //leave pos blank
+    shooterWheelMotor.setControl(m_request);//used to be motor
   }
 
   @Override
@@ -94,9 +121,9 @@ public class TurretSubsystem extends SubsystemBase  {
 
     // This is setting the position in rotations, so pass the converted value in.
     final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-    motor.setControl(m_request.withPosition(rotations));
+    turretMotor.setControl(m_request.withPosition(rotations));
     SmartDashboard.putNumber("Turret angle setpoint", rotations);
-    SmartDashboard.putNumber("PID output", motor.getClosedLoopOutput().getValueAsDouble());
+    SmartDashboard.putNumber("PID output", turretMotor.getClosedLoopOutput().getValueAsDouble());
 
   }
 }

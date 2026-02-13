@@ -38,6 +38,7 @@ public class Constants {
     public static final double turretKI = 0;
     public static final double turretKD = 0;
 
+    public static final int kickerCanID = 11;
     public static final double kickerKP = 0;
     public static final double kickerKI = 0;
     public static final double kickerKD = 0;
@@ -50,6 +51,17 @@ public class Constants {
     public static final double intake_kI = 0;
     public static final double intake_kD = 0.1;
 
+    public static final double shooterWheelGearRatio = 20.0;
+
+    public static final double shooterWheelKP = 0;
+    public static final double shooterWheelKI = 0;
+    public static final double shooterWheelKD = 0;
+    public static final int shooterWheelCanID = 20;
+    public static final double shooterOnVelocity = 0.5;
+    public static final double shooterOffVelocity = 0;
+
+    public static final int turretMotorCanID = 20;
+    public static final double turretGearRatio = 20;
 
     
 }
