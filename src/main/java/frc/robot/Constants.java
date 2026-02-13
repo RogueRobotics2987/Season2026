@@ -30,7 +30,6 @@ public class Constants {
     public static final double intakeArmGearRatio = 50;
     public static final double Kicker16 = 1;
 
-
     public static final double climberKP = 20.0;
     public static final double climberKI = 0;
     public static final double climberKD = 0;
@@ -61,5 +60,7 @@ public class Constants {
     public static final double intakeStartSpeed = 0.4;
     public static final double intakeStopSpeed = 0;
     
+    public static final double kickerOnspeed = 100;
+    public static final double kickerOffspeed = 0;
     
 }

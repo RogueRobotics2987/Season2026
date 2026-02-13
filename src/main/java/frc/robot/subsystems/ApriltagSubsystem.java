@@ -40,35 +40,39 @@ public class ApriltagSubsystem extends SubsystemBase {
     // System.out.println("Yeah Periodic");
 
     // This method will be called once per scheduler run.
-    LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-    LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getPigeon2().getRotation2d().getDegrees(), 0, 0, 0, 0, 0);
+    try {
+      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+      // more code
+      LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getPigeon2().getRotation2d().getDegrees(), 0, 0, 0, 0, 0);
 
-    // if (Math.abs(AT_driveTrain.get()) > 360) {
-    //   rejectUpdate = true;
-    // }
+      // if (Math.abs(AT_driveTrain.get()) > 360) {
+      //   rejectUpdate = true;
+      // }
 
-    if (mt2.tagCount == 0) {
-      rejectUpdate = true;
+      if (mt2.tagCount == 0) {
+        rejectUpdate = true;
+      }
+
+      else {
+        rejectUpdate = false;
+      }
+
+      if (!rejectUpdate) {
+        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
+        AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
+        System.out.println("Yippee");
+
+        SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
+        SmartDashboard.putNumber("LimelightY", mt2.pose.getY());
+        SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
+      }  
+    } catch(NullPointerException e){
+      System.out.println("Catch in mt2" + e.toString());
     }
-
-    else {
-      rejectUpdate = false;
-    }
-
-    if (!rejectUpdate) {
-      AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
-      AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
-      System.out.println("Yippee");
-
-      SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
-      SmartDashboard.putNumber("LimelightY", mt2.pose.getY());
-      SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
-    }  
-
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
+    
   }
-
   // Public methods to control the subsystem's components (e.g., setting motor speeds, reading sensor data)
   // Example public method:
   // public void runMotor(double speed) {
