@@ -96,7 +96,7 @@ public class RobotContainer {
         //joystick bindings to test intake
 
         joystick.povRight().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
-        joystick.povLeft().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+        joystick.povRight().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
 
 

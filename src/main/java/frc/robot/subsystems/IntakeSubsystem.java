@@ -26,26 +26,23 @@ public class IntakeSubsystem extends SubsystemBase {
     slot0Configs.kP = Constants.intake_kP; // An error of 1 rotation results in 2.4 V output
     slot0Configs.kI = Constants.intake_kI; // no output for integrated error
     slot0Configs.kD = Constants.intake_kD; // A velocity of 1 rps results in 0.1 V output
-    
-
-
     intakeArmMotor.getConfigurator().apply(slot0Configs);
     System.out.println("hi");
 
     var fx_cfg = new TalonFXConfiguration();
     fx_cfg.Feedback.FeedbackRemoteSensorID = Constants.intakeArmCANCoderID;
     fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-    
     intakeArmMotor.getConfigurator().apply(fx_cfg);
 
-     var feedback = new FeedbackConfigs();
+    var feedback = new FeedbackConfigs();
     feedback.SensorToMechanismRatio =  Constants.intakeArmGearRatio;
     intakeArmMotor.getConfigurator().apply(feedback);
   }
   public void intakeOut() {
 
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request);
+    //here
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
     intakeWheelMotor.set(Constants.intakeStartSpeed);
 
   }
@@ -53,7 +50,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intakeIn() {
   
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request);
+    //here 
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
   @Override
