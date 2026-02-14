@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5939111111111117,
+        "y": 2.4628666666666663
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.5055111111111112,
+        "y": 1.7271888888888898
+      },
+      "isLocked": false,
+      "linkedName": "Right_Start_Bump"
+    },
+    {
+      "anchor": {
+        "x": 0.34,
+        "y": 0.67
+      },
+      "prevControl": {
+        "x": 1.205477777770579,
+        "y": 0.941122222223687
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Outpost"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Outpost",
+      "minWaypointRelativePos": 0.634735202492212,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Ball Intake",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "Intake Bump",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 47.06474685063103
+  },
+  "useDefaultConstraints": true
+}

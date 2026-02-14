@@ -1,0 +1,68 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.9690888888888884,
+        "y": 0.59
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.6869111111111112,
+        "y": 1.1325999999999996
+      },
+      "isLocked": false,
+      "linkedName": "Right_Shoot_End"
+    },
+    {
+      "anchor": {
+        "x": 1.43,
+        "y": 3.32
+      },
+      "prevControl": {
+        "x": 1.4977333333333334,
+        "y": 2.9465999999999997
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Climb_Right"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Climb",
+      "minWaypointRelativePos": 0.7172897196261667,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "Extra",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
