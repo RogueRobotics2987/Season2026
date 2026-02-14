@@ -44,7 +44,7 @@ public class KickerSubsystem extends SubsystemBase {
 
    
     var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  Constants.Kicker16;
+    feedback.SensorToMechanismRatio =  Constants.kickerGearRatio;
 
     // ============
     // split into 2 lines of code here
