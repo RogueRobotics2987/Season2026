@@ -47,12 +47,14 @@ public class Constants {
     public static final double intakeAngleArmMotorCanID = 14;
     public static final double intakeAngleArmCanCoderCanID = 19;
     public static final double intakeArmWheelMotorCanID = 15;
+
     public static final int spindexMotorCanID = 16;
     public static final int ClimberCanID = 40;
     public static final int KickerCanID = 18;
     public static final int TurretCanID = 20;
-    public static final int TurretElevationMotorCanID = 9;
-    public static final int TurretElevationCanCoderCanID = 21;
+
+    public static final int ShooterElevationMotorCanID = 9;
+    public static final int ShooterElevationCanCoderCanID = 21;
     public static final int ShooterWheelsCanID = 17;
     //PID configs
 
