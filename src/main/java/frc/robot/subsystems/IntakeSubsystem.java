@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   
-  private final TalonFX intakeMotor = new TalonFX(Constants.IntakeCanID, "rio"); // change rio? will figure out specific id later for real bot
+  private final TalonFX intakeMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio"); // change rio? will figure out specific id later for real bot
   
   public IntakeSubsystem() {
     
