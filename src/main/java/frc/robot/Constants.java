@@ -52,4 +52,14 @@ public class Constants {
     public static final double kickerOnspeed = 100;
     public static final double kickerOffspeed = 0;
     
+
+    public static final int ClimberCanID = 20;
+
+    public static final int IntakeCanID = 9;
+
+    public static final int KickerCanID = 18;
+
+    public static final int SpindexCanID = 21;
+
+    public static final int TurretCanID = 22;
 }

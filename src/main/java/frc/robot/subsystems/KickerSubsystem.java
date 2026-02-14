@@ -18,7 +18,7 @@ public class KickerSubsystem extends SubsystemBase {
 
 
   // <type> <name> = <value>;
-  public final TalonFX motorkicker11 = new TalonFX(18, "rio"); //change rio?
+  public final TalonFX motorkicker11 = new TalonFX(Constants.KickerCanID, "rio"); //change rio?
   /** Creates a new KickerSubSystem. */
   public KickerSubsystem() { 
 

@@ -13,7 +13,7 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimberSubsystem extends SubsystemBase {
-  private final TalonFX climberMoter = new TalonFX(20, "rio"); //instantiation (Creatig the object)
+  private final TalonFX climberMoter = new TalonFX(Constants.ClimberCanID, "rio"); //instantiation (Creatig the object)
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     // type is Slot0Configs, name is slot0Configs, value is a Slot0Configs object
