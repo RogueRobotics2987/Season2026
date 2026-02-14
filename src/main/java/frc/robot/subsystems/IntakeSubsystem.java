@@ -17,9 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   
-  private final TalonFX intakeArmMotor = new TalonFX(Constants.intakeArmCANID, "rio"); // change rio? will figure out specific id later for real bot
-  private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeWheelCANID, "rio");
-
+  private final TalonFX intakeArmMotor = new TalonFX(Constants.intakeAngleArmMotorCanID, "rio"); // change rio? will figure out specific id later for real bot
+  private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio");
   public IntakeSubsystem() {
     
     var slot0Configs = new Slot0Configs();
@@ -30,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
     System.out.println("hi");
 
     var fx_cfg = new TalonFXConfiguration();
-    fx_cfg.Feedback.FeedbackRemoteSensorID = Constants.intakeArmCANCoderID;
+    fx_cfg.Feedback.FeedbackRemoteSensorID = Constants.intakeAngleArmCanCoderCanID;
     fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
     intakeArmMotor.getConfigurator().apply(fx_cfg);
 

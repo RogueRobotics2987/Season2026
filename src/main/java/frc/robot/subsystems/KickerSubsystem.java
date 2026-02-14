@@ -18,7 +18,12 @@ public class KickerSubsystem extends SubsystemBase {
 
 
   // <type> <name> = <value>;
-  public final TalonFX motorkicker11 = new TalonFX(18, "rio"); //change rio?
+
+  public final TalonFX motorkicker11 = new TalonFX(Constants.KickerCanID, "rio"); //change rio?
+
+  public final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio"); //change rio?
+
+
   /** Creates a new KickerSubSystem. */
   public KickerSubsystem() { 
 
@@ -26,19 +31,20 @@ public class KickerSubsystem extends SubsystemBase {
     System.out.println ("uyuioiytriytr");
     // Setting Up PID Controller;
     var slot0Configs = new Slot0Configs(); // Creating a new object (instantiation)
-    slot0Configs.kP = 0.1; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = 0; // no output for integrated error
-    slot0Configs.kD = 0; // A velocity of 1 rps results in 0.1 V output
+    slot0Configs.kP = Constants.kickerKP; // An error of 1 rotation results in 2.4 V output
+    slot0Configs.kI = Constants.kickerKI; // no output for integrated error
+    slot0Configs.kD = Constants.kickerKD; // A velocity of 1 rps results in 0.1 V output
 
     // ============ 
     
     // equivalent 
     motorkicker11.getConfigurator().apply(slot0Configs);
+    motorShooterWheels.getConfigurator().apply(slot0Configs);
     // ============
 
    
     var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  Constants.Kicker16;
+    feedback.SensorToMechanismRatio =  Constants.kickerGearRatio;
 
     // ============
     // split into 2 lines of code here
@@ -52,12 +58,16 @@ public class KickerSubsystem extends SubsystemBase {
   //certain speed and STOP sets the velocity to zero
   public void Start() { 
     final VelocityVoltage m_request = new VelocityVoltage(Constants.kickerOnspeed).withSlot(0);
+    final VelocityVoltage m_shooter = new VelocityVoltage(Constants.shooterOnSpeed).withSlot(0);
     motorkicker11.setControl(m_request);
+    motorShooterWheels.setControl(m_shooter);
   };
 
   public void Stop() {
-   final VelocityVoltage m_request = new VelocityVoltage(Constants.kickerOffspeed).withSlot(0);
-   motorkicker11.setControl(m_request);
+    final VelocityVoltage m_request = new VelocityVoltage(Constants.kickerOffspeed).withSlot(0);
+    final VelocityVoltage m_shooter = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
+    motorkicker11.setControl(m_request);
+    motorShooterWheels.setControl(m_shooter);
   };
 
    
@@ -66,6 +76,3 @@ public class KickerSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 }
-
-
-
