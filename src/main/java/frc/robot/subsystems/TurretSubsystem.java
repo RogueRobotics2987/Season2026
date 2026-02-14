@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurretSubsystem extends SubsystemBase  {
 
   private CommandSwerveDrivetrain T_driveTrain;
-  private final TalonFX motor = new TalonFX(20, "rio");
+  private final TalonFX motor = new TalonFX(Constants.TurretCanID, "rio");
  
   /** Creates a new TurretSubsystem. */
   public TurretSubsystem(CommandSwerveDrivetrain T_driveTrain) {

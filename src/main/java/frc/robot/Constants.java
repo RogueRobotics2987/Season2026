@@ -43,27 +43,44 @@ public class Constants {
     public static final double climberGearRatio = 25;
     public static final double Kicker16 = 1;
 
-
     public static final double climberKP = 20.0;
     public static final double climberKI = 0;
     public static final double climberKD = 0;
 
-    public static final double turretKP = 0;
+    public static final double turretKP = 5;
     public static final double turretKI = 0;
     public static final double turretKD = 0;
 
-    public static final double kickerKP = 0;
+    public static final double kickerKP = 0.1;
     public static final double kickerKI = 0;
     public static final double kickerKD = 0;
 
-    public static final double spindexKP = 0;
+    public static final double spindexKP = 0.1;
     public static final double spindexKI = 0;
     public static final double spindexKD = 0;
 
     public static final double intake_kP = 0.1;
     public static final double intake_kI = 0;
-    public static final double intake_kD = 0.1;
+    public static final double intake_kD = 0;
 
+    public static final double kickerOnspeed = 60;
+    public static final double kickerOffspeed = 0;
 
+    public static final double shooterOnSpeed = 60;
+    public static final double shooterOffSpeed = 0;
     
+
+    public static final int ClimberCanID = 20;
+
+    public static final int IntakeCanID = 9;
+
+    public static final int KickerCanID = 18;
+
+    public static final int SpindexCanID = 21;
+
+    public static final int TurretCanID = 22;
+
+    public static final int ShooterWheelsCanID = 17;
+
+
 }
