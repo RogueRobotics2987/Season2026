@@ -18,7 +18,12 @@ public class KickerSubsystem extends SubsystemBase {
 
 
   // <type> <name> = <value>;
+
   public final TalonFX motorkicker11 = new TalonFX(Constants.KickerCanID, "rio"); //change rio?
+
+  public final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio"); //change rio?
+
+
   /** Creates a new KickerSubSystem. */
   public KickerSubsystem() { 
 
@@ -34,6 +39,7 @@ public class KickerSubsystem extends SubsystemBase {
     
     // equivalent 
     motorkicker11.getConfigurator().apply(slot0Configs);
+    motorShooterWheels.getConfigurator().apply(slot0Configs);
     // ============
 
    
@@ -52,12 +58,16 @@ public class KickerSubsystem extends SubsystemBase {
   //certain speed and STOP sets the velocity to zero
   public void Start() { 
     final VelocityVoltage m_request = new VelocityVoltage(Constants.kickerOnspeed).withSlot(0);
+    final VelocityVoltage m_shooter = new VelocityVoltage(Constants.shooterOnSpeed).withSlot(0);
     motorkicker11.setControl(m_request);
+    motorShooterWheels.setControl(m_shooter);
   };
 
   public void Stop() {
-   final VelocityVoltage m_request = new VelocityVoltage(Constants.kickerOffspeed).withSlot(0);
-   motorkicker11.setControl(m_request);
+    final VelocityVoltage m_request = new VelocityVoltage(Constants.kickerOffspeed).withSlot(0);
+    final VelocityVoltage m_shooter = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
+    motorkicker11.setControl(m_request);
+    motorShooterWheels.setControl(m_shooter);
   };
 
    
@@ -66,6 +76,3 @@ public class KickerSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 }
-
-
-

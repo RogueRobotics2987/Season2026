@@ -49,8 +49,11 @@ public class Constants {
     public static final double intake_kI = 0;
     public static final double intake_kD = 0.1;
 
-    public static final double kickerOnspeed = 100;
+    public static final double kickerOnspeed = -60;
     public static final double kickerOffspeed = 0;
+
+    public static final double shooterOnSpeed = 60;
+    public static final double shooterOffSpeed = 0;
     
 
     public static final int ClimberCanID = 20;
@@ -62,4 +65,8 @@ public class Constants {
     public static final int SpindexCanID = 21;
 
     public static final int TurretCanID = 22;
+
+    public static final int ShooterWheelsCanID = 17;
+
+
 }
