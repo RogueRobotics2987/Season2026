@@ -110,6 +110,10 @@ public class RobotContainer {
         joystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
         joystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
 
+       
+        joystick.povUp().onTrue(m_KickerSubsystem.runOnce(m_KickerSubsystem::Start));
+        joystick.povUp().onFalse(m_KickerSubsystem.runOnce(m_KickerSubsystem::Stop)); 
+        
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
