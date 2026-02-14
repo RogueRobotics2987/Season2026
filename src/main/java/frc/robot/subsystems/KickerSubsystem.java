@@ -31,9 +31,9 @@ public class KickerSubsystem extends SubsystemBase {
     System.out.println ("uyuioiytriytr");
     // Setting Up PID Controller;
     var slot0Configs = new Slot0Configs(); // Creating a new object (instantiation)
-    slot0Configs.kP = 0.1; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = 0; // no output for integrated error
-    slot0Configs.kD = 0; // A velocity of 1 rps results in 0.1 V output
+    slot0Configs.kP = Constants.kickerKP; // An error of 1 rotation results in 2.4 V output
+    slot0Configs.kI = Constants.kickerKI; // no output for integrated error
+    slot0Configs.kD = Constants.kickerKD; // A velocity of 1 rps results in 0.1 V output
 
     // ============ 
     
