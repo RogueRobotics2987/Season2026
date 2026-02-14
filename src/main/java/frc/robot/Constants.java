@@ -36,16 +36,24 @@ public class Constants {
     // The X, Y turret offset on the robot in meters
     public static final double turretOffsetX = 0.00635; // set to 0.00635 for roomba testing
     public static final double turretOffsetY = -0.10795; // set to -0.10695 for roomba testing
-
+    //mechanism gear ratios
     public static final double spindexOnSpeed = 4.1;
     public static final double spindexOffSpeed = 0;
     public static final double spindexGearRatio = 20.0;
     public static final double climberGearRatio = 25;
-    public static final double Kicker16 = 1;
-    public static final int spindexMotorCanID = 20;
-
-    public static final double intakeArmCanID = 0;
-
+    public static final double kickerGearRatio = 1;
+    //canIDs
+    public static final double intakeAngleArmMotorCanID = 14;
+    public static final double intakeAngleArmCanCoderCanID = 19;
+    public static final double intakeArmWheelMotorCanID = 15;
+    public static final int spindexMotorCanID = 16;
+    public static final int ClimberCanID = 40;
+    public static final int KickerCanID = 18;
+    public static final int TurretCanID = 20;
+    public static final int TurretElevationMotorCanID = 9;
+    public static final int TurretElevationCanCoderCanID = 21;
+    public static final int ShooterWheelsCanID = 17;
+    //PID configs
     public static final double climberKP = 20.0;
     public static final double climberKI = 0;
     public static final double climberKD = 0;
@@ -65,25 +73,12 @@ public class Constants {
     public static final double intake_kP = 0.1;
     public static final double intake_kI = 0;
     public static final double intake_kD = 0;
-
+    //PID setpoints
     public static final double kickerOnspeed = 60;
     public static final double kickerOffspeed = 0;
 
     public static final double shooterOnSpeed = 60;
     public static final double shooterOffSpeed = 0;
-    
-
-    public static final int ClimberCanID = 20;
-
-    public static final int IntakeCanID = 9;
-
-    public static final int KickerCanID = 18;
 
     // public static final int SpindexCanID = 21;
-
-    public static final int TurretCanID = 22;
-
-    public static final int ShooterWheelsCanID = 17;
-
-
 }
