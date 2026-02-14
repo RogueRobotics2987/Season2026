@@ -33,8 +33,8 @@ public class Constants {
     public static final double bluePassRightY = 1.500;
     
     // The X, Y turret offset on the robot in meters
-    public static final double turretOffsetX = 0.00635; // set to 0.00635 for roomba testing
-    public static final double turretOffsetY = -0.10795; // set to -0.10695 for roomba testing
+    public static final double turretOffsetX = -0.152; // set to 1 for testing
+    public static final double turretOffsetY = -0.108; // set to 1 for testing
 
     public static final double spindexOnSpeed = 4.1;
     public static final double spindexOffSpeed = 0;
@@ -72,7 +72,7 @@ public class Constants {
     // the PID Controller for the Intake
     public static final double intake_kP = 0.1;
     public static final double intake_kI = 0;
-    public static final double intake_kD = 0.1;
+    public static final double intake_kD = 0;
 
     // the Kicker speed for on and off
     public static final double kickerOnspeed = -60;
@@ -82,7 +82,19 @@ public class Constants {
     public static final double shooterOnSpeed = 60;
     public static final double shooterOffSpeed = 0;
     
-    public static final int turretMotorID = 20;
-    public static final int kickerMotorID = 18;
-    public static final int shooterWheelMotorID = 17;
+
+    public static final int ClimberCanID = 20;
+
+    public static final int IntakeCanID = 9;
+
+    public static final int KickerCanID = 18;
+
+    public static final int SpindexCanID = 21;
+
+    public static final int TurretCanID = 22;
+
+    public static final int ShooterWheelsCanID = 17;
+
+    //0.108(Meters Offset Vertical)
+    //0.152(Meters Offset Horizontal)
 }

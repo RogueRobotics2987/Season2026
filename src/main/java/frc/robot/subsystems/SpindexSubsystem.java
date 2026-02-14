@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 public class SpindexSubsystem extends SubsystemBase {
 
-  private final TalonFX SpindexMotor = new TalonFX(20, "rio"); //change rio?
+  private final TalonFX SpindexMotor = new TalonFX(Constants.SpindexCanID, "rio"); //change rio?
   /** Creates a new spindexSubsystem. */
   public SpindexSubsystem() {
     var slot0Configs = new Slot0Configs();

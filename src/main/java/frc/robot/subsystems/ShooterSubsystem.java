@@ -26,9 +26,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ShooterSubsystem extends SubsystemBase  {
 
   private CommandSwerveDrivetrain T_driveTrain; // corey said make constants B^(
-  private final TalonFX motorTurret = new TalonFX(Constants.turretMotorID, "rio");
-  private final TalonFX motorKicker = new TalonFX(Constants.kickerMotorID, "rio");
-  private final TalonFX motorShooterWheels = new TalonFX(Constants.shooterWheelMotorID, "rio");
+  private final TalonFX motorTurret = new TalonFX(Constants.TurretCanID, "rio");
+  private final TalonFX motorKicker = new TalonFX(Constants.KickerCanID, "rio");
+  private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
 
   public static enum AimTarget {
     AUTO,
