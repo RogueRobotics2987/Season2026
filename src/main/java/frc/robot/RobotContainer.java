@@ -8,7 +8,6 @@ import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -22,8 +21,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ApriltagSubsystem;
-import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.subsystems.KickerSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SpindexSubsystem;
 
@@ -47,9 +45,7 @@ public class RobotContainer {
 
     private final ApriltagSubsystem visionSubsystem = new ApriltagSubsystem(drivetrain);
 
-    private final TurretSubsystem turretSubsystem = new TurretSubsystem(drivetrain);
-
-    private final KickerSubsystem m_KickerSubsystem = new KickerSubsystem();
+    private final ShooterSubsystem turretSubsystem = new ShooterSubsystem(drivetrain);
 
     public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
@@ -109,8 +105,12 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
        
-        joystick.povUp().onTrue(m_KickerSubsystem.runOnce(m_KickerSubsystem::Start));
-        joystick.povUp().onFalse(m_KickerSubsystem.runOnce(m_KickerSubsystem::Stop)); 
+        joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        joystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+
+        joystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
+        joystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
+        joystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }
