@@ -28,6 +28,9 @@ public class Constants {
     public static final double spindexGearRatio = 20.0;
     public static final double climberNumber = 25;
     public static final double Kicker16 = 1;
+    public static final int spindexMotorCanID = 20;
+
+    public static final double intakeArmCanID = 0;
 
     public static final double kP = 20.0;
     public static final double kI = 0;

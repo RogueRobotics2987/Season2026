@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 public class SpindexSubsystem extends SubsystemBase {
 
-  private final TalonFX SpindexMotor = new TalonFX(20, "rio"); //change rio?
+  private final TalonFX SpindexMotor = new TalonFX(Constants.spindexMotorCanID, "rio"); //change rio?
   /** Creates a new spindexSubsystem. */
   public SpindexSubsystem() {
     var slot0Configs = new Slot0Configs();
@@ -36,17 +36,15 @@ public class SpindexSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    final VelocityVoltage m_request = new VelocityVoltage(100).withSlot(0); //leave pos blank
-    SpindexMotor.setControl(m_request);
   }
 
   public void start(){
    final VelocityVoltage m_request = new VelocityVoltage(Constants.spindexOnSpeed).withSlot(0);
-   SpindexMotor.setControl(m_request);
+   SpindexMotor.setControl(m_request.withVelocity(Constants.spindexOnSpeed));
   }
   public void stop(){
    final VelocityVoltage m_request = new VelocityVoltage(Constants.spindexOffSpeed).withSlot(0);
-   SpindexMotor.setControl(m_request);
+   SpindexMotor.setControl(m_request.withVelocity(Constants.spindexOffSpeed));
   }
 }
 
