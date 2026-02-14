@@ -82,5 +82,8 @@ public class Constants {
 
     public static final int ShooterWheelsCanID = 17;
 
+    public static final double deadband = 0.03;
+
+    public static final double gasPedalLimit = 0.25;
 
 }
