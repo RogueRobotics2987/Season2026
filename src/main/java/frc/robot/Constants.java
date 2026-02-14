@@ -43,9 +43,9 @@ public class Constants {
     public static final double climberGearRatio = 25;
     public static final double kickerGearRatio = 1;
     //canIDs
-    public static final double intakeAngleArmMotorCanID = 14;
-    public static final double intakeAngleArmCanCoderCanID = 19;
-    public static final double intakeArmWheelMotorCanID = 15;
+    public static final int intakeAngleArmMotorCanID = 14;
+    public static final int intakeAngleArmCanCoderCanID = 19;
+    public static final int intakeArmWheelMotorCanID = 15;
     public static final int spindexMotorCanID = 16;
     public static final int ClimberCanID = 40;
     public static final int KickerCanID = 18;

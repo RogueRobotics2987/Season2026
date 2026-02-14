@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   
-  private final TalonFX intakeMotor = new TalonFX(Constants.IntakeCanID, "rio"); // change rio? will figure out specific id later for real bot
+  private final TalonFX intakeMotor = new TalonFX(Constants.intakeAngleArmMotorCanID, "rio"); // change rio? will figure out specific id later for real bot
   
   public IntakeSubsystem() {
     
@@ -31,11 +31,11 @@ public class IntakeSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {
-    var fx_cfg = new TalonFXConfiguration();
-    fx_cfg.Feedback.FeedbackRemoteSensorID = intakeMotor.getDeviceID();
-    fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+    // var fx_cfg = new TalonFXConfiguration();
+    // fx_cfg.Feedback.FeedbackRemoteSensorID = intakeMotor.getDeviceID();
+    // fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
     
-    intakeMotor.getConfigurator().apply(fx_cfg);
+    // intakeMotor.getConfigurator().apply(fx_cfg);
     // This method will be called once per scheduler run
   }
 }
