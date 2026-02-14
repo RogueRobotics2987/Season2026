@@ -20,8 +20,8 @@ public class Constants {
     public static final double bluePassRightY = 1.500;
     
     // The X, Y turret offset on the robot in meters
-    public static final double turretOffsetX = 0.00635; // set to 1 for testing
-    public static final double turretOffsetY = -0.10795; // set to 1 for testing
+    public static final double turretOffsetX = -0.152; // set to 1 for testing
+    public static final double turretOffsetY = -0.108; // set to 1 for testing
 
     public static final double spindexOnSpeed = 4.1;
     public static final double spindexOffSpeed = 0;
@@ -68,5 +68,6 @@ public class Constants {
 
     public static final int ShooterWheelsCanID = 17;
 
-
+    //0.108(Meters Offset Vertical)
+    //0.152(Meters Offset Horizontal)
 }
