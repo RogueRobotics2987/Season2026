@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeCommand extends Command {
-  /** Creates a new IntakeCommand. */
+public class RetreatIntakeCommand extends Command {
+  /** Creates a new RetreatIntakeCommand. */
 
   private final IntakeSubsystem m_IntakeSubsystem;
 
-  public IntakeCommand(IntakeSubsystem intakeSubsystem) {
+  public RetreatIntakeCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
   }
@@ -21,21 +21,18 @@ public class IntakeCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    //turn off intake motors as a safety
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //move out intake arm
-    //run intake motors
+    //run arm up (back into robot)
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    //stop intake motors //leave intake out
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
