@@ -34,12 +34,13 @@ public class Constants {
     public static final double bluePassRightY = 1.500;
     
     // The X, Y turret offset on the robot in meters
-    public static final double turretOffsetX = 0.00635; // set to 0.00635 for roomba testing
-    public static final double turretOffsetY = -0.10795; // set to -0.10695 for roomba testing
+    public static final double turretOffsetX = -0.152; // set to 0.00635 for roomba testing
+    public static final double turretOffsetY = -0.108; // set to -0.10695 for roomba testing
     //mechanism gear ratios
     public static final double spindexOnSpeed = 4.1;
     public static final double spindexOffSpeed = 0;
     public static final double spindexGearRatio = 20.0;
+
     public static final double climberGearRatio = 25;
     public static final double intakeArmGearRatio = 50;
     public static final double kickerGearRatio = 1;
@@ -51,23 +52,36 @@ public class Constants {
     public static final int ClimberCanID = 40;
     public static final int KickerCanID = 18;
     public static final int TurretCanID = 20;
-    public static final int TurretElevationMotorCanID = 9;
-    public static final int TurretElevationCanCoderCanID = 21;
+
+    public static final int ShooterElevationMotorCanID = 9;
+    public static final int ShooterElevationCanCoderCanID = 21;
     public static final int ShooterWheelsCanID = 17;
     //PID configs
+
+    public static final double turretGearRatio = 15.0;
+
+    // the PID Controller for the Climber
     public static final double climberKP = 20.0;
     public static final double climberKI = 0;
     public static final double climberKD = 0;
 
+    // the PID Controller for the Turret
     public static final double turretKP = 5;
     public static final double turretKI = 0;
     public static final double turretKD = 0;
 
+    // the PID Controller for the Kicker
     public static final double kickerKP = 0.1;
     public static final double kickerKI = 0;
     public static final double kickerKD = 0;
 
-    public static final double spindexKP = 0.1;
+    // the PID Controller for the Shooter Wheels
+    public static final double shooterWheelsKP = 0.1;
+    public static final double shooterWheelKI = 0;
+    public static final double shooterWheelKD = 0;
+
+    // the PID Controller for the Spindex
+    public static final double spindexKP = 0;
     public static final double spindexKI = 0;
     public static final double spindexKD = 0;
 
