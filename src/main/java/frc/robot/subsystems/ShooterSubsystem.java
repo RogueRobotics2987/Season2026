@@ -162,11 +162,11 @@ public class ShooterSubsystem extends SubsystemBase  {
     double rotations = turretAngleGlobal / (2 * Math.PI);
     SmartDashboard.putNumber("Rotations", rotations);
 
-    // // This is setting the position in rotations, so pass the converted value in.
-    // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-    // motorTurret.setControl(m_request.withPosition(rotations));
-    // SmartDashboard.putNumber("Turret angle setpoint", rotations);
-    // SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
+    // This is setting the position in rotations, so pass the converted value in.
+    final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
+    motorTurret.setControl(m_request.withPosition(rotations));
+    SmartDashboard.putNumber("Turret angle setpoint", rotations);
+    SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
 
   }
 }

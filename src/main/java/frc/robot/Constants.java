@@ -66,7 +66,7 @@ public class Constants {
     public static final double climberKD = 0;
 
     // the PID Controller for the Turret
-    public static final double turretKP = 5;
+    public static final double turretKP = 25;
     public static final double turretKI = 0;
     public static final double turretKD = 0;
 
