@@ -137,6 +137,7 @@ public class TunerConstants {
     private static final Distance kFrontLeftYPos = Inches.of(9.75);
 
     // Front Right
+
     private static final int kFrontRightDriveMotorId = 3;
     private static final int kFrontRightSteerMotorId = 7;
     private static final int kFrontRightEncoderId = 11;
@@ -159,6 +160,7 @@ public class TunerConstants {
     private static final Distance kBackLeftYPos = Inches.of(9.75);
 
     // Back Right
+
     private static final int kBackRightDriveMotorId = 4;
     private static final int kBackRightSteerMotorId = 6;
     private static final int kBackRightEncoderId = 12;

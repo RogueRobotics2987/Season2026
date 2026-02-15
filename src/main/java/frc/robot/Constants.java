@@ -42,12 +42,12 @@ public class Constants {
     public static final double spindexGearRatio = 20.0;
 
     public static final double climberGearRatio = 25;
+    public static final double intakeArmGearRatio = 50;
     public static final double kickerGearRatio = 1;
     //canIDs
-    public static final double intakeAngleArmMotorCanID = 14;
-    public static final double intakeAngleArmCanCoderCanID = 19;
-    public static final double intakeArmWheelMotorCanID = 15;
-
+    public static final int intakeAngleArmMotorCanID = 14;
+    public static final int intakeAngleArmCanCoderCanID = 19;
+    public static final int intakeArmWheelMotorCanID = 15;
     public static final int spindexMotorCanID = 16;
     public static final int ClimberCanID = 40;
     public static final int KickerCanID = 18;
@@ -85,18 +85,16 @@ public class Constants {
     public static final double spindexKI = 0;
     public static final double spindexKD = 0;
 
-    // the PID Controller for the Intake
-    public static final double intake_kP = 0.1;
+    public static final double intake_kP = 0.7;
     public static final double intake_kI = 0;
     public static final double intake_kD = 0;
-
-    // the Kicker speed for on and off
-    public static final double kickerOnspeed = -60;
+    //PID setpoints
+    public static final double intakeOutAngle = 0.363;
+    public static final double intakeInAngle  = 0;
+    public static final double intakeStartSpeed = 0.4;
+    public static final double intakeStopSpeed = 0;
+    public static final double kickerOnspeed = 60;
     public static final double kickerOffspeed = 0;
-
-    // the Shooter speed for on and off
     public static final double shooterOnSpeed = 60;
     public static final double shooterOffSpeed = 0;
-
-    // public static final int SpindexCanID = 21;
 }
