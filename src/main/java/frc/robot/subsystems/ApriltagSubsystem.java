@@ -64,7 +64,7 @@ public class ApriltagSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
       }  
     } catch(NullPointerException e){
-      System.out.println("Catch in mt2" + e.toString());
+      //System.out.println("Catch in mt2" + e.toString());
     }
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
