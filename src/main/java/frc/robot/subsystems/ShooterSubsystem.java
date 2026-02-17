@@ -17,6 +17,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import java.lang.Math;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -108,7 +109,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public double CalculateShooterElevation(double Distance) {
-    return 0.1;
+    return 103977 + -230199*Distance + 199097*Math.pow(Distance, 2) + -81950*Math.pow(Distance, 3) + 14551*Math.pow(Distance, 4) + -195*Math.pow(Distance, 5) + -171*Math.pow(Distance, 6);
   }
 
   @Override

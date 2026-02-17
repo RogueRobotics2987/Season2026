@@ -34,7 +34,7 @@ public class Constants {
 
     
     // The X, Y turret offset on the robot in meters
-    public static final double turretOffsetX = -0.152; // set to 0.00635 for roomba testing
+    public static final double turretOffsetX = -0.17145; // set to 0.00635 for roomba testing
     public static final double turretOffsetY = -0.108; // set to -0.10695 for roomba testing
 
     // Mechanism gear ratios
