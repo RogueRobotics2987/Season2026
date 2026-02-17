@@ -29,7 +29,9 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final TalonFX motorTurret = new TalonFX(Constants.TurretCanID, "rio");
   private final TalonFX motorKicker = new TalonFX(Constants.KickerCanID, "rio");
   private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
-  private final TalonFX motorShooterArm =new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
+  public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
+
+  private double armAngle = 0.075;
 
   public static enum AimTarget {
     AUTO,
@@ -42,6 +44,10 @@ public class ShooterSubsystem extends SubsystemBase  {
   /** Creates a new TurretSubsystem. */
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
+
+    SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
+    SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    SmartDashboard.putNumber("Shooter Angle", armAngle);
     
     // Sets motor to brake mode
     //motorTurret.setNeutralMode(NeutralModeValue.Brake);
@@ -94,21 +100,25 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
-    final VelocityVoltage m_kickerRequest = new VelocityVoltage(Constants.kickerOnspeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
-    final VelocityVoltage m_shooterRequest = new VelocityVoltage(Constants.shooterOnSpeed).withSlot(0);
-    motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOnspeed));
-    motorShooterWheels.setControl(m_shooterRequest.withVelocity(Constants.shooterOnSpeed));
+    double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed);
+    double ShooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed);
+
+    final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
+    final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+    motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
+    motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
   }
 
   public void StopREV() {
-    final VelocityVoltage m_kickerRequest = new VelocityVoltage(Constants.kickerOffspeed).withSlot(0);
+    final VelocityVoltage m_kickerRequest = new VelocityVoltage(Constants.kickerOffSpeed).withSlot(0);
     final VelocityVoltage m_shooterRequest = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
-    motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOffspeed));
+    motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOffSpeed));
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(Constants.shooterOffSpeed));
   }
 
   public double CalculateShooterElevation(double Distance) {
-    return 0.1;
+    double armAngle = SmartDashboard.getNumber("Shooter Angle", this.armAngle);
+    return armAngle;
   }
 
   @Override

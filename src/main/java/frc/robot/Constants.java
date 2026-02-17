@@ -93,7 +93,7 @@ public class Constants {
     public static final double spindexKI = 0;
     public static final double spindexKD = 0;
 
-    // The PID Controller for the intake (Wheels?)
+    // The PID Controller for the intake
     public static final double intake_kP = 5;
     public static final double intake_kI = 0;
     public static final double intake_kD = 0;
@@ -102,15 +102,15 @@ public class Constants {
     public static final double intakeOutAngle = 0.333;
     public static final double intakeInAngle  = 0;
 
-    public static final double intakeStartSpeed = 0.4;
+    public static final double intakeStartSpeed = 0.5;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 4.1;
+    public static final double spindexOnSpeed = 8;
     public static final double spindexOffSpeed = 0;
 
-    public static final double kickerOnspeed = 60;
-    public static final double kickerOffspeed = 0;
+    public static final double kickerOnSpeed = 100;
+    public static final double kickerOffSpeed = 0;
 
-    public static final double shooterOnSpeed = 60;
+    public static final double shooterOnSpeed = 45;
     public static final double shooterOffSpeed = 0;
 }

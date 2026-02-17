@@ -89,14 +89,6 @@ public class RobotContainer {
         RobotModeTriggers.disabled().whileTrue(
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
-        
-        //joystick bindings to test intake
-
-        joystick.povRight().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
-        joystick.povRight().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
-        
-
-
 
         joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
@@ -112,12 +104,18 @@ public class RobotContainer {
 
         // Reset the field-centric heading on left bumper press.
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+
+        joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
+        joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+
         joystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
         joystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
-
        
         joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
         joystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+
+        // joystick.povDown().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.armAngle = 0.2));
+        // joystick.povDown().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.armAngle = 0.0));
 
         joystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
         joystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
