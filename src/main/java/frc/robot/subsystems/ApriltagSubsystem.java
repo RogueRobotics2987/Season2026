@@ -2,9 +2,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -67,7 +64,7 @@ public class ApriltagSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
       }  
     } catch(NullPointerException e){
-      System.out.println("Catch in mt2" + e.toString());
+      //System.out.println("Catch in mt2" + e.toString());
     }
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
