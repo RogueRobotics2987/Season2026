@@ -55,7 +55,7 @@ public class ApriltagSubsystem extends SubsystemBase {
       }
 
       if (!rejectUpdate) {
-        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
+        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.5));
         AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
         System.out.println("Yippee");
 

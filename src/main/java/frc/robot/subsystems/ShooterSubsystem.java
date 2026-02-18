@@ -40,59 +40,18 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
  
   private AimTarget Target = AimTarget.AUTO;
+  public Optional<Alliance> ally;
 
   /** Creates a new TurretSubsystem. */
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
 
+    ally = DriverStation.getAlliance();
+
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
     SmartDashboard.putNumber("Shooter Angle", armAngle);
     
-    // Sets motor to brake mode
-    //motorTurret.setNeutralMode(NeutralModeValue.Brake);
-
-    // The PID Controller for the turret motor
-    // Slot0Configs slot0Configs = new Slot0Configs();
-    // slot0Configs.kP = Constants.turretKP; // An error of 1 rotation results in 2.4 V output
-    // slot0Configs.kI = Constants.turretKI; // no output for integrated error
-    // slot0Configs.kD = Constants.turretKD; // A velocity of 1 rps results in 0.1 V output
-
-    // the PID Controller for the kicker motor
-    // Slot0Configs kickerSlot0Configs = new Slot0Configs();
-    // kickerSlot0Configs.kP = Constants.kickerKP; // An error of 1 rotation results in 2.4 V output
-    // kickerSlot0Configs.kI = Constants.kickerKI; // no output for integrated error
-    // kickerSlot0Configs.kD = Constants.kickerKD; // A velocity of 1 rps results in 0.1 V output
-
-    // the PID Controller for the shooter wheel motor
-    // Slot0Configs shooterWheelsSlot0Configs = new Slot0Configs();
-    // shooterWheelsSlot0Configs.kP = Constants.shooterWheelsKP; // An error of 1 rotation results in 2.4 V output
-    // shooterWheelsSlot0Configs.kI = Constants.shooterWheelsKI; // no output for integrated error
-    // shooterWheelsSlot0Configs.kD = Constants.shooterWheelsKD; // A velocity of 1 rps results in 0.1 V output
-
-    // the PID Controller for the shooter arm motor
-    // Slot0Configs shooterArmSlot0Configs = new Slot0Configs();
-    // shooterArmSlot0Configs.kP = Constants.shooterArmKP; // An error of 1 rotation results in 2.4 V output
-    // shooterArmSlot0Configs.kI = Constants.shooterArmKI; // no output for integrated error
-    // shooterArmSlot0Configs.kD = Constants.shooterArmKD; // A velocity of 1 rps results in 0.1 V output
-
-    // motorTurret.getConfigurator().apply(slot0Configs);
-    // motorKicker.getConfigurator().apply(kickerSlot0Configs);
-    // motorShooterWheels.getConfigurator().apply(shooterWheelsSlot0Configs);
-
-    // Turns on continuos wrap for the turret
-    // ClosedLoopGeneralConfigs closedLoopGeneral = new ClosedLoopGeneralConfigs();
-    // closedLoopGeneral.ContinuousWrap = true; 
-    // motorTurret.getConfigurator().apply(closedLoopGeneral); 
-
-    // Applys the gear ratio to the config
-    // FeedbackConfigs feedback = new FeedbackConfigs();
-    // feedback.SensorToMechanismRatio = Constants.turretGearRatio;
-    // motorTurret.getConfigurator().apply(feedback);
-
-    // FeedbackConfigs shooterArmFeedback = new FeedbackConfigs();
-    // shooterArmFeedback.SensorToMechanismRatio = Constants.shooterArnGearRatio;
-    // motorShooterArm.getConfigurator().apply(shooterArmFeedback);
     }
 
   public void SetTarget(AimTarget NewTarget) {
@@ -127,8 +86,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     StatusSignal <Angle> motorPose = motorTurret.getPosition();
     SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
     //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldnt tell brodie was here
-
-    Optional<Alliance> ally = DriverStation.getAlliance();
 
     // Gets Robot X, Y, Yaw
     double RobotX = T_driveTrain.getState().Pose.getX();
