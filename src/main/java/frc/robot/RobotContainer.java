@@ -108,6 +108,9 @@ public class RobotContainer {
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
+        joystick.povRight().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
+        joystick.povRight().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
+
         joystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
         joystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
        

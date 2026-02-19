@@ -105,12 +105,12 @@ public class Constants {
     public static final double intakeStartSpeed = 0.5;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 20;
+    public static final double spindexOnSpeed = 15;
     public static final double spindexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 40;
+    public static final double kickerOnSpeed = 35;
     public static final double kickerOffSpeed = 0;
 
-    public static final double shooterOnSpeed = 40;
+    public static final double shooterOnSpeed = 35;
     public static final double shooterOffSpeed = 0;
 }

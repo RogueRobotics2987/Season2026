@@ -48,10 +48,6 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     ally = DriverStation.getAlliance();
 
-    SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
-    SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
-    SmartDashboard.putNumber("Shooter Angle", armAngle);
-    
     }
 
   public void SetTarget(AimTarget NewTarget) {
@@ -59,8 +55,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
-    double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed);
-    double ShooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed);
+    double KickerSpeed = Constants.kickerOnSpeed;
+    double ShooterSpeed = Constants.shooterOnSpeed;
 
     final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
     final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
@@ -142,11 +138,11 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     // Converts the turret angle in rads to motor rotation
     double rotations = turretAngleGlobal / (2 * Math.PI);
-    SmartDashboard.putNumber("Rotations", rotations);
 
     // This is setting the position in rotations, so pass the converted value in.
     final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
     motorTurret.setControl(m_request.withPosition(rotations));
+    
     SmartDashboard.putNumber("Turret angle setpoint", rotations);
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
 

@@ -56,6 +56,15 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
+
+  public void intakeOn() {
+    intakeWheelMotor.set(Constants.intakeStartSpeed);
+  }
+
+  public void intakeOff() {
+    intakeWheelMotor.set(Constants.intakeStopSpeed);
+  }
+
   @Override
   public void periodic() {
     
