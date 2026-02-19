@@ -17,6 +17,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import java.lang.Math;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -72,8 +73,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public double CalculateShooterElevation(double Distance) {
-    double armAngle = SmartDashboard.getNumber("Shooter Angle", this.armAngle);
-    return armAngle;
+    return 0.1;
   }
 
   @Override
