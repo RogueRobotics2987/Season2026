@@ -147,6 +147,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     
     SmartDashboard.putNumber("Turret angle setpoint", rotations);
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
+    SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
 
     //CalculateShooterElevation(1);
     final PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
