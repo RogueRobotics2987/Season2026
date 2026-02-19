@@ -32,7 +32,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
   public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
 
-  private double armAngle = 0.075;
+  private double armAngle = 0.032;
 
   public static enum AimTarget {
     AUTO,
@@ -138,6 +138,10 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     // Converts the turret angle in rads to motor rotation
     double rotations = turretAngleGlobal / (2 * Math.PI);
+    
+    if(rotations < 0) {
+      rotations = rotations + 1;
+    }
 
     // This is setting the position in rotations, so pass the converted value in.
     final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
