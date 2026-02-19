@@ -113,4 +113,9 @@ public class Constants {
 
     public static final double shooterOnSpeed = 35;
     public static final double shooterOffSpeed = 0;
+
+    public static final double deadband = 0.03;
+
+    public static final double gasPedalLimit = 0.25;
+
 }

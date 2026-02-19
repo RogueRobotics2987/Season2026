@@ -30,10 +30,12 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MinSpeed = MaxSpeed * Constants.deadband;
+    private double MinAngularRate = MaxAngularRate * Constants.deadband;
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDeadband(MinSpeed).withRotationalDeadband(MinAngularRate) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -67,19 +69,21 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() -> {
-                double value = Math.min(joystick.getRightTriggerAxis() + 0.25, 1);
-                Voltage outputMultiplier = Volts.of(filter.calculate(value));
+                double outputMultiplier = Math.min(joystick.getRightTriggerAxis() + Constants.gasPedalLimit, 1);
+                double velocityX = joystick.getLeftY() * MaxSpeed * outputMultiplier;
+                double velocityY = joystick.getLeftX() * MaxSpeed * outputMultiplier;
+                double angularRate = -joystick.getRightX() * MaxAngularRate * outputMultiplier;
 
                 if (brakeEnabled &&
-                    joystick.getLeftX() > -0.1 && joystick.getLeftX() < 0.1 &&
-                    joystick.getLeftY() > -0.1 && joystick.getLeftY() < 0.1 &&
-                    joystick.getRightX() > -0.1 && joystick.getRightX() < 0.1
+                    Math.abs(velocityX) < MinSpeed &&
+                    Math.abs(velocityY) < MinSpeed &&
+                    Math.abs(angularRate) < MinAngularRate
                 ){
                     return brake;
                 } else {
-                    return drive.withVelocityX(joystick.getLeftY() * MaxSpeed * outputMultiplier.magnitude()) // Drive forward with negative Y (forward)
-                        .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
+                    return drive.withVelocityX(velocityX) // Drive forward with negative Y (forward)
+                        .withVelocityY(velocityY) // Drive left with negative X (left)
+                        .withRotationalRate(angularRate); // Drive counterclockwise with negative X (left)
                 }
             }));
 
