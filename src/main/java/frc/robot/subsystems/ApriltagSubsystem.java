@@ -40,7 +40,7 @@ public class ApriltagSubsystem extends SubsystemBase {
     try {
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
       // more code
-      LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getPigeon2().getRotation2d().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
       // if (Math.abs(AT_driveTrain.get()) > 360) {
       //   rejectUpdate = true;
@@ -55,7 +55,7 @@ public class ApriltagSubsystem extends SubsystemBase {
       }
 
       if (!rejectUpdate) {
-        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.5));
+        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999));
         AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
         // System.out.println("Yippee");
 
