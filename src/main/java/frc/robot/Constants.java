@@ -99,7 +99,7 @@ public class Constants {
     // public static final double intake_kD = 0;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.333;
+    public static final double intakeOutAngle = 0.25;
     public static final double intakeInAngle  = 0;
 
     public static final double intakeStartSpeed = 0.5;
