@@ -73,7 +73,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public double CalculateShooterElevation(double Distance) {
-    return 346132 + -19997 * Distance + 504 * Math.pow(Distance, 2) + -7.26 *Math.pow(Distance, 3) + 0.0652 * Math.pow(Distance, 4) + -3.74E-04 * Math.pow(Distance, 5) + 1.34E-06 * Math.pow(Distance, 6) + -2.73E-09 * Math.pow(Distance, 7) + 2.43E-12 * Math.pow(Distance, 8);   //calculated on 2/17
+    // return 346132 + -19997 * Distance + 504 * Math.pow(Distance, 2) + -7.26 *Math.pow(Distance, 3) + 0.0652 * Math.pow(Distance, 4) + -3.74E-04 * Math.pow(Distance, 5) + 1.34E-06 * Math.pow(Distance, 6) + -2.73E-09 * Math.pow(Distance, 7) + 2.43E-12 * Math.pow(Distance, 8);   //calculated on 2/17
+    return 349853 + -795625 * Distance + 790143 * Math.pow(Distance, 2) + -447568 * Math.pow(Distance, 3) + 158155 * Math.pow(Distance, 4) + -35701 * Math.pow(Distance, 5) + 5027 * Math.pow(Distance, 6) + -404 * Math.pow(Distance, 7) + 14.2 * Math.pow(Distance, 8);
   }
 
   @Override
@@ -132,7 +133,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     double xDifference = targetX - TurretXGlobal;
     double yDifference = targetY - TurretYGlobal;
 
-    double zDistance = Math.pow(yDifference, 2) + Math.pow(xDifference, 2);
+    double zDistance = Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
 
     // Calculates the turret angle for the target in rads
     double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
@@ -152,6 +153,16 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putNumber("Turret angle setpoint", rotations);
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
     SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
+    SmartDashboard.putNumber("Z Distance to Hub", zDistance);
+    SmartDashboard.putNumber("Y Difference", yDifference);
+    SmartDashboard.putNumber("X Difference", xDifference);
+    SmartDashboard.putNumber("Target X", targetX);
+    SmartDashboard.putNumber("Target Y", targetY);
+    SmartDashboard.putNumber("Turret X Global", TurretXGlobal);
+    SmartDashboard.putNumber("Turret Y Global", TurretYGlobal);
+    SmartDashboard.putNumber("Robot X", RobotX);
+    SmartDashboard.putNumber("Robot Y", RobotY);
+
 
     //CalculateShooterElevation(1);
     final PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
