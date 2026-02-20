@@ -133,7 +133,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     double xDifference = targetX - TurretXGlobal;
     double yDifference = targetY - TurretYGlobal;
 
-    double zDistance = Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
+    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2)); //distance in inches
 
     // Calculates the turret angle for the target in rads
     double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
@@ -164,7 +164,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putNumber("Robot Y", RobotY);
 
 
-    //CalculateShooterElevation(1);
+    CalculateShooterElevation(1);
     final PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
     motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
   }

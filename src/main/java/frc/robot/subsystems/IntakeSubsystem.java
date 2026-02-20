@@ -21,6 +21,9 @@ public class IntakeSubsystem extends SubsystemBase {
   private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio");
   public IntakeSubsystem() {
     
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
+
     // try{
     //   Thread.sleep(3000);
     // }catch(InterruptedException e){}
