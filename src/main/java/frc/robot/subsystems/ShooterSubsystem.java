@@ -74,7 +74,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   public double CalculateShooterElevation(double Distance) {
     // return 346132 + -19997 * Distance + 504 * Math.pow(Distance, 2) + -7.26 *Math.pow(Distance, 3) + 0.0652 * Math.pow(Distance, 4) + -3.74E-04 * Math.pow(Distance, 5) + 1.34E-06 * Math.pow(Distance, 6) + -2.73E-09 * Math.pow(Distance, 7) + 2.43E-12 * Math.pow(Distance, 8);   //calculated on 2/17
-    return 349853 + -795625 * Distance + 790143 * Math.pow(Distance, 2) + -447568 * Math.pow(Distance, 3) + 158155 * Math.pow(Distance, 4) + -35701 * Math.pow(Distance, 5) + 5027 * Math.pow(Distance, 6) + -404 * Math.pow(Distance, 7) + 14.2 * Math.pow(Distance, 8);
+    return 346132.119250917 + -19996.8582755326 * Distance + 504.49244271105 * Math.pow(Distance, 2) + -7.25940609155529 * Math.pow(Distance, 3) + 0.0651653318101579 * Math.pow(Distance, 4) + -0.000373679751502965 * Math.pow(Distance, 5) + 0.00000133674724588682 * Math.pow(Distance, 6) + -0.00000000272739454061091 * Math.pow(Distance, 7) + 2.43003670597437E-12 * Math.pow(Distance, 8);
   }
 
   @Override
