@@ -67,7 +67,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
-    // This method will be called once per scheduler run
+
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
   }
 }

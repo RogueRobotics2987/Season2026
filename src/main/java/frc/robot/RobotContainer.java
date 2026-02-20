@@ -121,9 +121,6 @@ public class RobotContainer {
         joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
         joystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
-        // joystick.povDown().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.armAngle = 0.2));
-        // joystick.povDown().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.armAngle = 0.0));
-
         joystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
         joystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
         joystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
