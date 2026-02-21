@@ -16,6 +16,7 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import java.lang.Math;
 
@@ -50,6 +51,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    enableLimitSwitch();
 
 
 
@@ -85,6 +87,18 @@ public class ShooterSubsystem extends SubsystemBase  {
     // return 346132 + -19997 * Distance + 504 * Math.pow(Distance, 2) + -7.26 *Math.pow(Distance, 3) + 0.0652 * Math.pow(Distance, 4) + -3.74E-04 * Math.pow(Distance, 5) + 1.34E-06 * Math.pow(Distance, 6) + -2.73E-09 * Math.pow(Distance, 7) + 2.43E-12 * Math.pow(Distance, 8);   //calculated on 2/17
     // return 346132.119250917 + -19996.8582755326 * Distance + 504.49244271105 * Math.pow(Distance, 2) + -7.25940609155529 * Math.pow(Distance, 3) + 0.0651653318101579 * Math.pow(Distance, 4) + -0.000373679751502965 * Math.pow(Distance, 5) + 0.00000133674724588682 * Math.pow(Distance, 6) + -0.00000000272739454061091 * Math.pow(Distance, 7) + 2.43003670597437E-12 * Math.pow(Distance, 8);
     return 55.3044635576478000000 + -6.36094409009439000000 * Distance + 0.32149925333374000000000000 * Math.pow(Distance, 2) + -0.00940821025540215 * Math.pow(Distance, 3) + 0.00017664574156125100000000 * Math.pow(Distance, 4) + -0.00000222537607870770000000 * Math.pow(Distance, 5) + 0.00000001906849698739800000 * Math.pow(Distance, 6) + -0.000000000109846770121158000 * Math.pow(Distance, 7) + 0.000000000000407556427043987000 * Math.pow(Distance, 8) + -0.000000000000000880327958574075 * Math.pow(Distance, 9) + 0.000000000000000000841471744895 * Math.pow(Distance, 10);
+  }
+
+   public void enableLimitSwitch(){
+    TalonFXConfiguration limitSwitch = new TalonFXConfiguration();
+    limitSwitch.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
+    motorTurret.getConfigurator().apply(limitSwitch);
+  }
+
+  public void disableLimitSwitch(){
+    TalonFXConfiguration limitSwitch = new TalonFXConfiguration();
+    limitSwitch.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
+    motorTurret.getConfigurator().apply(limitSwitch);
   }
 
   @Override
