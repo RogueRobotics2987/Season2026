@@ -62,8 +62,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-
-    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
   }
 }

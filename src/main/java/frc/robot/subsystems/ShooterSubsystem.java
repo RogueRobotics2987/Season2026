@@ -174,17 +174,17 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putString("Aim Target", Target.name());
 
 
-    CalculateShooterElevation(1);
-    PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
-    motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
-    // final PositionVoltage m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
-    // motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
-    if(SmartDashboard.getBoolean("Get Auto Aim Enabled", false)) {
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-      motorTurret.setControl(m_request.withPosition(rotations));
-      m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
-    }
+    // CalculateShooterElevation(1);
+    // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
+    // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
+    final PositionVoltage m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
+    motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
+    // if(SmartDashboard.getBoolean("Get Auto Aim Enabled", false)) {
+    //   final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
+    //   motorTurret.setControl(m_request.withPosition(rotations));
+    //   m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
+    //   motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
+    // }
     
   }
 }
