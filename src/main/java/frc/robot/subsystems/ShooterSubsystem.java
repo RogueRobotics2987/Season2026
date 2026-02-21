@@ -43,6 +43,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   private AimTarget Target = AimTarget.AUTO;
   public Optional<Alliance> ally;
+  public boolean ShooterEnable = true;
 
   /** Creates a new TurretSubsystem. */
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
@@ -60,6 +61,14 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   public void SetTarget(AimTarget NewTarget) {
     Target = NewTarget;
+  }
+
+  public void DisableShooter() {
+    ShooterEnable = false;
+  }
+
+  public void EnableShooter() {
+    ShooterEnable = true;
   }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
@@ -178,14 +187,31 @@ public class ShooterSubsystem extends SubsystemBase  {
     // CalculateShooterElevation(1);
     // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
     // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
-    final PositionVoltage m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
-    motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
+    // final PositionVoltage m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
+    // motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
     // if(SmartDashboard.getBoolean("Get Auto Aim Enabled", false)) {
-    //   final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-    //   motorTurret.setControl(m_request.withPosition(rotations));
+      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
+      // motorTurret.setControl(m_request.withPosition(rotations));
     //   m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
     //   motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
     // }
     
+    if(ShooterEnable == true) {
+      CalculateShooterElevation(1);
+      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
+      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
+
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      motorTurret.setControl(m_request.withPosition(rotations));
+    }
+
+    if(ShooterEnable == false) {
+      CalculateShooterElevation(0);
+      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
+      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
+
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      motorTurret.setControl(m_request.withPosition(0));
+    }
   }
 }
