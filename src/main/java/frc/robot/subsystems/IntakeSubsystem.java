@@ -21,21 +21,27 @@ public class IntakeSubsystem extends SubsystemBase {
   private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio");
   public IntakeSubsystem() {
     
-    var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = Constants.intake_kP; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = Constants.intake_kI; // no output for integrated error
-    slot0Configs.kD = Constants.intake_kD; // A velocity of 1 rps results in 0.1 V output
-    intakeArmMotor.getConfigurator().apply(slot0Configs);
-    System.out.println("hi");
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
 
-    var fx_cfg = new TalonFXConfiguration();
-    fx_cfg.Feedback.FeedbackRemoteSensorID = Constants.intakeAngleArmCanCoderCanID;
-    fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-    intakeArmMotor.getConfigurator().apply(fx_cfg);
+    // try{
+    //   Thread.sleep(3000);
+    // }catch(InterruptedException e){}
+    // var slot0Configs = new Slot0Configs();
+    // slot0Configs.kP = Constants.intake_kP; // An error of 1 rotation results in 2.4 V output
+    // slot0Configs.kI = Constants.intake_kI; // no output for integrated error
+    // slot0Configs.kD = Constants.intake_kD; // A velocity of 1 rps results in 0.1 V output
+    // intakeArmMotor.getConfigurator().apply(slot0Configs);
+    // System.out.println("hi");
+    
+    // var fx_cfg = new TalonFXConfiguration();
+    // fx_cfg.Feedback.FeedbackRemoteSensorID = Constants.intakeAngleArmCanCoderCanID;
+    // fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+    // intakeArmMotor.getConfigurator().apply(fx_cfg);
 
-    var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  Constants.intakeArmGearRatio;
-    intakeArmMotor.getConfigurator().apply(feedback);
+    // var feedback = new FeedbackConfigs();
+    // feedback.SensorToMechanismRatio =  Constants.intakeArmGearRatio;
+    // intakeArmMotor.getConfigurator().apply(feedback);
   }
   public void intakeOut() {
 
@@ -50,12 +56,11 @@ public class IntakeSubsystem extends SubsystemBase {
   
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
     //here 
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
+
   @Override
   public void periodic() {
-    
-    // This method will be called once per scheduler run
   }
 }
