@@ -15,6 +15,7 @@ public class ApriltagSubsystem extends SubsystemBase {
   // private final PWMVictorSPX m_motor = new PWMVictorSPX(4);
 
   private CommandSwerveDrivetrain AT_driveTrain;
+  private boolean apriltagAngle = true;
   private boolean rejectUpdate = false;
 
   private final Field2d field = new Field2d();
@@ -22,11 +23,14 @@ public class ApriltagSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ApriltagSubsystem(CommandSwerveDrivetrain AT_driveTrain) {
     this.AT_driveTrain = AT_driveTrain;
-
+    this.apriltagAngle = true;
     SmartDashboard.putData("Field", field); 
     // Constructor for the subsystem, used for initial setup and instantiation of components.
   }
 
+  public void disableApriltagAngle(){
+    apriltagAngle = false;
+  }
   /**
    * Called periodically whenever the CommandScheduler runs.
    * This is useful for "background" actions or logging data to the dashboard.
@@ -55,13 +59,19 @@ public class ApriltagSubsystem extends SubsystemBase {
       }
 
       if (!rejectUpdate) {
-        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999));
-        AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
-        // System.out.println("Yippee");
+        if(apriltagAngle == true){
+          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3)); 
+        } 
+        else {
+            AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
+            AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
+            // System.out.println("Yippee");
 
-        SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
-        SmartDashboard.putNumber("LimelightY", mt2.pose.getY());
-        SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
+            SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
+            SmartDashboard.putNumber("LimelightY", mt2.pose.getY());
+            SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
+          
+          }
       }  
     } catch(NullPointerException e){
       //System.out.println("Catch in mt2" + e.toString());
