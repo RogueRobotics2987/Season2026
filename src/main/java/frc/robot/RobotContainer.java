@@ -115,16 +115,16 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
-        // joystick.back().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
 
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
-        AuxJoystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
-        AuxJoystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
+        AuxJoystick.rightTrigger().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
+        AuxJoystick.rightTrigger().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
        
-        AuxJoystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
-        AuxJoystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+        AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
         AuxJoystick.povDown().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
         AuxJoystick.povDown().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
@@ -142,14 +142,14 @@ public class RobotContainer {
         return Commands.sequence(
             // Reset our field centric heading to match the robot
             // facing away from our alliance station wall (0 deg).
-            drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
+            drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())),
             // Then slowly drive forward (away from us) for 5 seconds.
             drivetrain.applyRequest(() ->
                 drive.withVelocityX(0.5)
                     .withVelocityY(0)
                     .withRotationalRate(0)
             )
-            .withTimeout(1.0),
+            .withTimeout(0.0),
             // Finally idle for the rest of auton
             drivetrain.applyRequest(() -> idle)
         );
