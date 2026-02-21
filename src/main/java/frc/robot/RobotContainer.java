@@ -43,6 +43,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController AuxJoystick = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -116,18 +117,15 @@ public class RobotContainer {
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
-        joystick.povRight().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
-        joystick.povRight().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
-
-        joystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
-        joystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
+        AuxJoystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
+        AuxJoystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
        
-        joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
-        joystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+        AuxJoystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        AuxJoystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
-        joystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
-        joystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
-        joystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
+        AuxJoystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
+        AuxJoystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
+        AuxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }

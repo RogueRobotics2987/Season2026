@@ -109,10 +109,10 @@ public class Constants {
     public static final double spindexOnSpeed = 15;
     public static final double spindexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 35;
+    public static final double kickerOnSpeed = 5;
     public static final double kickerOffSpeed = 0;
 
-    public static final double shooterOnSpeed = 35;
+    public static final double shooterOnSpeed = 50;
     public static final double shooterOffSpeed = 0;
 
     public static final double deadband = 0.03;

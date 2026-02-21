@@ -48,6 +48,9 @@ public class ShooterSubsystem extends SubsystemBase  {
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
+    SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
+    SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+
 
 
     ally = DriverStation.getAlliance();
@@ -60,8 +63,10 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
-    double KickerSpeed = Constants.kickerOnSpeed;
-    double ShooterSpeed = Constants.shooterOnSpeed;
+    double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed);
+    double ShooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed);
+
+    
 
     final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
     final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);

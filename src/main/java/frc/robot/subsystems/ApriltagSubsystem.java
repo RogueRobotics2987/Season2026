@@ -60,7 +60,10 @@ public class ApriltagSubsystem extends SubsystemBase {
 
       if (!rejectUpdate) {
         if(apriltagAngle == true){
-          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3)); 
+          LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+
+          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
+          AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
         } 
         else {
             AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
