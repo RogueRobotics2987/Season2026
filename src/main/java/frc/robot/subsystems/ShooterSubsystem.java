@@ -100,17 +100,19 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
    public void enableLimitSwitch(){
-    TalonFXConfiguration limitSwitch = new TalonFXConfiguration();
-    limitSwitch.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
-    motorTurret.getConfigurator().apply(limitSwitch);
+    TalonFXConfiguration talonConfig = new TalonFXConfiguration();
+    motorTurret.getConfigurator().refresh(talonConfig);
+    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
+    motorTurret.getConfigurator().apply(talonConfig);
   }
 
   public void disableLimitSwitch(){
-    TalonFXConfiguration limitSwitch = new TalonFXConfiguration();
-    limitSwitch.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
-    motorTurret.getConfigurator().apply(limitSwitch);
-  }
+    TalonFXConfiguration talonConfig = new TalonFXConfiguration();
+    motorTurret.getConfigurator().refresh(talonConfig);
+    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
+    motorTurret.getConfigurator().apply(talonConfig);
 
+  }
   @Override
   public void periodic() {
 
@@ -161,6 +163,8 @@ public class ShooterSubsystem extends SubsystemBase  {
           targetY = Constants.bluePassLeftY;
         }
       }
+    } else {
+          ally = DriverStation.getAlliance();
     }
 
     // Calculates the difference in the X, Y for the target
