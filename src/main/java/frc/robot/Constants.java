@@ -81,7 +81,7 @@ public class Constants {
     public static final double shooterWheelKD = 0;
 
     // the PID Controller for the Spindex
-    public static final double spindexKP = 0;
+    public static final double spindexKP = 5;
     public static final double spindexKI = 0;
     public static final double spindexKD = 0;
 
