@@ -40,16 +40,20 @@ public class ShooterSubsystem extends SubsystemBase  {
     RIGHT
   }
  
+
   private AimTarget Target = AimTarget.AUTO;
   public Optional<Alliance> ally;
 
   /** Creates a new TurretSubsystem. */
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
+    SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
+
 
     ally = DriverStation.getAlliance();
+     SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
 
-    }
+  }
 
   public void SetTarget(AimTarget NewTarget) {
     Target = NewTarget;
@@ -73,7 +77,9 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public double CalculateShooterElevation(double Distance) {
-    return 346132 + -19997 * Distance + 504 * Math.pow(Distance, 2) + -7.26 * Math.pow(Distance, 3) + 0.0652 * Math.pow(Distance, 4) + -3.74E-04 * Math.pow(Distance, 5) + 1.34E-06 * Math.pow(Distance, 6) + -2.73E-09 * Math.pow(Distance, 7) + 2.43E-12 * Math.pow(Distance, 8);
+    // return 346132 + -19997 * Distance + 504 * Math.pow(Distance, 2) + -7.26 *Math.pow(Distance, 3) + 0.0652 * Math.pow(Distance, 4) + -3.74E-04 * Math.pow(Distance, 5) + 1.34E-06 * Math.pow(Distance, 6) + -2.73E-09 * Math.pow(Distance, 7) + 2.43E-12 * Math.pow(Distance, 8);   //calculated on 2/17
+    // return 346132.119250917 + -19996.8582755326 * Distance + 504.49244271105 * Math.pow(Distance, 2) + -7.25940609155529 * Math.pow(Distance, 3) + 0.0651653318101579 * Math.pow(Distance, 4) + -0.000373679751502965 * Math.pow(Distance, 5) + 0.00000133674724588682 * Math.pow(Distance, 6) + -0.00000000272739454061091 * Math.pow(Distance, 7) + 2.43003670597437E-12 * Math.pow(Distance, 8);
+    return 55.3044635576478 + -6.36094409009439 * Distance + 0.32149925333374 * Math.pow(Distance, 2) + -0.00940821025540215 * Math.pow(Distance, 3) + 0.000176645741561251 * Math.pow(Distance, 4) + -0.0000022253760787077 * Math.pow(Distance, 5) + 0.000000019068496987398 * Math.pow(Distance, 6) + -0.000000000109846770121158 * Math.pow(Distance, 7) + 0.00000000000040755642704399 * Math.pow(Distance, 8) + -0.00000000000000088032795857 * Math.pow(Distance, 9) + 0.00000000000000000084147174 * Math.pow(Distance, 10);
   }
 
   @Override
@@ -132,6 +138,8 @@ public class ShooterSubsystem extends SubsystemBase  {
     double xDifference = targetX - TurretXGlobal;
     double yDifference = targetY - TurretYGlobal;
 
+    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2)); //distance in inches
+
     // Calculates the turret angle for the target in rads
     double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
     SmartDashboard.putNumber("rad Turret Angle Red Hub", turretAngleGlobal);
@@ -144,14 +152,34 @@ public class ShooterSubsystem extends SubsystemBase  {
     }
 
     // This is setting the position in rotations, so pass the converted value in.
-    final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-    motorTurret.setControl(m_request.withPosition(rotations));
+
     
-    SmartDashboard.putNumber("Turret angle setpoint", rotations);
+    //SmartDashboard.putNumber("Turret angle setpoint", rotations);
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
+    SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
+    SmartDashboard.putNumber("Z Distance to Hub", zDistance);
+    SmartDashboard.putNumber("Y Difference", yDifference);
+    SmartDashboard.putNumber("X Difference", xDifference);
+    SmartDashboard.putNumber("Target X", targetX);
+    SmartDashboard.putNumber("Target Y", targetY);
+    SmartDashboard.putNumber("Turret X Global", TurretXGlobal);
+    SmartDashboard.putNumber("Turret Y Global", TurretYGlobal);
+    SmartDashboard.putNumber("Robot X", RobotX);
+    SmartDashboard.putNumber("Robot Y", RobotY);
+    SmartDashboard.putString("Aim Target", Target.name());
+
 
     CalculateShooterElevation(1);
-    final PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(1)).withSlot(0);
-    motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(1)));
+    PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
+    motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
+    // final PositionVoltage m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
+    // motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
+    if(SmartDashboard.getBoolean("Get Auto Aim Enabled", false)) {
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
+      motorTurret.setControl(m_request.withPosition(rotations));
+      m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
+      motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
+    }
+    
   }
 }
