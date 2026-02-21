@@ -149,7 +149,7 @@ public class RobotContainer {
                     .withVelocityY(0)
                     .withRotationalRate(0)
             )
-            .withTimeout(5.0),
+            .withTimeout(1.0),
             // Finally idle for the rest of auton
             drivetrain.applyRequest(() -> idle)
         );

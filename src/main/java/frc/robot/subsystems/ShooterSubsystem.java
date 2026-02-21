@@ -138,30 +138,30 @@ public class ShooterSubsystem extends SubsystemBase  {
         targetX = Constants.redHubX;
         targetY = Constants.redHubY;
 
-        if (TurretXGlobal < Constants.redHubX && TurretYGlobal < Constants.redHubY || Target == AimTarget.LEFT) {
-          targetX = Constants.redPassLeftX;
-          targetY = Constants.redPassLeftY;
-        }
+        // if (TurretXGlobal < Constants.redHubX && TurretYGlobal < Constants.redHubY || Target == AimTarget.LEFT) {
+        //   targetX = Constants.redPassLeftX;
+        //   targetY = Constants.redPassLeftY;
+        // }
 
-        if (TurretXGlobal < Constants.redHubX && TurretYGlobal > Constants.redHubY || Target == AimTarget.RIGHT) {
-          targetX = Constants.redPassRightX;
-          targetY = Constants.redPassRightY;
-        }
+        // if (TurretXGlobal < Constants.redHubX && TurretYGlobal > Constants.redHubY || Target == AimTarget.RIGHT) {
+        //   targetX = Constants.redPassRightX;
+        //   targetY = Constants.redPassRightY;
+        // }
       }
 
       if (ally.get() == Alliance.Blue) {
         targetX = Constants.blueHubX;
         targetY = Constants.blueHubY;
 
-        if (TurretXGlobal < Constants.blueHubX && TurretYGlobal < Constants.blueHubY || Target == AimTarget.RIGHT) {
-          targetX = Constants.bluePassRightX;
-          targetY = Constants.bluePassRightY;
-        }
+        // if (TurretXGlobal > Constants.blueHubX && TurretYGlobal < Constants.blueHubY || Target == AimTarget.RIGHT) {
+        //   targetX = Constants.bluePassRightX;
+        //   targetY = Constants.bluePassRightY;
+        // }
 
-        if (TurretXGlobal < Constants.blueHubX && TurretYGlobal > Constants.blueHubY || Target == AimTarget.LEFT) {
-          targetX = Constants.bluePassLeftX;
-          targetY = Constants.bluePassLeftY;
-        }
+        // if (TurretXGlobal > Constants.blueHubX && TurretYGlobal > Constants.blueHubY || Target == AimTarget.LEFT) {
+        //   targetX = Constants.bluePassLeftX;
+        //   targetY = Constants.bluePassLeftY;
+        // }
       }
     } else {
           ally = DriverStation.getAlliance();
