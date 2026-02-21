@@ -30,10 +30,12 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MinSpeed = MaxSpeed * Constants.deadband;
+    private double MinAngularRate = MaxAngularRate * Constants.deadband;
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDeadband(MinSpeed).withRotationalDeadband(MinAngularRate) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -41,6 +43,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController AuxJoystick = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -61,25 +64,31 @@ public class RobotContainer {
         configureBindings();
     }
 
+    void disableApriltagAngle(){
+        visionSubsystem.disableApriltagAngle();
+    }
+
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() -> {
-                double value = Math.min(joystick.getRightTriggerAxis() + 0.25, 1);
-                Voltage outputMultiplier = Volts.of(filter.calculate(value));
+                double outputMultiplier = Math.min(joystick.getRightTriggerAxis() + Constants.gasPedalLimit, 1);
+                double velocityX = joystick.getLeftY() * MaxSpeed * outputMultiplier;
+                double velocityY = joystick.getLeftX() * MaxSpeed * outputMultiplier;
+                double angularRate = -joystick.getRightX() * MaxAngularRate * outputMultiplier;
 
                 if (brakeEnabled &&
-                    joystick.getLeftX() > -0.1 && joystick.getLeftX() < 0.1 &&
-                    joystick.getLeftY() > -0.1 && joystick.getLeftY() < 0.1 &&
-                    joystick.getRightX() > -0.1 && joystick.getRightX() < 0.1
+                    Math.abs(velocityX) < MinSpeed &&
+                    Math.abs(velocityY) < MinSpeed &&
+                    Math.abs(angularRate) < MinAngularRate
                 ){
                     return brake;
                 } else {
-                    return drive.withVelocityX(joystick.getLeftY() * MaxSpeed * outputMultiplier.magnitude()) // Drive forward with negative Y (forward)
-                        .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
+                    return drive.withVelocityX(velocityX) // Drive forward with negative Y (forward)
+                        .withVelocityY(velocityY) // Drive left with negative X (left)
+                        .withRotationalRate(angularRate); // Drive counterclockwise with negative X (left)
                 }
             }));
 
@@ -89,14 +98,6 @@ public class RobotContainer {
         RobotModeTriggers.disabled().whileTrue(
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
-        
-        //joystick bindings to test intake
-
-        joystick.povRight().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
-        joystick.povRight().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
-        
-
-
 
         joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
@@ -111,17 +112,20 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Reset the field-centric heading on left bumper press.
-        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-        joystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
-        joystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
+        joystick.back().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
+        joystick.a().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
+        joystick.a().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+
+        AuxJoystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
+        AuxJoystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
        
-        joystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
-        joystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+        AuxJoystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        AuxJoystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
-        joystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
-        joystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
-        joystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
+        AuxJoystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
+        AuxJoystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
+        AuxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }

@@ -17,16 +17,16 @@ public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     // type is Slot0Configs, name is slot0Configs, value is a Slot0Configs object
-    var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = Constants.climberKP; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = Constants.climberKI; // no output for integrated error
-    slot0Configs.kD = Constants.climberKD; // A velocity of 1 rps results in 0.1 V output
+    // var slot0Configs = new Slot0Configs();
+    // slot0Configs.kP = Constants.climberKP; // An error of 1 rotation results in 2.4 V output
+    // slot0Configs.kI = Constants.climberKI; // no output for integrated error
+    // slot0Configs.kD = Constants.climberKD; // A velocity of 1 rps results in 0.1 V output
 
-    climberMoter.getConfigurator().apply(slot0Configs);
+    // climberMoter.getConfigurator().apply(slot0Configs);
 
-    var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  Constants.climberGearRatio;
-    climberMoter.getConfigurator().apply(feedback);
+    // var feedback = new FeedbackConfigs();
+    // feedback.SensorToMechanismRatio =  Constants.climberGearRatio;
+    // climberMoter.getConfigurator().apply(feedback);
 
     System.out.println ("Guess what? Hello world!");
   

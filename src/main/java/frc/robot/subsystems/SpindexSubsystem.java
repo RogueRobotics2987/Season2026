@@ -17,19 +17,19 @@ public class SpindexSubsystem extends SubsystemBase {
   private final TalonFX SpindexMotor = new TalonFX(Constants.spindexMotorCanID, "rio"); //change rio?
   /** Creates a new spindexSubsystem. */
   public SpindexSubsystem() {
-    var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = Constants.spindexKP; // An error of 1 rotation results in 2.4 V output
-    slot0Configs.kI = Constants.spindexKI; // no output for integrated error
-    slot0Configs.kD = Constants.spindexKD; // A velocity of 1 rps results in 0.1 V output
+    // var slot0Configs = new Slot0Configs();
+    // slot0Configs.kP = Constants.spindexKP; // An error of 1 rotation results in 2.4 V output
+    // slot0Configs.kI = Constants.spindexKI; // no output for integrated error
+    // slot0Configs.kD = Constants.spindexKD; // A velocity of 1 rps results in 0.1 V output
 
-    // Applys the gear ratio to the config
-    var feedback = new FeedbackConfigs();
-    feedback.SensorToMechanismRatio =  Constants.spindexGearRatio;
-    SpindexMotor.getConfigurator().apply(feedback);
+    // // Applys the gear ratio to the config
+    // var feedback = new FeedbackConfigs();
+    // feedback.SensorToMechanismRatio =  Constants.spindexGearRatio;
+    // SpindexMotor.getConfigurator().apply(feedback);
   
 
-    SpindexMotor.getConfigurator().apply(slot0Configs);
-    System.out.println("yo");
+    // SpindexMotor.getConfigurator().apply(slot0Configs);
+    // System.out.println("yo");
 
   }
 

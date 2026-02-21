@@ -15,6 +15,7 @@ public class ApriltagSubsystem extends SubsystemBase {
   // private final PWMVictorSPX m_motor = new PWMVictorSPX(4);
 
   private CommandSwerveDrivetrain AT_driveTrain;
+  private boolean apriltagAngle = true;
   private boolean rejectUpdate = false;
 
   private final Field2d field = new Field2d();
@@ -22,11 +23,14 @@ public class ApriltagSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ApriltagSubsystem(CommandSwerveDrivetrain AT_driveTrain) {
     this.AT_driveTrain = AT_driveTrain;
-
+    this.apriltagAngle = true;
     SmartDashboard.putData("Field", field); 
     // Constructor for the subsystem, used for initial setup and instantiation of components.
   }
 
+  public void disableApriltagAngle(){
+    apriltagAngle = false;
+  }
   /**
    * Called periodically whenever the CommandScheduler runs.
    * This is useful for "background" actions or logging data to the dashboard.
@@ -40,7 +44,7 @@ public class ApriltagSubsystem extends SubsystemBase {
     try {
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
       // more code
-      LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getPigeon2().getRotation2d().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
       // if (Math.abs(AT_driveTrain.get()) > 360) {
       //   rejectUpdate = true;
@@ -55,16 +59,25 @@ public class ApriltagSubsystem extends SubsystemBase {
       }
 
       if (!rejectUpdate) {
-        AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
-        AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
-        System.out.println("Yippee");
+        if(apriltagAngle == true){
+          LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
 
-        SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
-        SmartDashboard.putNumber("LimelightY", mt2.pose.getY());
-        SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
+          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
+          AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
+        } 
+        else {
+            AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
+            AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
+            // System.out.println("Yippee");
+
+            SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
+            SmartDashboard.putNumber("LimelightY", mt2.pose.getY());
+            SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
+          
+          }
       }  
     } catch(NullPointerException e){
-      System.out.println("Catch in mt2" + e.toString());
+      //System.out.println("Catch in mt2" + e.toString());
     }
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
