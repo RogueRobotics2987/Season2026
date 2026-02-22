@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
+import com.ctre.phoenix6.swerve.jni.SwerveJNI.DriveState;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
         m_robotContainer.disableApriltagAngle();
+        m_robotContainer.resetPose();
         //m_robotContainer.disableLimitSwitch();
 
         // if (m_autonomousCommand != null) {
@@ -61,7 +63,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
-
+        m_robotContainer.resetPose();
         m_robotContainer.disableApriltagAngle();
       //  m_robotContainer.disableLimitSwitch();
     }
