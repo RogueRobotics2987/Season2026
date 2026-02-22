@@ -34,6 +34,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
 
   private double armAngle = 0.032;
+  public double turretTrim = 0;
+  public double shooterTrim = 0;
 
   public static enum AimTarget {
     AUTO,
@@ -43,7 +45,7 @@ public class ShooterSubsystem extends SubsystemBase  {
  
 
   private AimTarget Target = AimTarget.AUTO;
-  
+
   public Optional<Alliance> ally;
   public boolean ShooterEnable = true;
 
@@ -60,6 +62,36 @@ public class ShooterSubsystem extends SubsystemBase  {
     ally = DriverStation.getAlliance();
      SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
 
+  }
+
+  public void ShooterTrimUp(){
+    shooterTrim = shooterTrim + 0.0001;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+  }
+
+  public void ShooterTrimDown(){
+    shooterTrim = shooterTrim - 0.0001;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+  }
+
+  public void ResetShooterTrim(){
+    shooterTrim = 0;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+  }
+
+  public void TurretTrimLeft(){
+    turretTrim = turretTrim + 0.0001;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
+  }
+
+  public void TurretTrimRight(){
+    turretTrim = turretTrim - 0.0001;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
+  }
+
+  public void ResetTurretTrim(){
+    turretTrim = 0;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void SetTarget(AimTarget NewTarget) {
@@ -216,12 +248,13 @@ public class ShooterSubsystem extends SubsystemBase  {
     // }
     
     if(ShooterEnable == true) {
-      CalculateShooterElevation(1);
+
+      
       PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
+      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance) + shooterTrim));
 
       final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      motorTurret.setControl(m_request.withPosition(rotations));
+      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {

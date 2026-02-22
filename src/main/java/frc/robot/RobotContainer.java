@@ -123,17 +123,17 @@ public class RobotContainer {
         joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-        joystick.back().onTrue(drivetrain.runOnce(
-            () -> 
-                {
-                    if(DriverStation.getAlliance().get() == Alliance.Blue) {
-                        drivetrain.setOperatorPerspectiveForward(new Rotation2d(0));
-                    }
-                    else {
-                        drivetrain.setOperatorPerspectiveForward(new Rotation2d(180));
-                    }
-                }
-        )); //testing field oriented drive
+        // joystick.back().onTrue(drivetrain.runOnce(
+        //     () -> 
+        //         {
+        //             if(DriverStation.getAlliance().get() == Alliance.Blue) {
+        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(0));
+        //             }
+        //             else {
+        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(180));
+        //             }
+        //         }
+        // )); //testing field oriented drive
         //joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
 
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
@@ -141,11 +141,13 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
         joystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
+
         AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
         AuxJoystick.leftBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
         AuxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
         AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
+
 
         AuxJoystick.rightTrigger().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
         AuxJoystick.rightTrigger().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
@@ -153,8 +155,18 @@ public class RobotContainer {
         AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
         AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
-        AuxJoystick.povDown().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
-        AuxJoystick.povDown().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
+
+        AuxJoystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
+        AuxJoystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
+        AuxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
+        
+        AuxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        AuxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        AuxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
+
+
+        AuxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
+        AuxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
 
         AuxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
         AuxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
