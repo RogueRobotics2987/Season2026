@@ -248,10 +248,11 @@ public class ShooterSubsystem extends SubsystemBase  {
     // }
     
     if(ShooterEnable == true) {
+      double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
+      SmartDashboard.putNumber("Shooter Angle", elevationAngleRequest);
 
-      
-      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance) + shooterTrim));
+      PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
+      motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
 
       final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
