@@ -6,6 +6,9 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
@@ -114,8 +117,18 @@ public class RobotContainer {
         joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-
-        joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
+        joystick.back().onTrue(drivetrain.runOnce(
+            () -> 
+                {
+                    if(DriverStation.getAlliance().get() == Alliance.Blue) {
+                        drivetrain.setOperatorPerspectiveForward(new Rotation2d(0));
+                    }
+                    else {
+                        drivetrain.setOperatorPerspectiveForward(new Rotation2d(180));
+                    }
+                }
+        )); //testing field oriented drive
+        //joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
 
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
