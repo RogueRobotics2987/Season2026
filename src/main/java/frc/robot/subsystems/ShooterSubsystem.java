@@ -137,12 +137,15 @@ public class ShooterSubsystem extends SubsystemBase  {
    private boolean checkRefresh(TalonFXConfiguration talonConfig) {
     for (int i=0; i<Constants.configRefreshRetries;i++) {
       if (motorTurret.getConfigurator().refresh(talonConfig).isOK()) {
+        SmartDashboard.putBoolean("Refresh Successful", true);
         return true;
+      } else {
+        SmartDashboard.putBoolean("Refresh Successful", false);
       }
     }
     return false;
    }
-   
+
    public void enableLimitSwitch(){
     TalonFXConfiguration talonConfig = new TalonFXConfiguration();
     if (checkRefresh(talonConfig)) {
