@@ -34,6 +34,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
 
   private double armAngle = 0.032;
+  public double turretTrim = 0;
+  public double shooterTrim = 0;
 
   public static enum AimTarget {
     AUTO,
@@ -43,6 +45,7 @@ public class ShooterSubsystem extends SubsystemBase  {
  
 
   private AimTarget Target = AimTarget.AUTO;
+
   public Optional<Alliance> ally;
   public boolean ShooterEnable = true;
 
@@ -52,13 +55,43 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
-    enableLimitSwitch();
+    //enableLimitSwitch();
 
 
 
     ally = DriverStation.getAlliance();
      SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
 
+  }
+
+  public void ShooterTrimUp(){
+    shooterTrim = shooterTrim + 0.0001;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+  }
+
+  public void ShooterTrimDown(){
+    shooterTrim = shooterTrim - 0.0001;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+  }
+
+  public void ResetShooterTrim(){
+    shooterTrim = 0;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+  }
+
+  public void TurretTrimLeft(){
+    turretTrim = turretTrim + 0.0001;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
+  }
+
+  public void TurretTrimRight(){
+    turretTrim = turretTrim - 0.0001;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
+  }
+
+  public void ResetTurretTrim(){
+    turretTrim = 0;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void SetTarget(AimTarget NewTarget) {
@@ -138,30 +171,30 @@ public class ShooterSubsystem extends SubsystemBase  {
         targetX = Constants.redHubX;
         targetY = Constants.redHubY;
 
-        // if (TurretXGlobal < Constants.redHubX && TurretYGlobal < Constants.redHubY || Target == AimTarget.LEFT) {
-        //   targetX = Constants.redPassLeftX;
-        //   targetY = Constants.redPassLeftY;
-        // }
+        if (Target == AimTarget.LEFT) {
+          targetX = Constants.redPassLeftX;
+          targetY = Constants.redPassLeftY;
+        }
 
-        // if (TurretXGlobal < Constants.redHubX && TurretYGlobal > Constants.redHubY || Target == AimTarget.RIGHT) {
-        //   targetX = Constants.redPassRightX;
-        //   targetY = Constants.redPassRightY;
-        // }
+        if (Target == AimTarget.RIGHT) {
+          targetX = Constants.redPassRightX;
+          targetY = Constants.redPassRightY;
+        }
       }
 
       if (ally.get() == Alliance.Blue) {
         targetX = Constants.blueHubX;
         targetY = Constants.blueHubY;
 
-        // if (TurretXGlobal > Constants.blueHubX && TurretYGlobal < Constants.blueHubY || Target == AimTarget.RIGHT) {
-        //   targetX = Constants.bluePassRightX;
-        //   targetY = Constants.bluePassRightY;
-        // }
+        if (Target == AimTarget.RIGHT) {
+          targetX = Constants.bluePassRightX;
+          targetY = Constants.bluePassRightY;
+        }
 
-        // if (TurretXGlobal > Constants.blueHubX && TurretYGlobal > Constants.blueHubY || Target == AimTarget.LEFT) {
-        //   targetX = Constants.bluePassLeftX;
-        //   targetY = Constants.bluePassLeftY;
-        // }
+        if (Target == AimTarget.LEFT) {
+          targetX = Constants.bluePassLeftX;
+          targetY = Constants.bluePassLeftY;
+        }
       }
     } else {
           ally = DriverStation.getAlliance();
@@ -215,12 +248,14 @@ public class ShooterSubsystem extends SubsystemBase  {
     // }
     
     if(ShooterEnable == true) {
-      CalculateShooterElevation(1);
-      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
+      double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
+      SmartDashboard.putNumber("Shooter Angle", elevationAngleRequest);
+
+      PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
+      motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
 
       final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      motorTurret.setControl(m_request.withPosition(rotations));
+      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {

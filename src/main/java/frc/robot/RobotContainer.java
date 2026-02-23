@@ -6,12 +6,19 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -25,6 +32,8 @@ import frc.robot.subsystems.ApriltagSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SpindexSubsystem;
+import frc.robot.commands.IntakeCommand;
+
 
 import frc.robot.subsystems.ClimberSubsystem;
 
@@ -33,6 +42,7 @@ public class RobotContainer {
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     private double MinSpeed = MaxSpeed * Constants.deadband;
     private double MinAngularRate = MaxAngularRate * Constants.deadband;
+    
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -57,13 +67,16 @@ public class RobotContainer {
     public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
 
     private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
-//    CameraServer 
 
     public SlewRateLimiter filter = new SlewRateLimiter(8); // 8 / s
 
     private boolean brakeEnabled = false;
     public RobotContainer() {
+
+
         configureBindings();
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     void disableApriltagAngle(){
@@ -72,6 +85,10 @@ public class RobotContainer {
 
     void disableLimitSwitch(){
         turretSubsystem.disableLimitSwitch();
+    }
+
+    void resetPose(){
+        drivetrain.resetPose(drivetrain.getState().Pose);
     }
 
     private void configureBindings() {
@@ -116,44 +133,76 @@ public class RobotContainer {
         joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-
-        // joystick.back().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        // joystick.back().onTrue(drivetrain.runOnce(
+        //     () -> 
+        //         {
+        //             if(DriverStation.getAlliance().get() == Alliance.Blue) {
+        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(0));
+        //             }
+        //             else {
+        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(180));
+        //             }
+        //         }
+        // )); //testing field oriented drive
+        //joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
 
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+        joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
+        joystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
-        AuxJoystick.x().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
-        AuxJoystick.x().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
+
+        AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
+        AuxJoystick.leftBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+
+        AuxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
+        AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
+
+
+        AuxJoystick.rightTrigger().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
+        AuxJoystick.rightTrigger().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
        
-        AuxJoystick.povUp().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
-        AuxJoystick.povUp().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+        AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
-        AuxJoystick.povDown().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
-        AuxJoystick.povDown().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
 
-        AuxJoystick.leftBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
-        AuxJoystick.rightBumper().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
+        AuxJoystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
+        AuxJoystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
+        AuxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
+        
+        AuxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        AuxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        AuxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
+
+
+        AuxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
+        AuxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
+
+        AuxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
+        AuxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
         AuxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
     public Command getAutonomousCommand() {
-        // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
-        return Commands.sequence(
-            // Reset our field centric heading to match the robot
-            // facing away from our alliance station wall (0 deg).
-            drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
-            // Then slowly drive forward (away from us) for 5 seconds.
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(0.5)
-                    .withVelocityY(0)
-                    .withRotationalRate(0)
-            )
-            .withTimeout(1.0),
-            // Finally idle for the rest of auton
-            drivetrain.applyRequest(() -> idle)
-        );
+        return autoChooser.getSelected();  
+        
+        // // Simple drive forward auton
+        // final var idle = new SwerveRequest.Idle();
+        // return Commands.sequence(
+        //     // Reset our field centric heading to match the robot
+        //     // facing away from our alliance station wall (0 deg).
+        //     drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())),
+        //     // Then slowly drive forward (away from us) for 5 seconds.
+        //     drivetrain.applyRequest(() ->
+        //         drive.withVelocityX(0.5)
+        //             .withVelocityY(0)
+        //             .withRotationalRate(0)
+        //     )
+        //     .withTimeout(0.0),
+        //     // Finally idle for the rest of auton
+        //     drivetrain.applyRequest(() -> idle)
+        // );
     }
 }

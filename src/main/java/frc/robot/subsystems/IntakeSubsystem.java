@@ -46,17 +46,29 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intakeOut() {
 
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
-    //here
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
     intakeWheelMotor.set(Constants.intakeStartSpeed);
 
+  }
+
+  public void  hopperOut(){
+
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
   }
   
   public void intakeIn() {
   
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
-    //here 
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
+    intakeWheelMotor.set(Constants.intakeStopSpeed);
+  }
+
+  public void intakeOn() {
+    intakeWheelMotor.set(Constants.intakeStartSpeed);
+  }
+
+  public void intakeOff() {
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
 
