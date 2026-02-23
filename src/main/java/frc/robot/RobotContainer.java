@@ -68,6 +68,8 @@ public class RobotContainer {
 
     private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
+    private final SendableChooser<Command> autoChooser;
+
     public SlewRateLimiter filter = new SlewRateLimiter(8); // 8 / s
 
     private boolean brakeEnabled = false;
