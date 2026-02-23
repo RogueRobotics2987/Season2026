@@ -6,6 +6,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
@@ -56,6 +57,7 @@ public class RobotContainer {
     public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
 
     private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
+//    CameraServer 
 
     public SlewRateLimiter filter = new SlewRateLimiter(8); // 8 / s
 
