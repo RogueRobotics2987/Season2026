@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle_Neutral_Intake"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Shoot_Intake",
+  "choreoAuto": false
+}

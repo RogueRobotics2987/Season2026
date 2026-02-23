@@ -1,0 +1,115 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.56,
+        "y": 5.58
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.4377333333333335,
+        "y": 7.149033333333333
+      },
+      "isLocked": false,
+      "linkedName": "Left_Start_Bump"
+    },
+    {
+      "anchor": {
+        "x": 0.4,
+        "y": 7.07
+      },
+      "prevControl": {
+        "x": 0.38906726927694063,
+        "y": 7.319760836399419
+      },
+      "nextControl": {
+        "x": 0.4109327307230594,
+        "y": 6.820239163600582
+      },
+      "isLocked": false,
+      "linkedName": "Depot_Left"
+    },
+    {
+      "anchor": {
+        "x": 0.4,
+        "y": 5.39
+      },
+      "prevControl": {
+        "x": 0.3985280156732039,
+        "y": 5.639995666486724
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Depot_Right_End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Intake",
+      "minWaypointRelativePos": 0.7087227414330219,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 1.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Approach Depot",
+      "minWaypointRelativePos": 0.32242990654205606,
+      "maxWaypointRelativePos": 1.0264797507788102,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Extend Intake",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "Ball Intake",
+      "waypointRelativePos": 1.4096573208722678,
+      "endWaypointRelativePos": 2.0,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Intake Bump",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -36.868830380588136
+  },
+  "useDefaultConstraints": true
+}
