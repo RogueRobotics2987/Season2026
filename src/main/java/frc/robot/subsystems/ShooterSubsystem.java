@@ -19,6 +19,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import java.lang.Math;
+import com.ctre.phoenix6.StatusCode;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -36,6 +37,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   private double armAngle = 0.032;
   public double turretTrim = 0;
   public double shooterTrim = 0;
+
+
 
   public static enum AimTarget {
     AUTO,
@@ -131,19 +134,29 @@ public class ShooterSubsystem extends SubsystemBase  {
     // return 55.3044635576478000000 + -6.36094409009439000000 * Distance + 0.32149925333374000000000000 * Math.pow(Distance, 2) + -0.00940821025540215 * Math.pow(Distance, 3) + 0.00017664574156125100000000 * Math.pow(Distance, 4) + -0.00000222537607870770000000 * Math.pow(Distance, 5) + 0.00000001906849698739800000 * Math.pow(Distance, 6) + -0.000000000109846770121158000 * Math.pow(Distance, 7) + 0.000000000000407556427043987000 * Math.pow(Distance, 8) + -0.000000000000000880327958574075 * Math.pow(Distance, 9) + 0.000000000000000000841471744895 * Math.pow(Distance, 10);
     return -8.75718395925721000000000000 + 0.57214947900302200000000000 * Distance + -0.01613001753504010000000000 * Math.pow(Distance, 2) + 0.00025623050606685500000000 * Math.pow(Distance, 3) + -0.00000250742431430320000000 * Math.pow(Distance, 4) + 0.000000015471366655073400000000 * Math.pow(Distance, 5) +  -0.000000000058743061130108700000 * Math.pow(Distance, 6) + 0.000000000000125415245199520000 * Math.pow(Distance, 7) + -0.000000000000000115224937543216 * Math.pow(Distance, 8);
   }
-
+   private boolean checkRefresh(TalonFXConfiguration talonConfig) {
+    for (int i=0; i<Constants.configRefreshRetries;i++) {
+      if (motorTurret.getConfigurator().refresh(talonConfig).isOK()) {
+        return true;
+      }
+    }
+    return false;
+   }
+   
    public void enableLimitSwitch(){
     TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    motorTurret.getConfigurator().refresh(talonConfig);
-    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
-    motorTurret.getConfigurator().apply(talonConfig);
+    if (checkRefresh(talonConfig)) {
+      talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
+      motorTurret.getConfigurator().apply(talonConfig);
+    }
   }
 
   public void disableLimitSwitch(){
     TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    motorTurret.getConfigurator().refresh(talonConfig);
-    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
-    motorTurret.getConfigurator().apply(talonConfig);
+    if (checkRefresh(talonConfig)) {
+      talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
+      motorTurret.getConfigurator().apply(talonConfig);
+    }
 
   }
   @Override
