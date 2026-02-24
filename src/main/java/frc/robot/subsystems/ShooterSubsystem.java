@@ -55,6 +55,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
     //enableLimitSwitch();
 
 
@@ -216,55 +217,47 @@ public class ShooterSubsystem extends SubsystemBase  {
     if(rotations < 0) {
       rotations = rotations + 1;
     }
-
-    // This is setting the position in rotations, so pass the converted value in.
-
     
-    //SmartDashboard.putNumber("Turret angle setpoint", rotations);
+    // SmartDashBoard Stuff
+    SmartDashboard.putNumber("Rotaions", rotations);
+
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
+
     SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
+
     SmartDashboard.putNumber("Z Distance to Hub", zDistance);
     SmartDashboard.putNumber("Y Difference", yDifference);
     SmartDashboard.putNumber("X Difference", xDifference);
+
     SmartDashboard.putNumber("Target X", targetX);
     SmartDashboard.putNumber("Target Y", targetY);
+
     SmartDashboard.putNumber("Turret X Global", TurretXGlobal);
     SmartDashboard.putNumber("Turret Y Global", TurretYGlobal);
+
     SmartDashboard.putNumber("Robot X", RobotX);
     SmartDashboard.putNumber("Robot Y", RobotY);
+
     SmartDashboard.putString("Aim Target", Target.name());
 
-
-    // CalculateShooterElevation(1);
-    // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(zDistance)).withSlot(0);
-    // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(zDistance)));
-    // final PositionVoltage m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
-    // motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
-    // if(SmartDashboard.getBoolean("Get Auto Aim Enabled", false)) {
-      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0); //leave pos blank
-      // motorTurret.setControl(m_request.withPosition(rotations));
-    //   m_elevationRequest = new PositionVoltage(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)).withSlot(0);
-    //   motorShooterArm.setControl(m_elevationRequest.withPosition(SmartDashboard.getNumber("Shooter Arm Angle Setpoint", 0)));
-    // }
     
     if(ShooterEnable == true) {
-      double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
-      SmartDashboard.putNumber("Shooter Angle", elevationAngleRequest);
+      double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle) + shooterTrim;
+      // SmartDashboard.putNumber("Shooter Angle", elevationAngleRequest);
 
       PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
       motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
 
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
+      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
-      CalculateShooterElevation(0);
-      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
+      // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
+      // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
 
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      motorTurret.setControl(m_request.withPosition(0));
+      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      // motorTurret.setControl(m_request.withPosition(0));
     }
   }
 }

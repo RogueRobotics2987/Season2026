@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Shoot"
@@ -14,6 +20,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Shoot",
+  "folder": null,
   "choreoAuto": false
 }
