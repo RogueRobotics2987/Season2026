@@ -33,8 +33,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SpindexSubsystem;
 import frc.robot.commands.IntakeCommand;
-
-
+import frc.robot.commands.RetreatIntakeCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class RobotContainer {
@@ -75,6 +75,9 @@ public class RobotContainer {
     private boolean brakeEnabled = false;
     public RobotContainer() {
 
+        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
+        NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
+        NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_SpindexSubsystem ));
 
         configureBindings();
         autoChooser = AutoBuilder.buildAutoChooser();
