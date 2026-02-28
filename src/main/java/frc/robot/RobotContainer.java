@@ -32,6 +32,7 @@ import frc.robot.subsystems.ApriltagSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SpindexSubsystem;
+import frc.robot.subsystems.UtilitiesSubsystem;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RetreatIntakeCommand;
 import frc.robot.commands.ShooterCommand;
@@ -68,6 +69,8 @@ public class RobotContainer {
     public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
 
     private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
+
+    private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 

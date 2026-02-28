@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import java.time.*;
 
 public class ApriltagSubsystem extends SubsystemBase {
  
@@ -17,6 +18,8 @@ public class ApriltagSubsystem extends SubsystemBase {
   private CommandSwerveDrivetrain AT_driveTrain;
   private boolean apriltagAngle = true;
   private boolean rejectUpdate = false;
+  private boolean rejectUpdateLuke = false;
+  private Instant aprilTagLastSeen;
 
   private final Field2d field = new Field2d();
 
@@ -43,8 +46,10 @@ public class ApriltagSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run.
     try {
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+      LimelightHelpers.PoseEstimate mt2_Luke = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-luke");
       // more code
       LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-luke", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
       // if (Math.abs(AT_driveTrain.get()) > 360) {
       //   rejectUpdate = true;
@@ -76,11 +81,38 @@ public class ApriltagSubsystem extends SubsystemBase {
           
           }
       }  
+      if (mt2_Luke.tagCount == 0){
+        rejectUpdateLuke = true;
+      }
+      else {
+        rejectUpdateLuke = false;
+      }
+
+      if (!rejectUpdateLuke){
+        if (apriltagAngle == true){
+          LimelightHelpers.PoseEstimate mt1_Luke = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-luke");
+
+          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
+          AT_driveTrain.addVisionMeasurement(mt1_Luke.pose, mt1_Luke.timestampSeconds);
+        }
+        else {
+          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
+          AT_driveTrain.addVisionMeasurement(mt2_Luke.pose, mt2_Luke.timestampSeconds);
+          SmartDashboard.putNumber("Limelight Luke X", mt2_Luke.pose.getX());
+          SmartDashboard.putNumber("Limelight Luke Y", mt2_Luke.pose.getY());
+        }
+      }
     } catch(NullPointerException e){
       //System.out.println("Catch in mt2" + e.toString());
     }
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
+
+    // if (rejectUpdateLuke == false || rejectUpdate == false){
+    //   aprilTagLastSeen = Instant.now();
+    // }
+    // long millis = Duration.between(Instant.now(), aprilTagLastSeen).toMillis();
+    // SmartDashboard.putString("April Tag Last Seen", "" + millis);
     
   }
   // Public methods to control the subsystem's components (e.g., setting motor speeds, reading sensor data)
