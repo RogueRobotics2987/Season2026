@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.62,
-        "y": 0.34
+        "x": 3.600510083036774,
+        "y": 0.5651601423487547
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0923222222224602,
-        "y": 6.211800000003178
+        "x": 2.072832305259234,
+        "y": 6.436960142351932
       },
       "isLocked": false,
       "linkedName": "Right_Start"
@@ -109,7 +109,7 @@
   "folder": "Intake Trench",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

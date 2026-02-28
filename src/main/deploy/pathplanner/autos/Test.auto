@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right_Neutral_Intake"
+            "pathName": "Test"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Shoot_Intake",
+  "folder": "Test",
   "choreoAuto": false
 }
