@@ -160,9 +160,10 @@ public class ShooterSubsystem extends SubsystemBase  {
     double RobotYawRad = T_driveTrain.getState().Pose.getRotation().getRadians();
 
     // Calculates the global postion of the turret anywhere on the field
-    double TurretXGlobal = Math.cos(RobotYawRad) * Constants.turretOffsetY + RobotX;
-    double TurretYGlobal = Math.sin(RobotYawRad) * Constants.turretOffsetX + RobotY;
+    double TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
+    double TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
     SmartDashboard.putNumber("YawRad", RobotYawRad);
+    
 
     double targetX = 1;
     double targetY = 0;
