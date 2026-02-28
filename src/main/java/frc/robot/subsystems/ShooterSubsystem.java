@@ -108,10 +108,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
-    double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed);
+    double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); //15?
     double ShooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed);
-
-    
 
     final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
     final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
@@ -242,22 +240,23 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     
     if(ShooterEnable == true) {
-      double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle) + shooterTrim;
-      // SmartDashboard.putNumber("Shooter Angle", elevationAngleRequest);
+      //double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle) + shooterTrim;
+      double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
+      SmartDashboard.putNumber("Shooter Angle", elevationAngleRequest);
 
       PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
       motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
 
-      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
-      // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
-      // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
+      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
+      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
 
-      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      // motorTurret.setControl(m_request.withPosition(0));
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      motorTurret.setControl(m_request.withPosition(0));
     }
   }
 }
