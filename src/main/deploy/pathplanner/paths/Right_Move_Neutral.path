@@ -8,51 +8,30 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.8504720068258718,
-        "y": 0.5607970407394329
+        "x": 4.600510083036774,
+        "y": 0.5651601423487544
       },
       "isLocked": false,
       "linkedName": "Right_Start"
     },
     {
       "anchor": {
-        "x": 1.43,
-        "y": 3.32
+        "x": 7.796344444444443,
+        "y": 0.5651601423487547
       },
       "prevControl": {
-        "x": 1.68,
-        "y": 3.32
+        "x": 6.720425108738629,
+        "y": 0.500604982206405
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Climb_Right"
+      "linkedName": "Right_Neutral_Intake"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Approach Climber",
-      "minWaypointRelativePos": 0.62,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 1.5,
-        "maxAcceleration": 1.5,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Climb",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -63,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Climb",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
