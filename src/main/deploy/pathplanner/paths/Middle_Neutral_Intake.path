@@ -48,12 +48,12 @@
     },
     {
       "anchor": {
-        "x": 7.745955555555556,
-        "y": 2.8962111111111106
+        "x": 7.8165,
+        "y": 5.4862
       },
       "prevControl": {
-        "x": 7.711366666666666,
-        "y": 1.5986111111111105
+        "x": 7.78191111111111,
+        "y": 4.1886
       },
       "nextControl": null,
       "isLocked": false,
@@ -123,7 +123,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Intake Trench",
