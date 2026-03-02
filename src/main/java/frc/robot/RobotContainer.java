@@ -32,7 +32,9 @@ import frc.robot.subsystems.ApriltagSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SpindexSubsystem;
+import frc.robot.subsystems.LightSubsystem; //added light subsystem here
 import frc.robot.commands.IntakeCommand;
+
 
 
 import frc.robot.subsystems.ClimberSubsystem;
@@ -63,6 +65,8 @@ public class RobotContainer {
     private final ShooterSubsystem turretSubsystem = new ShooterSubsystem(drivetrain);
 
     public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+
+    public final LightSubsystem lights = new LightSubsystem(); // light object made here. will figure out specifics later
 
     public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
 
