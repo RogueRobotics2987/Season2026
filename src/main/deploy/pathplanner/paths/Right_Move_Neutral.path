@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right_Move_Neutral_End"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0.5,
-    "rotation": -1.660282368982818
+    "rotation": 179.31522249299084
   },
   "reversed": false,
   "folder": null,
