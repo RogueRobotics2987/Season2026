@@ -107,6 +107,7 @@ public class Constants {
     public static final double intakeInAngle  = 0;
 
     public static final double intakeStartSpeed = 0.6;
+    public static final double intakeReverseSpeed = -0.6;
     public static final double intakeStopSpeed = 0;
 
     public static final double spindexOnSpeed = 20;

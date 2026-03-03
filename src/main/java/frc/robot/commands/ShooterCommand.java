@@ -35,8 +35,8 @@ public class ShooterCommand extends Command {
       }
     */
     try{
-      Thread.sleep(2000);
-    }catch(InterruptedException e){
+      Thread.sleep(500);
+      }catch(InterruptedException e){
       //run spindex
       //m_spindexSubsystem.start();
     }
