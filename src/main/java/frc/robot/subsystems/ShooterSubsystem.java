@@ -229,6 +229,9 @@ public class ShooterSubsystem extends SubsystemBase  {
     // SmartDashBoard Stuff
     SmartDashboard.putNumber("Rotaions", rotations);
 
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
+
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
 
     SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));

@@ -110,7 +110,7 @@ public class Constants {
     public static final double intakeReverseSpeed = -0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 20;
+    public static final double spindexOnSpeed = 8; //20
     public static final double spindexOffSpeed = 0;
 
     public static final double kickerOnSpeed = 15;
