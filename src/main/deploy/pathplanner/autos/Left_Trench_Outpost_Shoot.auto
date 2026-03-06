@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Right_Move_Neutral"
+                  "pathName": "Left_Move_Neutral"
                 }
               },
               {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Right_Intake_Neutral"
+                  "pathName": "Left_Intake_Neutral"
                 }
               },
               {
@@ -51,7 +51,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Neutral_Right_Move"
+            "pathName": "Neutral_Left_Move"
           }
         },
         {
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Neutral_Move_Right"
+                  "pathName": "Neutral_Move_Left"
                 }
               },
               {

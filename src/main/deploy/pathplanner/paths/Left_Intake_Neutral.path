@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.62,
-        "y": 4.02
+        "x": 7.71,
+        "y": 7.05
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.838077777777778,
-        "y": 3.077611111111112
+        "x": 7.780544444444446,
+        "y": 6.4856444444444445
       },
       "isLocked": false,
-      "linkedName": "Middle_Start"
+      "linkedName": "Neutral_Left_Intake"
     },
     {
       "anchor": {
-        "x": 0.34,
-        "y": 0.67
+        "x": 7.71,
+        "y": 4.804850213980028
       },
       "prevControl": {
-        "x": 2.1024000000000003,
-        "y": 1.4953999999999996
+        "x": 7.730159230888496,
+        "y": 5.328894517052607
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Outpost"
+      "linkedName": "Left_Intake_Neutral_End"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
-      "name": "Approach Outpost",
-      "minWaypointRelativePos": 0.66,
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.4135514018691585,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.5,
@@ -45,16 +45,9 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Ball Intake",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -63,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -1.660282368982818
   },
   "reversed": false,
-  "folder": "Intake Trench",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -72,6 +72,13 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
 
+  public void intakeReverse() {
+
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+    intakeWheelMotor.set(Constants.intakeReverseSpeed);
+  }
+
   @Override
   public void periodic() {
   }

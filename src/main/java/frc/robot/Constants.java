@@ -102,20 +102,20 @@ public class Constants {
     // public static final double intake_kD = 0;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.36;
-    ;
+    public static final double intakeOutAngle = 0.38;
     public static final double intakeInAngle  = 0;
 
     public static final double intakeStartSpeed = 0.6;
+    public static final double intakeReverseSpeed = -0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 20;
+    public static final double spindexOnSpeed = 8; //20
     public static final double spindexOffSpeed = 0;
 
     public static final double kickerOnSpeed = 15;
     public static final double kickerOffSpeed = 0;
 
-    public static final double shooterOnSpeed = 50;
+    public static double shooterOnSpeed = 50;
     public static final double shooterOffSpeed = 0;
 
     public static final double deadband = 0.03;
