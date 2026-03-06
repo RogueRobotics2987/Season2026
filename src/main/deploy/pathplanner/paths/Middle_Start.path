@@ -11,17 +11,17 @@
         "x": 2.911921708185054,
         "y": 4.0403795966785285
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "Middle_Start"
     },
     {
       "anchor": {
-        "x": 2.0834638196915787,
-        "y": 4.02
+        "x": 1.7877318116975744,
+        "y": 6.292796005706134
       },
       "prevControl": {
-        "x": 2.911921708185054,
-        "y": 4.018861209964412
+        "x": 2.61618970019105,
+        "y": 6.291657215670547
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Starting Spots",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

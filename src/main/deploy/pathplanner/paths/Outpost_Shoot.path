@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.838077777777778,
-        "y": 3.077611111111112
+        "x": 2.4346647646219686,
+        "y": 2.4111982881597713
       },
       "isLocked": false,
       "linkedName": "Middle_Start"
@@ -20,8 +20,8 @@
         "y": 0.67
       },
       "prevControl": {
-        "x": 2.1024000000000003,
-        "y": 1.4953999999999996
+        "x": 2.771069900142653,
+        "y": 2.7346647646219684
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,30 +29,9 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Approach Outpost",
-      "minWaypointRelativePos": 0.66,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 1.5,
-        "maxAcceleration": 1.5,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Ball Intake",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -66,7 +45,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Intake Trench",
+  "folder": "Extra",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

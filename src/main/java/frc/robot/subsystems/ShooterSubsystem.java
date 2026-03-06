@@ -170,7 +170,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     double TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
     double TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
     SmartDashboard.putNumber("YawRad", RobotYawRad);
-    
 
     double targetX = 1;
     double targetY = 0;
@@ -184,13 +183,13 @@ public class ShooterSubsystem extends SubsystemBase  {
         if (Target == AimTarget.LEFT) {
           targetX = Constants.redPassLeftX;
           targetY = Constants.redPassLeftY;
-          Constants.shooterOnSpeed = 35;
+          Constants.shooterOnSpeed = 40;
         }
 
         if (Target == AimTarget.RIGHT) {
           targetX = Constants.redPassRightX;
           targetY = Constants.redPassRightY;
-          Constants.shooterOnSpeed = 35;
+          Constants.shooterOnSpeed = 40;
         }
       }
 
@@ -198,17 +197,17 @@ public class ShooterSubsystem extends SubsystemBase  {
         targetX = Constants.blueHubX;
         targetY = Constants.blueHubY;
         Constants.shooterOnSpeed = 50;
-
+        
         if (Target == AimTarget.RIGHT) {
           targetX = Constants.bluePassRightX;
           targetY = Constants.bluePassRightY;
-          Constants.shooterOnSpeed = 35;
+          Constants.shooterOnSpeed = 40;
         }
 
         if (Target == AimTarget.LEFT) {
           targetX = Constants.bluePassLeftX;
           targetY = Constants.bluePassLeftY;
-          Constants.shooterOnSpeed = 35;
+          Constants.shooterOnSpeed = 40;
         }
       }
     } else {
@@ -219,7 +218,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     double xDifference = targetX - TurretXGlobal;
     double yDifference = targetY - TurretYGlobal;
 
-    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2)); //distance in inches
+    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
 
     // Calculates the turret angle for the target in rads
     double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;

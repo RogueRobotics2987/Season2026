@@ -24,8 +24,8 @@
         "y": 4.590006989166595
       },
       "nextControl": {
-        "x": 0.401869367392674,
-        "y": 5.089993010833404
+        "x": 0.40186936739267404,
+        "y": 5.089993010833405
       },
       "isLocked": false,
       "linkedName": null
@@ -109,7 +109,7 @@
   "folder": "Intake Trench",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -28,12 +28,7 @@
       "linkedName": "Neutral_Left_Intake"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5371466140696901,
-      "rotationDegrees": 180.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -53,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
