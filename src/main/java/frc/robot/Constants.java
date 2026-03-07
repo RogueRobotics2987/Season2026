@@ -13,12 +13,12 @@ public class Constants {
     public static final double redHubY = 4.035;
 
     // The X, Y coordinates for Red Passing Left in meters
-    public static final double redPassLeftX = 14.500;
-    public static final double redPassLeftY = 1.500;
+    public static final double redPassLeftX = 12.9; // 14.5
+    public static final double redPassLeftY = 2; // 1.5
 
     // The X, Y coordinates for Red Passing Right in meters
-    public static final double redPassRightX = 14.500;
-    public static final double redPassRightY = 6.600;
+    public static final double redPassRightX = 12.9; // 14.5
+    public static final double redPassRightY = 6; // 6.6
 
     // The X, Y coordinates for the Blue Hub in meters
     public static final double blueHubX = 4.620;

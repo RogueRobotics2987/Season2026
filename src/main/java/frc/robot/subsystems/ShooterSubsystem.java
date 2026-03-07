@@ -35,7 +35,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   private double armAngle = 0.032;
   public double turretTrim = 0;
-  public double shooterTrim = 0;
+  public double shooterTrim = 0.006; // at 131 inches we are short 20 inches, so to not miss in auto we add 0.006 of offset that is 20 inches down our curve
 
   public static enum AimTarget {
     AUTO,
@@ -76,17 +76,17 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void ResetShooterTrim(){
-    shooterTrim = 0;
+    shooterTrim = 0.006;
     SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void TurretTrimLeft(){
-    turretTrim = turretTrim + 0.0001;
+    turretTrim = turretTrim + 0.0002;
     SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
-    turretTrim = turretTrim - 0.0001;
+    turretTrim = turretTrim - 0.0002;
     SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 

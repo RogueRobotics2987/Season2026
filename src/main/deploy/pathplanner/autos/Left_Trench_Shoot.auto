@@ -3,10 +3,17 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        }
+      ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Shoot",
   "choreoAuto": false
 }
