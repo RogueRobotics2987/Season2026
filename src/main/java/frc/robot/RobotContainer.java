@@ -182,7 +182,12 @@ public class RobotContainer {
         AuxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
         
         AuxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        AuxJoystick.povUpLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        AuxJoystick.povDownLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+
         AuxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        AuxJoystick.povUpRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        AuxJoystick.povDownRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
         AuxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
 
 

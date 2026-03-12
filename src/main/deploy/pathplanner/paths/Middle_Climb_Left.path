@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.62,
-        "y": 4.02
+        "x": 3.614795180722891,
+        "y": 4.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.869961923789098,
-        "y": 4.015636898390678
+        "x": 3.864757104511989,
+        "y": 3.9956368983906785
       },
       "isLocked": false,
       "linkedName": "Middle_Start"
@@ -69,7 +69,7 @@
   "folder": "Climb",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -178.6677801461303
   },
   "useDefaultConstraints": true
 }

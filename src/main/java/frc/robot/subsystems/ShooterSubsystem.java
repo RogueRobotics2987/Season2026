@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Angle;
 
 import java.util.Optional;
@@ -66,12 +67,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void ShooterTrimUp(){
-    shooterTrim = shooterTrim + 0.0001;
+    shooterTrim = shooterTrim + 0.0025;
     SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ShooterTrimDown(){
-    shooterTrim = shooterTrim - 0.0001;
+    shooterTrim = shooterTrim - 0.0025;
     SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
@@ -166,6 +167,12 @@ public class ShooterSubsystem extends SubsystemBase  {
     double RobotY = T_driveTrain.getState().Pose.getY();
     double RobotYawRad = T_driveTrain.getState().Pose.getRotation().getRadians();
 
+    double RobotXvelocity = T_driveTrain.getState().Speeds.vxMetersPerSecond;
+    double RobotYvelocity = T_driveTrain.getState().Speeds.vyMetersPerSecond;
+    double RobotRotSpeeds = T_driveTrain.getState().Speeds.omegaRadiansPerSecond;
+
+    double probableBallSpeed = 20; // meters / sec
+
     // Calculates the global postion of the turret anywhere on the field
     double TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
     double TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
@@ -218,7 +225,20 @@ public class ShooterSubsystem extends SubsystemBase  {
     double xDifference = targetX - TurretXGlobal;
     double yDifference = targetY - TurretYGlobal;
 
-    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
+    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2)); // 39.3701 is to convert meters to inches
+
+    // Shooting on move code?
+    double Time = zDistance / probableBallSpeed;
+    
+    Translation2d robotVel = new Translation2d(RobotXvelocity, RobotYvelocity);
+    Translation2d leadOffset = robotVel.times(Time);
+    Translation2d TargetPos = new Translation2d(targetX, targetY);
+    Translation2d virtualTarget = TargetPos.minus(leadOffset);
+
+    xDifference = virtualTarget.getX() - TurretXGlobal;
+    yDifference = virtualTarget.getY() - TurretYGlobal;
+    zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
+    
 
     // Calculates the turret angle for the target in rads
     double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
@@ -239,7 +259,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
 
-    SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
+    SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance) + shooterTrim);
 
     SmartDashboard.putNumber("Z Distance to Hub", zDistance);
     SmartDashboard.putNumber("Y Difference", yDifference);
