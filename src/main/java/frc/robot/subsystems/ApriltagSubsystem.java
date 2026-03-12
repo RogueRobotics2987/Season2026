@@ -19,7 +19,7 @@ public class ApriltagSubsystem extends SubsystemBase {
   private boolean apriltagAngle = true;
   private boolean rejectUpdate = false;
   private boolean rejectUpdateLuke = false;
-  private Instant aprilTagLastSeen;
+  private Instant aprilTagLastSeen = Instant.now();
 
   private final Field2d field = new Field2d();
 
@@ -108,11 +108,11 @@ public class ApriltagSubsystem extends SubsystemBase {
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
 
-    // if (rejectUpdateLuke == false || rejectUpdate == false){
-    //   aprilTagLastSeen = Instant.now();
-    // }
-    // long millis = Duration.between(Instant.now(), aprilTagLastSeen).toMillis();
-    // SmartDashboard.putString("April Tag Last Seen", "" + millis);
+    if (rejectUpdateLuke == false || rejectUpdate == false){
+      aprilTagLastSeen = Instant.now();
+    }
+    long millis = Duration.between(aprilTagLastSeen, Instant.now()).toMillis();
+    SmartDashboard.putString("April Tag Last Seen", "" + millis);
     
   }
   // Public methods to control the subsystem's components (e.g., setting motor speeds, reading sensor data)
