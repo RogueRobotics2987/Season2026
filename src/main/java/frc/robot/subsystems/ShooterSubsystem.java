@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Angle;
+import frc.robot.Telemetry;
 
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 import java.lang.Math;
 
 import frc.robot.Constants;
@@ -161,11 +164,30 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
     //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldnt tell brodie was here
 
-    // Gets Robot X, Y, Yaw
-    double RobotX = T_driveTrain.getState().Pose.getX();
-    double RobotY = T_driveTrain.getState().Pose.getY();
-    double RobotYawRad = T_driveTrain.getState().Pose.getRotation().getRadians();
+    SwerveDriveState driveState = T_driveTrain.getState();
 
+    // All thoery
+    var robotRelativeSpeeds = driveState.Speeds;
+    var fieldRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotRelativeSpeeds, driveState.Pose.getRotation());
+    //get shot time
+    //use z distance
+
+    
+    //targetGoalX = hubX - time * robotVeloX
+    //targetGoalY = hubY - time * robotVeloY
+    //offset  ^
+
+    //translation 2d w/ x and y is new target 
+    //find distance from new target to change elevation for shooting
+
+
+
+    // Gets Robot X, Y, Yaw
+    double RobotX = driveState.Pose.getX();
+    double RobotY = driveState.Pose.getY();
+    double RobotYawRad = driveState.Pose.getRotation().getRadians();
+
+  
     // Calculates the global postion of the turret anywhere on the field
     double TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
     double TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
