@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Angle;
 import frc.robot.Telemetry;
@@ -164,23 +165,8 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
     //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldnt tell brodie was here
 
+    // Gets Drivestate once
     SwerveDriveState driveState = T_driveTrain.getState();
-
-    // All thoery
-    var robotRelativeSpeeds = driveState.Speeds;
-    var fieldRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotRelativeSpeeds, driveState.Pose.getRotation());
-    //get shot time
-    //use z distance
-
-    
-    //targetGoalX = hubX - time * robotVeloX
-    //targetGoalY = hubY - time * robotVeloY
-    //offset  ^
-
-    //translation 2d w/ x and y is new target 
-    //find distance from new target to change elevation for shooting
-
-
 
     // Gets Robot X, Y, Yaw
     double RobotX = driveState.Pose.getX();
@@ -242,6 +228,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
 
+
     // Calculates the turret angle for the target in rads
     double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
     SmartDashboard.putNumber("rad Turret Angle Red Hub", turretAngleGlobal);
@@ -252,9 +239,69 @@ public class ShooterSubsystem extends SubsystemBase  {
     if(rotations < 0) {
       rotations = rotations + 1;
     }
+
+
+
+    // All theory for Shooting while driving.
+
+    // Get robot relative speeds
+    var robotRelativeSpeeds = driveState.Speeds;
+
+    // Convert to field relative speeds
+    var fieldRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotRelativeSpeeds, driveState.Pose.getRotation());
+
+    // Our own calculation of Z-distance - not tuned for the shooter location/offset
+    Translation2d hubXYTranslation2d = new Translation2d(Constants.redHubX, Constants.redHubY);
+    Translation2d hubXYDifferenceTranslation2d = hubXYTranslation2d.minus(driveState.Pose.getTranslation());
+    double alternateZDistance = hubXYDifferenceTranslation2d.getDistance(new Translation2d()) * 39.37;
     
+    // Need to calculate shot time based on zDistance
+    double shotTime = 1.0; // timeTable?.getOutput(alternateZDistance);
+    
+    // Variable to hold the XY of the target goal. 
+    Translation2d targetGoaTranslation2d = new Translation2d();
+
+    // Start of for loop
+    // Loop that considers divergence - needs to be tested
+    for(int i = 0; i < 5; i++)
+    {
+      double targetGoalX = Constants.redHubX - shotTime * (fieldRelativeSpeeds.vxMetersPerSecond); // Apply fudge factors such as accelleration considersations and/or a constant offset.
+      double targetGoalY = Constants.redHubY - shotTime * (fieldRelativeSpeeds.vyMetersPerSecond);
+      SmartDashboard.putNumber("Target Goal X", targetGoalX);
+      SmartDashboard.putNumber("Target Goal Y", targetGoalY);
+
+      Translation2d targetGoalXYTranslation2d = new Translation2d(targetGoalX, targetGoalY);
+      Translation2d targetGoalXYDifferenceTranslation2d = targetGoalXYTranslation2d.minus(driveState.Pose.getTranslation());
+      
+      // Calculate new shot time based on distance
+      double newShotTime = 1.2; // timeTable?.getOutput(targetGoalXYDifferenceTranslation2d.getDistance(new Translation2d()) * 39.37);
+
+      if(Math.abs(newShotTime - shotTime) < 0.010) // Test 0.01 threshold
+      {
+        i = 4;
+      } 
+
+      if(i == 4)
+      {
+        targetGoaTranslation2d = targetGoalXYTranslation2d;
+      } 
+      else 
+      {
+        shotTime = newShotTime;
+      }
+    }
+    // end of for loop
+
+    // calculate new zdistance
+    // double newDist = targetGoaTranslation2d.minus(driveState.Pose.getTranslation()).getDistance(new Translation2d()) * 39.37;
+
+    // we now need to aim/shoot at targetGoaTranslation2d
+    
+
+
+
     // SmartDashBoard Stuff
-    SmartDashboard.putNumber("Rotaions", rotations);
+    SmartDashboard.putNumber("Rotations", rotations);
 
     SmartDashboard.putNumber("Shooter Trim", shooterTrim);
     SmartDashboard.putNumber("Turret Trim", turretTrim);
