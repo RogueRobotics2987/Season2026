@@ -155,7 +155,7 @@ public class RobotContainer {
         //             }
         //         }
         // )); //testing field oriented drive
-        //joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
+        joystick.back().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
