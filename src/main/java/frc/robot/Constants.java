@@ -122,4 +122,6 @@ public class Constants {
 
     public static final double gasPedalLimit = 0.25;
 
+    public static final int megaTag1MaxDistance = 5;
+
 }

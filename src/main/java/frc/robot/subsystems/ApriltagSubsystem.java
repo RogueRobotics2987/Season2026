@@ -7,6 +7,7 @@ import frc.robot.LimelightHelpers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import java.time.*;
+import frc.robot.Constants;
 
 public class ApriltagSubsystem extends SubsystemBase {
  
@@ -54,6 +55,16 @@ public class ApriltagSubsystem extends SubsystemBase {
       // if (Math.abs(AT_driveTrain.get()) > 360) {
       //   rejectUpdate = true;
       // }
+      double aprilTagDistance = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight").avgTagDist;
+
+      if(aprilTagDistance <= Constants.megaTag1MaxDistance){
+        LimelightHelpers.setPipelineIndex("limelight", 1);
+        LimelightHelpers.setPipelineIndex("limelight-luke", 1);
+      }
+      else{
+        LimelightHelpers.setPipelineIndex("limelight", 2);
+        LimelightHelpers.setPipelineIndex("limelight-luke", 2);
+      }
 
       if (mt2.tagCount == 0) {
         rejectUpdate = true;
