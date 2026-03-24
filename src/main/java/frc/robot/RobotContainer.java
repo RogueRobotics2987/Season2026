@@ -31,7 +31,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ApriltagSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.SpindexSubsystem;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.UtilitiesSubsystem;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RetreatIntakeCommand;
@@ -65,7 +65,7 @@ public class RobotContainer {
 
     public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
-    public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
+    public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
     private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 
@@ -78,7 +78,7 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
         NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_SpindexSubsystem ));
+        NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_IndexSubsystem ));
         NamedCommands.registerCommand("Zero Shooter", new LowerShooterCommand(turretSubsystem));
 
 
@@ -167,8 +167,8 @@ public class RobotContainer {
         AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
 
 
-        AuxJoystick.rightTrigger().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
-        AuxJoystick.rightTrigger().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
+        AuxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
+        AuxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
        
         AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
         AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 

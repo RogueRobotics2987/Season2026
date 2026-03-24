@@ -41,7 +41,7 @@ public class Constants {
     public static final double turretOffsetAngleRad = 2.5836;
 
     // Mechanism gear ratios
-    // public static final double spindexGearRatio = 20.0;
+    // public static final double indexGearRatio = 20.0;
     // public static final double intakeArmGearRatio = 50.0;
     // public static final double kickerGearRatio = 1.0;
     // public static final double turretGearRatio = 15.0;
@@ -52,7 +52,7 @@ public class Constants {
     public static final int intakeAngleArmCanCoderCanID = 19;
     public static final int intakeArmWheelMotorCanID = 15;
 
-    public static final int spindexMotorCanID = 16;
+    public static final int indexMotorCanID = 16;
 
     public static final int KickerCanID = 18;
 
@@ -83,10 +83,10 @@ public class Constants {
     // public static final double shooterArmKI = 0;
     // public static final double shooterArmKD = 0;
 
-    // // The PID Controller for the Spindex
-    // public static final double spindexKP = 5;
-    // public static final double spindexKI = 0;
-    // public static final double spindexKD = 0;
+    // // The PID Controller for the Index
+    // public static final double indexKP = 5;
+    // public static final double indexKI = 0;
+    // public static final double indexKD = 0;
 
     // // The PID Controller for the intake
     // public static final double intake_kP = 5;
@@ -101,8 +101,8 @@ public class Constants {
     public static final double intakeReverseSpeed = -0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 8; //20
-    public static final double spindexOffSpeed = 0;
+    public static final double indexOnSpeed = 8; //20
+    public static final double indexOffSpeed = 0;
 
     public static final double kickerOnSpeed = 15;
     public static final double kickerOffSpeed = 0;
