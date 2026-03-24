@@ -42,7 +42,6 @@ public class Constants {
 
     // Mechanism gear ratios
     // public static final double spindexGearRatio = 20.0;
-    // public static final double climberGearRatio = 25.0;
     // public static final double intakeArmGearRatio = 50.0;
     // public static final double kickerGearRatio = 1.0;
     // public static final double turretGearRatio = 15.0;
@@ -55,8 +54,6 @@ public class Constants {
 
     public static final int spindexMotorCanID = 16;
 
-    public static final int ClimberCanID = 40;
-
     public static final int KickerCanID = 18;
 
     public static final int TurretCanID = 20;
@@ -65,11 +62,6 @@ public class Constants {
     public static final int ShooterElevationCanCoderCanID = 21;
     public static final int ShooterWheelsCanID = 17;
 
-
-    // // The PID Controller for the Climber
-    // public static final double climberKP = 20.0;
-    // public static final double climberKI = 0;
-    // public static final double climberKD = 0;
 
     // // The PID Controller for the Turret
     // public static final double turretKP = 25;

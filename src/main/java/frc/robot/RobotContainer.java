@@ -36,7 +36,6 @@ import frc.robot.subsystems.UtilitiesSubsystem;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RetreatIntakeCommand;
 import frc.robot.commands.ShooterCommand;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.commands.LowerShooterCommand;
 
 public class RobotContainer {
@@ -67,8 +66,6 @@ public class RobotContainer {
     public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
     public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
-
-    private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
     private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 

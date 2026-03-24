@@ -33,7 +33,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
   public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
 
-  private double armAngle = 0.032;
+  private double armAngle = 0.032; // remove?
   public double turretTrim = 0;
   public double shooterTrim = 0;
 
@@ -140,14 +140,14 @@ public class ShooterSubsystem extends SubsystemBase  {
     // }
   }
 
-   public void enableLimitSwitch(){
+   public void enableLimitSwitch(){ //remove
     TalonFXConfiguration talonConfig = new TalonFXConfiguration();
     motorTurret.getConfigurator().refresh(talonConfig);
     talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
     motorTurret.getConfigurator().apply(talonConfig);
   }
 
-  public void disableLimitSwitch(){
+  public void disableLimitSwitch(){ //remove
     TalonFXConfiguration talonConfig = new TalonFXConfiguration();
     motorTurret.getConfigurator().refresh(talonConfig);
     talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
