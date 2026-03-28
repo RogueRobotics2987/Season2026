@@ -53,11 +53,11 @@ public class Constants {
     public static final int intakeAngleArmCanCoderCanID = 19;
     public static final int intakeArmWheelMotorCanID = 15;
 
-    public static final int spindexMotorCanID = 20;
+    public static final int spindexMotorCanID = 22;
 
     public static final int KickerCanID = 17;
 
-    public static final int TurretCanID = 22;
+    public static final int TurretCanID = 20;
 
     public static final int ShooterElevationMotorCanID = 9;
     public static final int ShooterElevationCanCoderCanID = 21;
@@ -111,7 +111,7 @@ public class Constants {
     public static final double spindexOnSpeed = 0; //20
     public static final double spindexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 5; //15
+    public static final double kickerOnSpeed = 8; //15
     public static final double kickerOffSpeed = 0;
 
     public static double shooterOnSpeed = 50;

@@ -57,7 +57,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     this.T_driveTrain = T_driveTrain;
 
     // Set the follower motor. followerMotorShooterWheels follows motorShooterWheels.
-    followerMotorShooterWheels.setControl(new Follower(motorShooterWheels.getDeviceID(), MotorAlignmentValue.Aligned));
+    followerMotorShooterWheels.setControl(new Follower(motorShooterWheels.getDeviceID(), MotorAlignmentValue.Opposed));
 
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
@@ -147,20 +147,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     // }
   }
 
-   public void enableLimitSwitch(){
-    TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    motorTurret.getConfigurator().refresh(talonConfig);
-    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
-    motorTurret.getConfigurator().apply(talonConfig);
-  }
-
-  public void disableLimitSwitch(){
-    TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    motorTurret.getConfigurator().refresh(talonConfig);
-    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
-    motorTurret.getConfigurator().apply(talonConfig);
-
-  }
   @Override
   public void periodic() {
 

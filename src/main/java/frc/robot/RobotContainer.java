@@ -91,10 +91,6 @@ public class RobotContainer {
         visionSubsystem.disableApriltagAngle();
     }
 
-    void disableLimitSwitch(){
-        turretSubsystem.disableLimitSwitch();
-    }
-
     void resetPose(){
         drivetrain.resetPose(drivetrain.getState().Pose);
     }
