@@ -17,6 +17,11 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import java.lang.Math;
 
@@ -31,7 +36,9 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final TalonFX motorTurret = new TalonFX(Constants.TurretCanID, "rio");
   private final TalonFX motorKicker = new TalonFX(Constants.KickerCanID, "rio");
   private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
-  public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
+
+  private final SparkMax m_shooterArmMotor = new SparkMax(Constants.ShooterElevationMotorCanID, MotorType.kBrushless);
+  private final SparkClosedLoopController m_shooterArmClosedLoopController = m_shooterArmMotor.getClosedLoopController();
 
   private double armAngle = 0.032; // remove?
   public double turretTrim = 0;
@@ -262,16 +269,13 @@ public class ShooterSubsystem extends SubsystemBase  {
       double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
       // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
 
-      PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
-
+      m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
-      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
+      m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition, ClosedLoopSlot.kSlot0);
 
       final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       motorTurret.setControl(m_request.withPosition(0));
