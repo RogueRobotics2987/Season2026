@@ -53,17 +53,16 @@ public class Constants {
     public static final int intakeAngleArmCanCoderCanID = 19;
     public static final int intakeArmWheelMotorCanID = 15;
 
-    public static final int spindexMotorCanID = 16;
+    public static final int spindexMotorCanID = 20;
 
-    public static final int ClimberCanID = 40;
+    public static final int KickerCanID = 17;
 
-    public static final int KickerCanID = 18;
-
-    public static final int TurretCanID = 20;
+    public static final int TurretCanID = 22;
 
     public static final int ShooterElevationMotorCanID = 9;
     public static final int ShooterElevationCanCoderCanID = 21;
-    public static final int ShooterWheelsCanID = 17;
+    public static final int ShooterWheelsCanID = 18;
+    public static final int FollowerWheelsCanID = 19;
 
 
     // // The PID Controller for the Climber
@@ -109,10 +108,10 @@ public class Constants {
     public static final double intakeReverseSpeed = -0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 8; //20
+    public static final double spindexOnSpeed = 0; //20
     public static final double spindexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 15;
+    public static final double kickerOnSpeed = 5; //15
     public static final double kickerOffSpeed = 0;
 
     public static double shooterOnSpeed = 50;
@@ -121,5 +120,4 @@ public class Constants {
     public static final double deadband = 0.03;
 
     public static final double gasPedalLimit = 0.25;
-
 }

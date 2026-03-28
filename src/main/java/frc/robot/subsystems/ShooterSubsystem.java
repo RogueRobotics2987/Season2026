@@ -13,10 +13,12 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import java.lang.Math;
 
@@ -31,6 +33,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final TalonFX motorTurret = new TalonFX(Constants.TurretCanID, "rio");
   private final TalonFX motorKicker = new TalonFX(Constants.KickerCanID, "rio");
   private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
+  private final TalonFX followerMotorShooterWheels = new TalonFX(Constants.FollowerWheelsCanID, "rio");
   public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
 
   private double armAngle = 0.032;
@@ -52,6 +55,10 @@ public class ShooterSubsystem extends SubsystemBase  {
   /** Creates a new TurretSubsystem. */
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
+
+    // Set the follower motor. followerMotorShooterWheels follows motorShooterWheels.
+    followerMotorShooterWheels.setControl(new Follower(motorShooterWheels.getDeviceID(), MotorAlignmentValue.Aligned));
+
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
@@ -258,23 +265,23 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     
     if(ShooterEnable == true) {
-      //double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle) + shooterTrim;
-      double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
-      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
+      // //double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle) + shooterTrim;
+      // double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
+      // // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
 
-      PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
+      // PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
+      // motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
 
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
+      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
-      PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
-      motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
+      // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
+      // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
 
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      motorTurret.setControl(m_request.withPosition(0));
+      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      // motorTurret.setControl(m_request.withPosition(0));
     }
   }
 }
