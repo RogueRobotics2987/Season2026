@@ -40,13 +40,6 @@ public class Constants {
     public static final double turretOffsetAngle = 31.971;
     public static final double turretOffsetAngleRad = 2.5836;
 
-    // Mechanism gear ratios
-    // public static final double indexGearRatio = 20.0;
-    // public static final double intakeArmGearRatio = 50.0;
-    // public static final double kickerGearRatio = 1.0;
-    // public static final double turretGearRatio = 15.0;
-    // public static final double shooterArnGearRatio = 25.0;
-
     // Can IDs
     public static final int intakeAngleArmMotorCanID = 14;
     public static final int intakeAngleArmCanCoderCanID = 19;
@@ -60,37 +53,6 @@ public class Constants {
     public static final int ShooterElevationCanCoderCanID = 21;
     public static final int ShooterWheelsCanID = 18;
     public static final int FollowerWheelsCanID = 19;
-
-
-    // // The PID Controller for the Turret
-    // public static final double turretKP = 25;
-    // public static final double turretKI = 0;
-    // public static final double turretKD = 0;
-
-    // // The PID Controller for the Kicker
-    // public static final double kickerKP = 0.1;
-    // public static final double kickerKI = 0;
-    // public static final double kickerKD = 0;
-
-    // // The PID Controller for the Shooter Wheels
-    // public static final double shooterWheelsKP = 0.1;
-    // public static final double shooterWheelsKI = 0;
-    // public static final double shooterWheelsKD = 0;
-
-    // // The PID Controller for the Shooter Wheels
-    // public static final double shooterArmKP = 5;
-    // public static final double shooterArmKI = 0;
-    // public static final double shooterArmKD = 0;
-
-    // // The PID Controller for the Index
-    // public static final double indexKP = 5;
-    // public static final double indexKI = 0;
-    // public static final double indexKD = 0;
-
-    // // The PID Controller for the intake
-    // public static final double intake_kP = 5;
-    // public static final double intake_kI = 0;
-    // public static final double intake_kD = 0;
 
     // PID setpoints
     public static final double intakeOutAngle = 0.38;
