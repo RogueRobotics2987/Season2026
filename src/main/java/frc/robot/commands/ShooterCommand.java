@@ -36,12 +36,9 @@ public class ShooterCommand extends Command {
     */
     try{
       Thread.sleep(500);
-      }catch(InterruptedException e){
-      //run index
-      //m_indexSubsystem.start();
-    }
-    //run index
-    m_indexSubsystem.start(); //need both?
+      }catch(InterruptedException e){}
+   
+    m_indexSubsystem.start(); 
 
   }
 
@@ -54,7 +51,6 @@ public class ShooterCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_shooterSubsystem.StopREV();
-    //stop index
     m_indexSubsystem.stop();
   }
 

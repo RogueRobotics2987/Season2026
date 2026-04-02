@@ -63,8 +63,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
     SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
-    //enableLimitSwitch();
-
 
 
     ally = DriverStation.getAlliance();
@@ -147,20 +145,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     // }
   }
 
-   public void enableLimitSwitch(){ //remove
-    TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    motorTurret.getConfigurator().refresh(talonConfig);
-    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(true);
-    motorTurret.getConfigurator().apply(talonConfig);
-  }
-
-  public void disableLimitSwitch(){ //remove
-    TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    motorTurret.getConfigurator().refresh(talonConfig);
-    talonConfig.HardwareLimitSwitch.withReverseLimitAutosetPositionEnable(false);
-    motorTurret.getConfigurator().apply(talonConfig);
-
-  }
   @Override
   public void periodic() {
 

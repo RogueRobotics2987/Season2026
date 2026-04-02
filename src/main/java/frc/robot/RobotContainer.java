@@ -91,10 +91,6 @@ public class RobotContainer {
         visionSubsystem.disableApriltagAngle();
     }
 
-    void disableLimitSwitch(){
-        turretSubsystem.disableLimitSwitch();
-    }
-
     void resetPose(){
         drivetrain.resetPose(drivetrain.getState().Pose);
     }
@@ -141,19 +137,7 @@ public class RobotContainer {
         joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-        // joystick.back().onTrue(drivetrain.runOnce(
-        //     () -> 
-        //         {
-        //             if(DriverStation.getAlliance().get() == Alliance.Blue) {
-        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(0));
-        //             }
-        //             else {
-        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(180));
-        //             }
-        //         }
-        // )); //testing field oriented drive
-        //joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
-
+       
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
@@ -195,22 +179,5 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();  
-        
-        // // Simple drive forward auton
-        // final var idle = new SwerveRequest.Idle();
-        // return Commands.sequence(
-        //     // Reset our field centric heading to match the robot
-        //     // facing away from our alliance station wall (0 deg).
-        //     drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())),
-        //     // Then slowly drive forward (away from us) for 5 seconds.
-        //     drivetrain.applyRequest(() ->
-        //         drive.withVelocityX(0.5)
-        //             .withVelocityY(0)
-        //             .withRotationalRate(0)
-        //     )
-        //     .withTimeout(0.0),
-        //     // Finally idle for the rest of auton
-        //     drivetrain.applyRequest(() -> idle)
-        // );
     }
 }
