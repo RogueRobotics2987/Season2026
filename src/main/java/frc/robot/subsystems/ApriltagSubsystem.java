@@ -62,18 +62,36 @@ public class ApriltagSubsystem extends SubsystemBase {
       //   rejectUpdate = true;
       // }
       double aprilTagDistance = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight").avgTagDist;
+      double aprilTagDistanceLuke = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-luke").avgTagDist;
+      double aprilTagDistanceLauren = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-lauren").avgTagDist;
+      double aprilTagDistanceLiberty = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-liberty").avgTagDist;
 
       if(aprilTagDistance <= Constants.megaTag1MaxDistance){
         LimelightHelpers.setPipelineIndex("limelight", 1);
-        LimelightHelpers.setPipelineIndex("limelight-luke", 1);
-        LimelightHelpers.setPipelineIndex("limelight-lauren", 1);
-        LimelightHelpers.setPipelineIndex("limelight-liberty", 1);
       }
       else{
         LimelightHelpers.setPipelineIndex("limelight", 2);
+      }
+
+      if (aprilTagDistanceLuke <= Constants.megaTag1MaxDistance){ // limelight luke
+        LimelightHelpers.setPipelineIndex("limelight-luke", 1);
+      }
+      else {
         LimelightHelpers.setPipelineIndex("limelight-luke", 2);
+      }
+
+      if (aprilTagDistanceLauren <= Constants.megaTag1MaxDistance){ // limelight lauren
+        LimelightHelpers.setPipelineIndex("limelight-lauren", 1);
+      }
+      else {
         LimelightHelpers.setPipelineIndex("limelight-lauren", 2);
-        LimelightHelpers.setPipelineIndex("limelight-liberty", 2);
+      }
+
+      if (aprilTagDistanceLiberty <= Constants.megaTag1MaxDistance){ // limelight liberty
+        LimelightHelpers.setPipelineIndex("limelight-liberty", 1); // megatag 1 running at 640x400 at 240fps (generally hits around 180fps)
+      }
+      else {
+        LimelightHelpers.setPipelineIndex("limelight-liberty", 2); // megatag 2 running at 1280x800 at 120fps (generally hits around 60fps)
       }
 
       if (mt2.tagCount == 0) {
