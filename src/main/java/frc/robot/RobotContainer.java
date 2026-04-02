@@ -70,7 +70,7 @@ public class RobotContainer {
 
     private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
-    private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
+    private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem(joystick,  AuxJoystick);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -101,7 +101,6 @@ public class RobotContainer {
     void resetPose(){
         drivetrain.resetPose(drivetrain.getState().Pose);
     }
-
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
