@@ -126,7 +126,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        joystick.a().onTrue(Commands.runOnce(() -> {brakeEnabled = !brakeEnabled;}));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
@@ -141,14 +141,14 @@ public class RobotContainer {
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
-        joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
+        // joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
 
-        AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
-        AuxJoystick.leftBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+        // AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
+        // AuxJoystick.leftBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
-        AuxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
-        AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
+        // AuxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
+        // AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
 
 
         AuxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));

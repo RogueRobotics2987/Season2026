@@ -52,15 +52,14 @@ public class Constants {
     public static final int intakeAngleArmCanCoderCanID = 19;
     public static final int intakeArmWheelMotorCanID = 15;
 
-    public static final int indexMotorCanID = 20; //hopper belts (motor in a box)?
-
+    public static final int indexMotorCanID = 22;
+    public static final int TurretCanID = 20;
     public static final int KickerCanID = 17;
-
-    public static final int TurretCanID = 20; //NOT 20
 
     public static final int ShooterElevationMotorCanID = 9; //neo 550
     public static final int ShooterElevationCanCoderCanID = 21;
-    public static final int ShooterWheelsCanID = 18; //follower motor ID 19
+    public static final int ShooterWheelsCanID = 18;
+    public static final int FollowerWheelsCanID = 19;
 
 
     // // The PID Controller for the Turret
@@ -101,10 +100,10 @@ public class Constants {
     public static final double intakeReverseSpeed = -0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double indexOnSpeed = 8; //20
+    public static final double indexOnSpeed = 0; //20
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 15;
+    public static final double kickerOnSpeed = 8; //15
     public static final double kickerOffSpeed = 0;
 
     public static double shooterOnSpeed = 50;
@@ -115,5 +114,4 @@ public class Constants {
     public static final double deadband = 0.03;
 
     public static final double gasPedalLimit = 0.25;
-
 }
