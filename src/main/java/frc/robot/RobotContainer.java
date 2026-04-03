@@ -67,7 +67,7 @@ public class RobotContainer {
 
     public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
-    private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
+    // private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -138,8 +138,8 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
        
-        joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
-        joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+        joystick.leftTrigger().whileTrue(m_IntakeSubsystem.run(m_IntakeSubsystem::intakeOut));
+        //joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
         joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 

@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   
-  private final TalonFX intakeArmMotor = new TalonFX(Constants.intakeAngleArmMotorCanID, "rio"); // change rio? will figure out specific id later for real bot
+  private final TalonFX intakeArmMotor = new TalonFX(Constants.intakeAngleArmMotorCanID, "rio");
   private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio");
   public IntakeSubsystem() {
     
@@ -27,7 +27,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intakeOut() {
 
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+    // intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+    intakeArmMotor.set(0.1);
     intakeWheelMotor.set(Constants.intakeStartSpeed);
 
   }
