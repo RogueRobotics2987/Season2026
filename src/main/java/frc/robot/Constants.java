@@ -65,10 +65,10 @@ public class Constants {
     public static final double indexOnSpeed = 0; //20
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 8; //15
+    public static final double kickerOnSpeed = 15; //15
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 5; //50;
+    public static double shooterOnSpeed = 30; //50;
     public static final double shooterOffSpeed = 0;
 
     public static final double shooterArmDisable = 0;

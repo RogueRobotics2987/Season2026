@@ -67,7 +67,7 @@ public class RobotContainer {
 
     public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
-    private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
+    // private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
