@@ -42,7 +42,7 @@ public class Constants {
 
     // Can IDs
     public static final int intakeAngleArmMotorCanID = 14;
-    public static final int intakeAngleArmCanCoderCanID = 19;
+    public static final int intakeAngleArmCanCoderCanID = 23;
     public static final int intakeArmWheelMotorCanID = 15;
 
     public static final int indexMotorCanID = 22;
@@ -55,11 +55,11 @@ public class Constants {
     public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.38;
-    public static final double intakeInAngle  = 0;
+    public static final double intakeOutAngle = 0.21;
+    public static final double intakeInAngle  = -0.07;
 
-    public static final double intakeStartSpeed = 0.05; //0.6;
-    public static final double intakeReverseSpeed = 0.05; //-0.6;
+    public static final double intakeStartSpeed = 0.725; //0.6;
+    public static final double intakeReverseSpeed = -0.725; //-0.6;
     public static final double intakeStopSpeed = 0;
 
     public static final double indexOnSpeed = 20;
