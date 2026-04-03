@@ -31,12 +31,11 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ApriltagSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.SpindexSubsystem;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.UtilitiesSubsystem;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RetreatIntakeCommand;
 import frc.robot.commands.ShooterCommand;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.commands.LowerShooterCommand;
 
 public class RobotContainer {
@@ -66,9 +65,7 @@ public class RobotContainer {
 
     public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
-    public final SpindexSubsystem m_SpindexSubsystem = new SpindexSubsystem();
-
-    private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
+    public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
     private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 
@@ -81,7 +78,7 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
         NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_SpindexSubsystem ));
+        NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_IndexSubsystem ));
         NamedCommands.registerCommand("Zero Shooter", new LowerShooterCommand(turretSubsystem));
 
 
@@ -92,10 +89,6 @@ public class RobotContainer {
 
     void disableApriltagAngle(){
         visionSubsystem.disableApriltagAngle();
-    }
-
-    void disableLimitSwitch(){
-        turretSubsystem.disableLimitSwitch();
     }
 
     void resetPose(){
@@ -133,7 +126,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        joystick.a().onTrue(Commands.runOnce(() -> {brakeEnabled = !brakeEnabled;}));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
@@ -144,34 +137,22 @@ public class RobotContainer {
         joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-        // joystick.back().onTrue(drivetrain.runOnce(
-        //     () -> 
-        //         {
-        //             if(DriverStation.getAlliance().get() == Alliance.Blue) {
-        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(0));
-        //             }
-        //             else {
-        //                 drivetrain.setOperatorPerspectiveForward(new Rotation2d(180));
-        //             }
-        //         }
-        // )); //testing field oriented drive
-        //joystick.back().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())));
-
+       
         joystick.leftTrigger().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOut));
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
-        joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
+        // joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
 
-        AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
-        AuxJoystick.leftBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+        // AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
+        // AuxJoystick.leftBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
 
-        AuxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
-        AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
+        // AuxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOn));
+        // AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
 
 
-        AuxJoystick.rightTrigger().onTrue(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::start));
-        AuxJoystick.rightTrigger().onFalse(m_SpindexSubsystem.runOnce(m_SpindexSubsystem::stop));
+        AuxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
+        AuxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
        
         AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
         AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
@@ -198,22 +179,5 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();  
-        
-        // // Simple drive forward auton
-        // final var idle = new SwerveRequest.Idle();
-        // return Commands.sequence(
-        //     // Reset our field centric heading to match the robot
-        //     // facing away from our alliance station wall (0 deg).
-        //     drivetrain.runOnce(() -> drivetrain.seedFieldCentric(drivetrain.getState().Pose.getRotation())),
-        //     // Then slowly drive forward (away from us) for 5 seconds.
-        //     drivetrain.applyRequest(() ->
-        //         drive.withVelocityX(0.5)
-        //             .withVelocityY(0)
-        //             .withRotationalRate(0)
-        //     )
-        //     .withTimeout(0.0),
-        //     // Finally idle for the rest of auton
-        //     drivetrain.applyRequest(() -> idle)
-        // );
     }
 }

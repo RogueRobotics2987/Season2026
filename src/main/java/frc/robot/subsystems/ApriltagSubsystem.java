@@ -41,8 +41,6 @@ public class ApriltagSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    // System.out.println("Yeah Periodic");
-
     // This method will be called once per scheduler run.
     try {
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
@@ -73,7 +71,6 @@ public class ApriltagSubsystem extends SubsystemBase {
         else {
             AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
             AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
-            // System.out.println("Yippee");
 
             SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
             SmartDashboard.putNumber("LimelightY", mt2.pose.getY());

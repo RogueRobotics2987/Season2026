@@ -7,21 +7,21 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.SpindexSubsystem;
+import frc.robot.subsystems.IndexSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShooterCommand extends Command {
   /** Creates a new ShooterCommand. */
 
   private final ShooterSubsystem m_shooterSubsystem;
-  private final SpindexSubsystem m_spindexSubsystem;
+  private final IndexSubsystem m_indexSubsystem;
 
 
   public ShooterCommand(ShooterSubsystem shooterSubsystem,
-                        SpindexSubsystem spindexSubsystem) {
+                        IndexSubsystem indexSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooterSubsystem = shooterSubsystem;
-    m_spindexSubsystem = spindexSubsystem;
+    m_indexSubsystem = indexSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -36,12 +36,9 @@ public class ShooterCommand extends Command {
     */
     try{
       Thread.sleep(500);
-      }catch(InterruptedException e){
-      //run spindex
-      //m_spindexSubsystem.start();
-    }
-    //run spindex
-    m_spindexSubsystem.start(); //need both?
+      }catch(InterruptedException e){}
+   
+    m_indexSubsystem.start(); 
 
   }
 
@@ -54,8 +51,7 @@ public class ShooterCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_shooterSubsystem.StopREV();
-    //stop spindex
-    m_spindexSubsystem.stop();
+    m_indexSubsystem.stop();
   }
 
   // Returns true when the command should end.

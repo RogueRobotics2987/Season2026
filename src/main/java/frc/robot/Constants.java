@@ -40,86 +40,40 @@ public class Constants {
     public static final double turretOffsetAngle = 31.971;
     public static final double turretOffsetAngleRad = 2.5836;
 
-    // Mechanism gear ratios
-    // public static final double spindexGearRatio = 20.0;
-    // public static final double climberGearRatio = 25.0;
-    // public static final double intakeArmGearRatio = 50.0;
-    // public static final double kickerGearRatio = 1.0;
-    // public static final double turretGearRatio = 15.0;
-    // public static final double shooterArnGearRatio = 25.0;
-
     // Can IDs
     public static final int intakeAngleArmMotorCanID = 14;
     public static final int intakeAngleArmCanCoderCanID = 19;
     public static final int intakeArmWheelMotorCanID = 15;
 
-    public static final int spindexMotorCanID = 16;
-
-    public static final int ClimberCanID = 40;
-
-    public static final int KickerCanID = 18;
-
+    public static final int indexMotorCanID = 22;
     public static final int TurretCanID = 20;
+    public static final int KickerCanID = 17;
 
-    public static final int ShooterElevationMotorCanID = 9;
+    public static final int ShooterElevationMotorCanID = 9; //neo 550
     public static final int ShooterElevationCanCoderCanID = 21;
-    public static final int ShooterWheelsCanID = 17;
-
-
-    // // The PID Controller for the Climber
-    // public static final double climberKP = 20.0;
-    // public static final double climberKI = 0;
-    // public static final double climberKD = 0;
-
-    // // The PID Controller for the Turret
-    // public static final double turretKP = 25;
-    // public static final double turretKI = 0;
-    // public static final double turretKD = 0;
-
-    // // The PID Controller for the Kicker
-    // public static final double kickerKP = 0.1;
-    // public static final double kickerKI = 0;
-    // public static final double kickerKD = 0;
-
-    // // The PID Controller for the Shooter Wheels
-    // public static final double shooterWheelsKP = 0.1;
-    // public static final double shooterWheelsKI = 0;
-    // public static final double shooterWheelsKD = 0;
-
-    // // The PID Controller for the Shooter Wheels
-    // public static final double shooterArmKP = 5;
-    // public static final double shooterArmKI = 0;
-    // public static final double shooterArmKD = 0;
-
-    // // The PID Controller for the Spindex
-    // public static final double spindexKP = 5;
-    // public static final double spindexKI = 0;
-    // public static final double spindexKD = 0;
-
-    // // The PID Controller for the intake
-    // public static final double intake_kP = 5;
-    // public static final double intake_kI = 0;
-    // public static final double intake_kD = 0;
+    public static final int ShooterWheelsCanID = 18;
+    public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
     public static final double intakeOutAngle = 0.38;
     public static final double intakeInAngle  = 0;
 
-    public static final double intakeStartSpeed = 0.6;
-    public static final double intakeReverseSpeed = -0.6;
+    public static final double intakeStartSpeed = 0.05; //0.6;
+    public static final double intakeReverseSpeed = 0.05; //-0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double spindexOnSpeed = 8; //20
-    public static final double spindexOffSpeed = 0;
+    public static final double indexOnSpeed = 0; //20
+    public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 15;
+    public static final double kickerOnSpeed = 8; //15
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 50;
+    public static double shooterOnSpeed = 5; //50;
     public static final double shooterOffSpeed = 0;
+
+    public static final double shooterArmDisable = 0;
 
     public static final double deadband = 0.03;
 
     public static final double gasPedalLimit = 0.25;
-
 }

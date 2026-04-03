@@ -45,7 +45,6 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
         m_robotContainer.disableApriltagAngle();
         m_robotContainer.resetPose();
-        //m_robotContainer.disableLimitSwitch();
 
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().schedule(m_autonomousCommand);
@@ -65,7 +64,6 @@ public class Robot extends TimedRobot {
         }
         m_robotContainer.resetPose();
         m_robotContainer.disableApriltagAngle();
-      //  m_robotContainer.disableLimitSwitch();
     }
 
     @Override
