@@ -62,7 +62,7 @@ public class Constants {
     public static final double intakeReverseSpeed = 0.05; //-0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double indexOnSpeed = 0; //20
+    public static final double indexOnSpeed = 20;
     public static final double indexOffSpeed = 0;
 
     public static final double kickerOnSpeed = 8; //15

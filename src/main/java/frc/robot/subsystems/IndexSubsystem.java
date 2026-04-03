@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
@@ -24,10 +25,12 @@ public class IndexSubsystem extends SubsystemBase {
   }
 
   public void start(){
+  SmartDashboard.putBoolean("Index", true);
    final VelocityVoltage m_request = new VelocityVoltage(Constants.indexOnSpeed).withSlot(0);
    IndexMotor.setControl(m_request.withVelocity(Constants.indexOnSpeed));
   }
   public void stop(){
+    SmartDashboard.putBoolean("Index", false);
    final VelocityVoltage m_request = new VelocityVoltage(Constants.indexOffSpeed).withSlot(0);
    IndexMotor.setControl(m_request.withVelocity(Constants.indexOffSpeed));
   }
