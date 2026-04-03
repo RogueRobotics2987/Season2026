@@ -58,8 +58,8 @@ public class Constants {
     public static final double intakeOutAngle = 0.38;
     public static final double intakeInAngle  = 0;
 
-    public static final double intakeStartSpeed = 0.6;
-    public static final double intakeReverseSpeed = -0.6;
+    public static final double intakeStartSpeed = 0.05; //0.6;
+    public static final double intakeReverseSpeed = 0.05; //-0.6;
     public static final double intakeStopSpeed = 0;
 
     public static final double indexOnSpeed = 0; //20
@@ -68,7 +68,7 @@ public class Constants {
     public static final double kickerOnSpeed = 8; //15
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 50;
+    public static double shooterOnSpeed = 5; //50;
     public static final double shooterOffSpeed = 0;
 
     public static final double shooterArmDisable = 0;

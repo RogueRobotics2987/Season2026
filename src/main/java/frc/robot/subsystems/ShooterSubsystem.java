@@ -39,7 +39,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final TalonFX motorKicker = new TalonFX(Constants.KickerCanID, "rio");
   private final TalonFX motorShooterWheels = new TalonFX(Constants.ShooterWheelsCanID, "rio");
   private final TalonFX followerMotorShooterWheels = new TalonFX(Constants.FollowerWheelsCanID, "rio");
-  public final TalonFX motorShooterArm = new TalonFX(Constants.ShooterElevationMotorCanID, "rio");
+  private final SparkMax m_shooterArmMotor = new SparkMax(Constants.ShooterElevationMotorCanID, MotorType.kBrushed);
+  private final SparkClosedLoopController m_shooterArmClosedLoopController = m_shooterArmMotor.getClosedLoopController();
 
   private double armAngle = 0.032; // remove?
   public double turretTrim = 0;
@@ -258,17 +259,14 @@ public class ShooterSubsystem extends SubsystemBase  {
       // double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
       // // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
 
-      // PositionVoltage m_elevationRequest = new PositionVoltage(elevationAngleRequest).withSlot(0);
-      // motorShooterArm.setControl(m_elevationRequest.withPosition(elevationAngleRequest));
+      // m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
 
       // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
-      // PositionVoltage m_elevationRequest = new PositionVoltage(CalculateShooterElevation(0)).withSlot(0);
-      // motorShooterArm.setControl(m_elevationRequest.withPosition(CalculateShooterElevation(0)));
-
+      // m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       // motorTurret.setControl(m_request.withPosition(0));
     }
