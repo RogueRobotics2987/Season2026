@@ -18,7 +18,7 @@ public class ApriltagSubsystem extends SubsystemBase {
 
   private CommandSwerveDrivetrain AT_driveTrain;
   private boolean apriltagAngle = true;
-  private boolean rejectUpdate = false;
+  // private boolean rejectUpdate = false;
   private boolean rejectUpdateLuke = false;
   private boolean rejectUpdateLauren = false;
   private boolean rejectUpdateLiberty = false;
@@ -48,12 +48,12 @@ public class ApriltagSubsystem extends SubsystemBase {
 
     // This method will be called once per scheduler run.
     try {
-      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+      // LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
       LimelightHelpers.PoseEstimate mt2_Luke = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-luke");
       LimelightHelpers.PoseEstimate mt2_Lauren = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-lauren");
       LimelightHelpers.PoseEstimate mt2_Liberty = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-liberty");
       // more code
-      LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      // LimelightHelpers.SetRobotOrientation("limelight", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.SetRobotOrientation("limelight-luke", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.SetRobotOrientation("limelight-lauren", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.SetRobotOrientation("limelight-liberty", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
@@ -61,73 +61,75 @@ public class ApriltagSubsystem extends SubsystemBase {
       // if (Math.abs(AT_driveTrain.get()) > 360) {
       //   rejectUpdate = true;
       // }
-      double aprilTagDistance = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight").avgTagDist;
-      double aprilTagDistanceLuke = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-luke").avgTagDist;
-      double aprilTagDistanceLauren = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-lauren").avgTagDist;
-      double aprilTagDistanceLiberty = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-liberty").avgTagDist;
+      // double aprilTagDistance = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight").avgTagDist;
+      // double aprilTagDistanceLuke = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-luke").avgTagDist;
+      // double aprilTagDistanceLauren = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-lauren").avgTagDist;
+      // double aprilTagDistanceLiberty = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-liberty").avgTagDist;
 
-      if(aprilTagDistance <= Constants.megaTag1MaxDistance){
-        LimelightHelpers.setPipelineIndex("limelight", 1);
-      }
-      else{
-        LimelightHelpers.setPipelineIndex("limelight", 2);
-      }
+      // if(aprilTagDistance <= Constants.megaTag1MaxDistance){
+      //   LimelightHelpers.setPipelineIndex("limelight", 1);
+      // }
+      // else{
+      //   LimelightHelpers.setPipelineIndex("limelight", 2);
+      // }
 
-      if (aprilTagDistanceLuke <= Constants.megaTag1MaxDistance){ // limelight luke
-        LimelightHelpers.setPipelineIndex("limelight-luke", 1);
-      }
-      else {
-        LimelightHelpers.setPipelineIndex("limelight-luke", 2);
-      }
+      // if (aprilTagDistanceLuke <= Constants.megaTag1MaxDistance){ // limelight luke
+      //   LimelightHelpers.setPipelineIndex("limelight-luke", 1);
+      // }
+      // else {
+      //   LimelightHelpers.setPipelineIndex("limelight-luke", 2);
+      // }
 
-      if (aprilTagDistanceLauren <= Constants.megaTag1MaxDistance){ // limelight lauren
-        LimelightHelpers.setPipelineIndex("limelight-lauren", 1);
-      }
-      else {
-        LimelightHelpers.setPipelineIndex("limelight-lauren", 2);
-      }
+      // if (aprilTagDistanceLauren <= Constants.megaTag1MaxDistance){ // limelight lauren
+      //   LimelightHelpers.setPipelineIndex("limelight-lauren", 1);
+      // }
+      // else {
+      //   LimelightHelpers.setPipelineIndex("limelight-lauren", 2);
+      // }
 
-      if (aprilTagDistanceLiberty <= Constants.megaTag1MaxDistance){ // limelight liberty
-        LimelightHelpers.setPipelineIndex("limelight-liberty", 1); // megatag 1 running at 640x400 at 240fps (generally hits around 180fps)
-      }
-      else {
-        LimelightHelpers.setPipelineIndex("limelight-liberty", 2); // megatag 2 running at 1280x800 at 120fps (generally hits around 60fps)
-      }
+      // if (aprilTagDistanceLiberty <= Constants.megaTag1MaxDistance){ // limelight liberty
+      //   LimelightHelpers.setPipelineIndex("limelight-liberty", 1); // megatag 1 running at 640x400 at 240fps (generally hits around 180fps)
+      // }
+      // else {
+      //   LimelightHelpers.setPipelineIndex("limelight-liberty", 2); // megatag 2 running at 1280x800 at 120fps (generally hits around 60fps)
+      // }
 
-      if (mt2.tagCount == 0) {
-        rejectUpdate = true;
-      }
+      //dumb code stupid ^^^
 
-      else {
-        rejectUpdate = false;
-      }
+      // if (mt2.tagCount == 0) {
+      //   rejectUpdate = true;
+      // }
 
-      if (!rejectUpdate) {
-        if(apriltagAngle == true){
-          LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+      // else {
+      //   rejectUpdate = false;
+      // }
 
-          AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
-          AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
-        } 
-        else {
-            AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
-            AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
-            // System.out.println("Yippee");
+      // if (!rejectUpdate) {
+      //   if(apriltagAngle == true){
+      //     LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
 
-            SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
-            SmartDashboard.putNumber("Limelight Y", mt2.pose.getY());
-            SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
+      //     AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
+      //     AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
+      //   } 
+      //   else {
+      //       AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
+      //       AT_driveTrain.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
+      //       // System.out.println("Yippee");
+
+      //       SmartDashboard.putNumber("Limelight X", mt2.pose.getX());
+      //       SmartDashboard.putNumber("Limelight Y", mt2.pose.getY());
+      //       SmartDashboard.putNumber("Limelight Rotation", mt2.pose.getRotation().getDegrees());
           
-          }
-      }  
-      if (mt2_Luke.tagCount == 0){ // limelight 3 Luke
+      //     }
+      // }  
+      if (mt2_Luke.tagCount == 0){ // limelight 4 Luke ip: 10.29.87.17
         rejectUpdateLuke = true;
       }
       else {
         rejectUpdateLuke = false;
       }
 
-      if (!rejectUpdateLuke){ //limelight 3 Luke
+      if (!rejectUpdateLuke){ //limelight 4 Luke
         if (apriltagAngle == true){
           LimelightHelpers.PoseEstimate mt1_Luke = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-luke");
 
@@ -142,7 +144,7 @@ public class ApriltagSubsystem extends SubsystemBase {
         }
       }
 
-      if (mt2_Lauren.tagCount == 0){ // limelight 4 Lauren
+      if (mt2_Lauren.tagCount == 0){ // limelight 4 Lauren ip: 10.29.87.16
         rejectUpdateLauren = true;
       }
       else {
@@ -163,7 +165,7 @@ public class ApriltagSubsystem extends SubsystemBase {
         }
       }
 
-      if (mt2_Liberty.tagCount == 0){ // limelight 4 Liberty
+      if (mt2_Liberty.tagCount == 0){ // limelight 4 Liberty ip: 10.29.87.202
         rejectUpdateLiberty = true;
       }
       else {
