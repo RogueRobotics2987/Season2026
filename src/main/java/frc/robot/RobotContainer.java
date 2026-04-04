@@ -63,7 +63,7 @@ public class RobotContainer {
 
     private final ShooterSubsystem turretSubsystem = new ShooterSubsystem(drivetrain);
 
-    public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    // public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
     public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
@@ -76,8 +76,8 @@ public class RobotContainer {
     private boolean brakeEnabled = false;
     public RobotContainer() {
 
-        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
+        //NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
+       // NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
         NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_IndexSubsystem ));
         NamedCommands.registerCommand("Zero Shooter", new LowerShooterCommand(turretSubsystem));
 
@@ -138,10 +138,10 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
        
-        joystick.leftTrigger().whileTrue(m_IntakeSubsystem.run(m_IntakeSubsystem::intakeOut));
+        //joystick.leftTrigger().whileTrue(m_IntakeSubsystem.run(m_IntakeSubsystem::intakeOut));
         //joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
-        joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
+        //joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
 
         // AuxJoystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::hopperOut));
