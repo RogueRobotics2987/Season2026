@@ -41,9 +41,9 @@ public class Constants {
     public static final double turretOffsetAngleRad = 2.5836;
 
     // Can IDs
-    public static final int intakeAngleArmMotorCanID = 14;
+    public static final int intakeAngleArmMotorCanID = 15;
     public static final int intakeAngleArmCanCoderCanID = 23;
-    public static final int intakeArmWheelMotorCanID = 15;
+    public static final int intakeArmWheelMotorCanID = 16;
 
     public static final int indexMotorCanID = 22;
     public static final int TurretCanID = 20;
