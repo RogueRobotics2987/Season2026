@@ -62,13 +62,13 @@ public class Constants {
     public static final double intakeReverseSpeed = -0.725; //-0.6;
     public static final double intakeStopSpeed = 0;
 
-    public static final double indexOnSpeed = 0; //20
+    public static final double indexOnSpeed = 20; //20
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 15; //15
+    public static final double kickerOnSpeed = 8; //15
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 30; //50;
+    public static double shooterOnSpeed = 50; //50;
     public static final double shooterOffSpeed = 0;
 
     public static final double shooterArmDisable = 0;
