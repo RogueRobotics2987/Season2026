@@ -79,43 +79,43 @@ public class ShooterSubsystem extends SubsystemBase  {
     // Set the follower motor. followerMotorShooterWheels follows motorShooterWheels.
     followerMotorShooterWheels.setControl(new Follower(motorShooterWheels.getDeviceID(), MotorAlignmentValue.Opposed));
 
-    SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
-    SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
-    SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    // SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
+    // SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
+    // SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
     SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
 
     ally = DriverStation.getAlliance();
-     SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
+    //  SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
   }
 
   public void ShooterTrimUp(){
     shooterTrim += 0.0001;
-    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ShooterTrimDown(){
     shooterTrim -= 0.0001;
-    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ResetShooterTrim(){
     shooterTrim = 0;
-    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void TurretTrimLeft(){
     turretTrim += 0.0001;
-    SmartDashboard.putNumber("Turret Trim", turretTrim);
+    // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
     turretTrim -= 0.0001;
-    SmartDashboard.putNumber("Turret Trim", turretTrim);
+    // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void ResetTurretTrim(){
     turretTrim = 0;
-    SmartDashboard.putNumber("Turret Trim", turretTrim);
+    // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void SetTarget(AimTarget NewTarget) {
@@ -153,7 +153,6 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   @Override
   public void periodic() {
-
     motorPose = motorTurret.getPosition();
     SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
     //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldnt tell brodie was here
@@ -168,7 +167,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     // Calculates the global postion of the turret anywhere on the field
     TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
     TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
-    SmartDashboard.putNumber("YawRad", RobotYawRad);
+    // SmartDashboard.putNumber("YawRad", RobotYawRad);
 
     if (ally.isPresent()) {
       if (ally.get() == Alliance.Red){
@@ -218,7 +217,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     // Calculates the turret angle for the target in rads
     turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
-    SmartDashboard.putNumber("rad Turret Angle Red Hub", turretAngleGlobal);
+    // SmartDashboard.putNumber("rad Turret Angle Red Hub", turretAngleGlobal);
 
     // Converts the turret angle in rads to motor rotation
     rotations = turretAngleGlobal / (2 * Math.PI);
@@ -226,29 +225,29 @@ public class ShooterSubsystem extends SubsystemBase  {
     rotations = rotations > 0.5 ? rotations - 1 : rotations;
     
     // SmartDashBoard Stuff
-    SmartDashboard.putNumber("Rotaions", rotations);
+    // SmartDashboard.putNumber("Rotaions", rotations);
 
-    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
-    SmartDashboard.putNumber("Turret Trim", turretTrim);
+    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    // SmartDashboard.putNumber("Turret Trim", turretTrim);
 
-    SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
+    // SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
 
     SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
 
-    SmartDashboard.putNumber("Z Distance to Hub", zDistance);
-    SmartDashboard.putNumber("Y Difference", yDifference);
-    SmartDashboard.putNumber("X Difference", xDifference);
+    // SmartDashboard.putNumber("Z Distance to Hub", zDistance);
+    // SmartDashboard.putNumber("Y Difference", yDifference);
+    // SmartDashboard.putNumber("X Difference", xDifference);
 
-    SmartDashboard.putNumber("Target X", targetX);
-    SmartDashboard.putNumber("Target Y", targetY);
+    // SmartDashboard.putNumber("Target X", targetX);
+    // SmartDashboard.putNumber("Target Y", targetY);
 
-    SmartDashboard.putNumber("Turret X Global", TurretXGlobal);
-    SmartDashboard.putNumber("Turret Y Global", TurretYGlobal);
+    // SmartDashboard.putNumber("Turret X Global", TurretXGlobal);
+    // SmartDashboard.putNumber("Turret Y Global", TurretYGlobal);
 
-    SmartDashboard.putNumber("Robot X", RobotX);
-    SmartDashboard.putNumber("Robot Y", RobotY);
+    // SmartDashboard.putNumber("Robot X", RobotX);
+    // SmartDashboard.putNumber("Robot Y", RobotY);
 
-    SmartDashboard.putString("Aim Target", Target.name());
+    // SmartDashboard.putString("Aim Target", Target.name());
 
     
     if(ShooterEnable == true) {

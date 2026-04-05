@@ -58,15 +58,13 @@ public class ApriltagSubsystem extends SubsystemBase {
 
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
           AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
-          SmartDashboard.putBoolean("Front Camera Accpet mt1", true);
         } else {
             AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
             AT_driveTrain.addVisionMeasurement(mt2_Front.pose, mt2_Front.timestampSeconds);
 
-            SmartDashboard.putNumber("Front Limelight X", mt2_Front.pose.getX());
-            SmartDashboard.putNumber("Front LimelightY", mt2_Front.pose.getY());
-            SmartDashboard.putNumber("Front Limelight Rotation", mt2_Front.pose.getRotation().getDegrees());
-            SmartDashboard.putBoolean("Front Camera Accpet mt1", false);
+            // SmartDashboard.putNumber("Front Limelight X", mt2_Front.pose.getX());
+            // SmartDashboard.putNumber("Front LimelightY", mt2_Front.pose.getY());
+            // SmartDashboard.putNumber("Front Limelight Rotation", mt2_Front.pose.getRotation().getDegrees());
         }
       }  
 
@@ -81,13 +79,13 @@ public class ApriltagSubsystem extends SubsystemBase {
         } else {
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
           AT_driveTrain.addVisionMeasurement(mt2_Back.pose, mt2_Back.timestampSeconds);
-          SmartDashboard.putNumber("Back Limelight X", mt2_Back.pose.getX());
-          SmartDashboard.putNumber("Back Limelight Y", mt2_Back.pose.getY());
+          // SmartDashboard.putNumber("Back Limelight X", mt2_Back.pose.getX());
+          // SmartDashboard.putNumber("Back Limelight Y", mt2_Back.pose.getY());
         }
       }
 
       rejectUpdateSide = mt2_Side == null || mt2_Side.tagCount == 0 ? true : false;
-      
+
       if (!rejectUpdateSide) {
         if (apriltagAngle == true) {
           mt1_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-side");
@@ -97,8 +95,8 @@ public class ApriltagSubsystem extends SubsystemBase {
         } else {
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
           AT_driveTrain.addVisionMeasurement(mt2_Back.pose, mt2_Side.timestampSeconds);
-          SmartDashboard.putNumber("Side Limelight X", mt2_Side.pose.getX());
-          SmartDashboard.putNumber("Side Limelight Y", mt2_Side.pose.getY());
+          // SmartDashboard.putNumber("Side Limelight X", mt2_Side.pose.getX());
+          // SmartDashboard.putNumber("Side Limelight Y", mt2_Side.pose.getY());
         }
       }
     } catch(Exception e) {
