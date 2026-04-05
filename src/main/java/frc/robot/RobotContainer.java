@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,8 +25,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
+import frc.robot.Constants;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ApriltagSubsystem;
@@ -175,9 +178,22 @@ public class RobotContainer {
         auxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        addRumbleTrigger(Constants.shift1_05, 1);
+        addRumbleTrigger(Constants.shift2_10, 0);
+        addRumbleTrigger(Constants.shift2_05, 1);
+        addRumbleTrigger(Constants.shift3_10, 0);
+        addRumbleTrigger(Constants.shift3_05, 1);
+        addRumbleTrigger(Constants.shift4_10, 0);
+        addRumbleTrigger(Constants.shift4_05, 1);
     }
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();  
+    }
+
+    private void addRumbleTrigger(double timeThreshold, int mode){
+        new Trigger(() -> Timer.getMatchTime() <- timeThreshold)
+            .onTrue(m_UtilitiesSubsystem.rumbleController(mode));
     }
 }
