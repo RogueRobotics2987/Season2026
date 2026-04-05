@@ -59,6 +59,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   public double turretTrim = 0;
   public double shooterTrim = 0;
+  private double armAngle = 0.032; // remove?
 
   public static enum AimTarget {
     AUTO,
@@ -81,6 +82,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
 
     ally = DriverStation.getAlliance();
      SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
@@ -265,6 +267,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     
     if(ShooterEnable == true) {
       double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
+      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }

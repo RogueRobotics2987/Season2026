@@ -4,21 +4,17 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import frc.robot.Constants;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+ /** Creates a new IntakeSubsystem. */
 public class IntakeSubsystem extends SubsystemBase {
-  /** Creates a new IntakeSubsystem. */
-  
   private final TalonFX intakeArmMotor = new TalonFX(Constants.intakeAngleArmMotorCanID, "rio");
   private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio");
+  
   public IntakeSubsystem() {
     
     // final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
