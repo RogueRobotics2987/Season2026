@@ -44,19 +44,19 @@ public class ApriltagSubsystem extends SubsystemBase {
 
     // This method will be called once per scheduler run.
     try {
-      LimelightHelpers.PoseEstimate mt2_Front = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Front"); // IP: 10.29.87.16
-      LimelightHelpers.PoseEstimate mt2_Back = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Back"); // IP: 10.29.87.202
-      LimelightHelpers.PoseEstimate mt2_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Side"); // IP: 10.29.87.17
+      LimelightHelpers.PoseEstimate mt2_Front = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front"); // IP: 10.29.87.16
+      LimelightHelpers.PoseEstimate mt2_Back = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-back"); // IP: 10.29.87.202
+      LimelightHelpers.PoseEstimate mt2_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-side"); // IP: 10.29.87.17
       // more code
-      LimelightHelpers.SetRobotOrientation("LimeLight_Front", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
-      LimelightHelpers.SetRobotOrientation("LimeLight_Back", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
-      LimelightHelpers.SetRobotOrientation("LimeLight_Side", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-front", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-back", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-side", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
       // if (Math.abs(AT_driveTrain.get()) > 360) {
       //   rejectUpdate = true;
       // }
 
-      if (mt2_Front.tagCount == 0) {
+      if (mt2_Front == null || mt2_Front.tagCount == 0) {
         rejectUpdate = true;
       }
 
@@ -66,7 +66,7 @@ public class ApriltagSubsystem extends SubsystemBase {
 
       if (!rejectUpdate) {
         if(apriltagAngle == true){
-          LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("LimeLight_Front");
+          LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-front");
 
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
           AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
@@ -83,7 +83,7 @@ public class ApriltagSubsystem extends SubsystemBase {
           }
       }  
 
-      if (mt2_Back.tagCount == 0){
+      if (mt2_Back == null || mt2_Back.tagCount == 0){
         rejectUpdateBack = true;
       }
       else {
@@ -92,7 +92,7 @@ public class ApriltagSubsystem extends SubsystemBase {
 
       if (!rejectUpdateBack){
         if (apriltagAngle == true){
-          LimelightHelpers.PoseEstimate mt1_Back = LimelightHelpers.getBotPoseEstimate_wpiBlue("LimeLight_Back");
+          LimelightHelpers.PoseEstimate mt1_Back = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-back");
 
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
           AT_driveTrain.addVisionMeasurement(mt1_Back.pose, mt1_Back.timestampSeconds);
@@ -105,7 +105,7 @@ public class ApriltagSubsystem extends SubsystemBase {
         }
       }
 
-      if (mt2_Side.tagCount == 0){
+      if (mt2_Side == null || mt2_Side.tagCount == 0){
         rejectUpdateSide = true;
       }
       else {
@@ -114,7 +114,7 @@ public class ApriltagSubsystem extends SubsystemBase {
 
       if (!rejectUpdateSide){
         if (apriltagAngle == true){
-          LimelightHelpers.PoseEstimate mt1_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue("LimeLight_Side");
+          LimelightHelpers.PoseEstimate mt1_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-side");
 
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
           AT_driveTrain.addVisionMeasurement(mt1_Side.pose, mt1_Side.timestampSeconds);
@@ -127,8 +127,8 @@ public class ApriltagSubsystem extends SubsystemBase {
         }
       }
 
-    } catch(NullPointerException e){
-      //System.out.println("Catch error: " + e.toString());
+    } catch(Exception e){
+      // System.out.println("Catch error: " + e.toString());
     }
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);
