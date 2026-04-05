@@ -266,8 +266,8 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     
     if(ShooterEnable == true) {
-      double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
-      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
+      // double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
+      double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
