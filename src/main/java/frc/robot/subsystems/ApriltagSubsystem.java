@@ -15,12 +15,12 @@ public class ApriltagSubsystem extends SubsystemBase {
   private boolean rejectUpdateBack = false;
   private boolean rejectUpdateSide = false;
   
-  LimelightHelpers.PoseEstimate mt2_Front;
-  LimelightHelpers.PoseEstimate mt2_Back;
-  LimelightHelpers.PoseEstimate mt2_Side;
-  LimelightHelpers.PoseEstimate mt1;
-  LimelightHelpers.PoseEstimate mt1_Back;
-  LimelightHelpers.PoseEstimate mt1_Side;
+  private LimelightHelpers.PoseEstimate mt2_Front;
+  private LimelightHelpers.PoseEstimate mt2_Back;
+  private LimelightHelpers.PoseEstimate mt2_Side;
+  private LimelightHelpers.PoseEstimate mt1;
+  private LimelightHelpers.PoseEstimate mt1_Back;
+  private LimelightHelpers.PoseEstimate mt1_Side;
 
   private final Field2d field = new Field2d();
 
