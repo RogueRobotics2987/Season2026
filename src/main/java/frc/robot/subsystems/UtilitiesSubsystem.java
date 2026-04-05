@@ -68,31 +68,23 @@ public class UtilitiesSubsystem extends SubsystemBase {
             }
         }
 
-        
-
         // Shift was is active for blue if red won auto, or red if blue won auto.
          shift1Active = switch (alliance.get()) {
             case Red -> !redInactiveFirst;
             case Blue -> redInactiveFirst;
         };
 
-        if (matchTime > 130) {
-            // Transition shift, hub is active.
+        if (matchTime > 130) { // Transition shift, hub is active.
             return true;
-        } else if (matchTime > 105) {
-            // Shift 1
+        } else if (matchTime > 105) {  // Shift 1
             return shift1Active;
-        } else if (matchTime > 80) {
-            // Shift 2
+        } else if (matchTime > 80) { // Shift 2
             return !shift1Active;
-        } else if (matchTime > 55) {
-            // Shift 3
+        } else if (matchTime > 55) { // Shift 3
             return shift1Active;
-        } else if (matchTime > 30) {
-            // Shift 4
+        } else if (matchTime > 30) { // Shift 4
             return !shift1Active;
-        } else {
-            // End game, hub always active.
+        } else { // End game, hub always active.
             return true;
         }
     }
