@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import java.time.*;
 
 public class ApriltagSubsystem extends SubsystemBase {
   private CommandSwerveDrivetrain AT_driveTrain;
@@ -51,11 +50,7 @@ public class ApriltagSubsystem extends SubsystemBase {
       LimelightHelpers.SetRobotOrientation("limelight-back", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.SetRobotOrientation("limelight-side", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
-      if (mt2_Front == null || mt2_Front.tagCount == 0) {
-        rejectUpdate = true;
-      } else {
-        rejectUpdate = false;
-      }
+      rejectUpdate = mt2_Front == null || mt2_Front.tagCount == 0 ? true : false;
 
       if (!rejectUpdate) {
         if (apriltagAngle == true) {
@@ -63,23 +58,17 @@ public class ApriltagSubsystem extends SubsystemBase {
 
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
           AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
-          SmartDashboard.putBoolean("Front Camera Accpet mt1", true);
         } else {
             AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
             AT_driveTrain.addVisionMeasurement(mt2_Front.pose, mt2_Front.timestampSeconds);
 
-            SmartDashboard.putNumber("Front Limelight X", mt2_Front.pose.getX());
-            SmartDashboard.putNumber("Front LimelightY", mt2_Front.pose.getY());
-            SmartDashboard.putNumber("Front Limelight Rotation", mt2_Front.pose.getRotation().getDegrees());
-            SmartDashboard.putBoolean("Front Camera Accpet mt1", false);
+            // SmartDashboard.putNumber("Front Limelight X", mt2_Front.pose.getX());
+            // SmartDashboard.putNumber("Front LimelightY", mt2_Front.pose.getY());
+            // SmartDashboard.putNumber("Front Limelight Rotation", mt2_Front.pose.getRotation().getDegrees());
         }
       }  
 
-      if (mt2_Back == null || mt2_Back.tagCount == 0) {
-        rejectUpdateBack = true;
-      } else {
-        rejectUpdateBack = false;
-      }
+      rejectUpdateBack = mt2_Back == null || mt2_Back.tagCount == 0 ? true : false;
 
       if (!rejectUpdateBack) {
         if (apriltagAngle == true) {
@@ -90,16 +79,12 @@ public class ApriltagSubsystem extends SubsystemBase {
         } else {
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
           AT_driveTrain.addVisionMeasurement(mt2_Back.pose, mt2_Back.timestampSeconds);
-          SmartDashboard.putNumber("Back Limelight X", mt2_Back.pose.getX());
-          SmartDashboard.putNumber("Back Limelight Y", mt2_Back.pose.getY());
+          // SmartDashboard.putNumber("Back Limelight X", mt2_Back.pose.getX());
+          // SmartDashboard.putNumber("Back Limelight Y", mt2_Back.pose.getY());
         }
       }
 
-      if (mt2_Side == null || mt2_Side.tagCount == 0) {
-        rejectUpdateSide = true;
-      } else {
-        rejectUpdateSide = false;
-      }
+      rejectUpdateSide = mt2_Side == null || mt2_Side.tagCount == 0 ? true : false;
 
       if (!rejectUpdateSide) {
         if (apriltagAngle == true) {
@@ -110,8 +95,8 @@ public class ApriltagSubsystem extends SubsystemBase {
         } else {
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
           AT_driveTrain.addVisionMeasurement(mt2_Back.pose, mt2_Side.timestampSeconds);
-          SmartDashboard.putNumber("Side Limelight X", mt2_Side.pose.getX());
-          SmartDashboard.putNumber("Side Limelight Y", mt2_Side.pose.getY());
+          // SmartDashboard.putNumber("Side Limelight X", mt2_Side.pose.getX());
+          // SmartDashboard.putNumber("Side Limelight Y", mt2_Side.pose.getY());
         }
       }
     } catch(Exception e) {
