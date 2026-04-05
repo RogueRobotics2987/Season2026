@@ -21,13 +21,13 @@ public class IntakeSubsystem extends SubsystemBase {
   private final TalonFX intakeWheelMotor = new TalonFX(Constants.intakeArmWheelMotorCanID, "rio");
   public IntakeSubsystem() {
     
-    final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
+    // final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
+    // intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
   }
   public void intakeOut() {
 
-    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+    // final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+    // intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
     //intakeArmMotor.set(0.1);
     intakeWheelMotor.set(Constants.intakeStartSpeed);
 
@@ -41,8 +41,8 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public void intakeIn() {
   
-    final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
+    // final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
+    // intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
 
