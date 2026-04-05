@@ -10,21 +10,17 @@ import edu.wpi.first.units.measure.Angle;
 import java.util.Optional;
 
 import com.ctre.phoenix6.StatusSignal;
-import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
-import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import java.lang.Math;
 
 import frc.robot.Constants;
@@ -43,7 +39,24 @@ public class ShooterSubsystem extends SubsystemBase  {
   private final SparkMax m_shooterArmMotor = new SparkMax(Constants.ShooterElevationMotorCanID, MotorType.kBrushless);
   private final SparkClosedLoopController m_shooterArmClosedLoopController = m_shooterArmMotor.getClosedLoopController();
 
-  private double armAngle = 0.032; // remove?
+  private VelocityVoltage m_kickerRequest;
+  private VelocityVoltage m_shooterRequest;
+  private StatusSignal <Angle> motorPose;
+  private double RobotX;
+  private double RobotY;
+  private double RobotYawRad;
+  private double TurretXGlobal;
+  private double TurretYGlobal;
+  private double targetX = 1;
+  private double targetY = 0;
+  private double xDifference;
+  private double yDifference;
+  private double zDistance;
+  private double turretAngleGlobal;
+  private double rotations;
+  private final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+  private SwerveDriveState swerveDriveState;
+
   public double turretTrim = 0;
   public double shooterTrim = 0;
 
@@ -52,7 +65,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     LEFT,
     RIGHT
   }
- 
 
   private AimTarget Target = AimTarget.AUTO;
 
@@ -69,12 +81,9 @@ public class ShooterSubsystem extends SubsystemBase  {
     SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
-    SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
-
 
     ally = DriverStation.getAlliance();
      SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
-
   }
 
   public void ShooterTrimUp(){
@@ -123,15 +132,15 @@ public class ShooterSubsystem extends SubsystemBase  {
     double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); //15?
     double ShooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed);
 
-    final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
-    final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+    m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
+    m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
     motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
   }
 
   public void StopREV() {
-    final VelocityVoltage m_kickerRequest = new VelocityVoltage(Constants.kickerOffSpeed).withSlot(0);
-    final VelocityVoltage m_shooterRequest = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
+    m_kickerRequest = new VelocityVoltage(Constants.kickerOffSpeed).withSlot(0);
+    m_shooterRequest = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
     motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOffSpeed));
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(Constants.shooterOffSpeed));
   }
@@ -155,22 +164,21 @@ public class ShooterSubsystem extends SubsystemBase  {
   @Override
   public void periodic() {
 
-    StatusSignal <Angle> motorPose = motorTurret.getPosition();
+    motorPose = motorTurret.getPosition();
     SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
     //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldnt tell brodie was here
 
+    swerveDriveState = T_driveTrain.getState();
+
     // Gets Robot X, Y, Yaw
-    double RobotX = T_driveTrain.getState().Pose.getX();
-    double RobotY = T_driveTrain.getState().Pose.getY();
-    double RobotYawRad = T_driveTrain.getState().Pose.getRotation().getRadians();
+    RobotX = swerveDriveState.Pose.getX();
+    RobotY = swerveDriveState.Pose.getY();
+    RobotYawRad = swerveDriveState.Pose.getRotation().getRadians();
 
     // Calculates the global postion of the turret anywhere on the field
-    double TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
-    double TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
+    TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
+    TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
     SmartDashboard.putNumber("YawRad", RobotYawRad);
-
-    double targetX = 1;
-    double targetY = 0;
 
     if (ally.isPresent()) {
       if (ally.get() == Alliance.Red){
@@ -213,17 +221,17 @@ public class ShooterSubsystem extends SubsystemBase  {
     }
 
     // Calculates the difference in the X, Y for the target
-    double xDifference = targetX - TurretXGlobal;
-    double yDifference = targetY - TurretYGlobal;
+    xDifference = targetX - TurretXGlobal;
+    yDifference = targetY - TurretYGlobal;
 
-    double zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
+    zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
 
     // Calculates the turret angle for the target in rads
-    double turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
+    turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
     SmartDashboard.putNumber("rad Turret Angle Red Hub", turretAngleGlobal);
 
     // Converts the turret angle in rads to motor rotation
-    double rotations = turretAngleGlobal / (2 * Math.PI);
+    rotations = turretAngleGlobal / (2 * Math.PI);
     
     if(rotations > 0.5) {
       rotations = rotations - 1;
@@ -256,19 +264,13 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     
     if(ShooterEnable == true) {
-      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle) + shooterTrim;
       double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
-      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
-
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
       m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
       motorTurret.setControl(m_request.withPosition(0));
     }
   }
