@@ -55,7 +55,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
-    private final CommandXboxController AuxJoystick = new CommandXboxController(1);
+    private final CommandXboxController auxJoystick = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -67,7 +67,7 @@ public class RobotContainer {
 
     public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
-    // private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
+    private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem(joystick, auxJoystick);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -151,28 +151,28 @@ public class RobotContainer {
         // AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
 
 
-        AuxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
-        AuxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
+        auxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
+        auxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
        
-        AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
-        AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+        auxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        auxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
 
 
-        AuxJoystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
-        AuxJoystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
-        AuxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
+        auxJoystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
+        auxJoystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
+        auxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
         
-        AuxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
-        AuxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
-        AuxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
+        auxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        auxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        auxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
 
 
-        AuxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
-        AuxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
+        auxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
+        auxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
 
-        AuxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
-        AuxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
-        AuxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
+        auxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
+        auxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
+        auxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }
