@@ -36,7 +36,7 @@ public class UtilitiesSubsystem extends SubsystemBase {
 
     public boolean isHubActive(double matchTime) {
         // If we have no alliance, we cannot be enabled, therefore no hub.
-        if(alliance.isEmpty()){
+        if(alliance == null || alliance.isEmpty()){
             alliance = DriverStation.getAlliance();
             return false;
         }
@@ -54,19 +54,21 @@ public class UtilitiesSubsystem extends SubsystemBase {
         // We're teleop enabled, compute.
         // If we have no game data, we cannot compute, assume hub is active, as its likely early in teleop.
         //TODO Verify this assumtion is correct CKuoppala
-        if (gameData.isEmpty()) {
+        if (gameData == null || gameData.isEmpty()) {
             gameData = DriverStation.getGameSpecificMessage();
             return true;
-        }
-
-        switch (gameData.charAt(0)) {
-            case 'R' -> redInactiveFirst = true;
-            case 'B' -> redInactiveFirst = false;
-            default -> {
-                // If we have invalid game data, assume hub is active.
-                return true;
+        } else {
+            switch (gameData.charAt(0)) {
+                case 'R' -> redInactiveFirst = true;
+                case 'B' -> redInactiveFirst = false;
+                default -> {
+                    // If we have invalid game data, assume hub is active.
+                    return true;
+                }
             }
         }
+
+        
 
         // Shift was is active for blue if red won auto, or red if blue won auto.
          shift1Active = switch (alliance.get()) {
