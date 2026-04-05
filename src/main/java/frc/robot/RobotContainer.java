@@ -65,7 +65,7 @@ public class RobotContainer {
 
     // public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
-    // public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
+    public final IndexSubsystem m_IndexSubsystem = new IndexSubsystem();
 
     // private final UtilitiesSubsystem m_UtilitiesSubsystem = new UtilitiesSubsystem();
 
@@ -76,8 +76,8 @@ public class RobotContainer {
     private boolean brakeEnabled = false;
     public RobotContainer() {
 
-        //NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
-       // NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
+        // NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
+        // NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
         NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_IndexSubsystem ));
         NamedCommands.registerCommand("Zero Shooter", new LowerShooterCommand(turretSubsystem));
 
@@ -138,8 +138,8 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
        
-        //joystick.leftTrigger().whileTrue(m_IntakeSubsystem.run(m_IntakeSubsystem::intakeOut));
-        //joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
+        // joystick.leftTrigger().whileTrue(m_IntakeSubsystem.run(m_IntakeSubsystem::intakeOut));
+        // joystick.leftTrigger().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeIn));
         
         //joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
@@ -151,8 +151,8 @@ public class RobotContainer {
         // AuxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeOff));
 
 
-        // AuxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
-        // AuxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
+        AuxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
+        AuxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
        
         AuxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
         AuxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 

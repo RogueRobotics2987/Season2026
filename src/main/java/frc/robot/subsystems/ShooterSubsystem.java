@@ -125,7 +125,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
     final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
-    motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
+    // motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
   }
 
@@ -225,8 +225,8 @@ public class ShooterSubsystem extends SubsystemBase  {
     // Converts the turret angle in rads to motor rotation
     double rotations = turretAngleGlobal / (2 * Math.PI);
     
-    if(rotations < 0) {
-      rotations = rotations + 1;
+    if(rotations > 0.5) {
+      rotations = rotations - 1;
     }
     
     // SmartDashBoard Stuff
@@ -262,14 +262,14 @@ public class ShooterSubsystem extends SubsystemBase  {
 
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
 
-      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
       m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-      // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-      // motorTurret.setControl(m_request.withPosition(0));
+      final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+      motorTurret.setControl(m_request.withPosition(0));
     }
   }
 }

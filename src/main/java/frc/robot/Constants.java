@@ -55,8 +55,8 @@ public class Constants {
     public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.21;
-    public static final double intakeInAngle  = -0.07;
+    public static final double intakeOutAngle = 0.243;
+    public static final double intakeInAngle  = 0;
 
     public static final double intakeStartSpeed = 0.725; //0.6;
     public static final double intakeReverseSpeed = -0.725; //-0.6;
@@ -68,7 +68,7 @@ public class Constants {
     public static final double kickerOnSpeed = 8; //15
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 50; //50;
+    public static double shooterOnSpeed = 35; //50;
     public static final double shooterOffSpeed = 0;
 
     public static final double shooterArmDisable = 0;
