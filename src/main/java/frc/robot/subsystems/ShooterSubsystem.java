@@ -89,12 +89,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void ShooterTrimUp(){
-    shooterTrim = shooterTrim + 0.0001;
+    shooterTrim += 0.0001;
     SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ShooterTrimDown(){
-    shooterTrim = shooterTrim - 0.0001;
+    shooterTrim -= 0.0001;
     SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
@@ -104,12 +104,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void TurretTrimLeft(){
-    turretTrim = turretTrim + 0.0001;
+    turretTrim += 0.0001;
     SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
-    turretTrim = turretTrim - 0.0001;
+    turretTrim -= 0.0001;
     SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
@@ -223,9 +223,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     // Converts the turret angle in rads to motor rotation
     rotations = turretAngleGlobal / (2 * Math.PI);
     
-    if(rotations > 0.5) {
-      rotations = rotations - 1;
-    }
+    rotations = rotations > 0.5 ? rotations - 1 : rotations;
     
     // SmartDashBoard Stuff
     SmartDashboard.putNumber("Rotaions", rotations);

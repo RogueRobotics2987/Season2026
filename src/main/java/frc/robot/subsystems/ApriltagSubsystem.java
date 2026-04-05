@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import java.time.*;
 
 public class ApriltagSubsystem extends SubsystemBase {
   private CommandSwerveDrivetrain AT_driveTrain;
@@ -51,11 +50,7 @@ public class ApriltagSubsystem extends SubsystemBase {
       LimelightHelpers.SetRobotOrientation("limelight-back", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.SetRobotOrientation("limelight-side", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
-      if (mt2_Front == null || mt2_Front.tagCount == 0) {
-        rejectUpdate = true;
-      } else {
-        rejectUpdate = false;
-      }
+      rejectUpdate = mt2_Front == null || mt2_Front.tagCount == 0 ? true : false;
 
       if (!rejectUpdate) {
         if (apriltagAngle == true) {
@@ -75,11 +70,7 @@ public class ApriltagSubsystem extends SubsystemBase {
         }
       }  
 
-      if (mt2_Back == null || mt2_Back.tagCount == 0) {
-        rejectUpdateBack = true;
-      } else {
-        rejectUpdateBack = false;
-      }
+      rejectUpdateBack = mt2_Back == null || mt2_Back.tagCount == 0 ? true : false;
 
       if (!rejectUpdateBack) {
         if (apriltagAngle == true) {
@@ -95,12 +86,8 @@ public class ApriltagSubsystem extends SubsystemBase {
         }
       }
 
-      if (mt2_Side == null || mt2_Side.tagCount == 0) {
-        rejectUpdateSide = true;
-      } else {
-        rejectUpdateSide = false;
-      }
-
+      rejectUpdateSide = mt2_Side == null || mt2_Side.tagCount == 0 ? true : false;
+      
       if (!rejectUpdateSide) {
         if (apriltagAngle == true) {
           mt1_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-side");
