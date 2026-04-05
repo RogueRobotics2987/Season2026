@@ -44,9 +44,9 @@ public class ApriltagSubsystem extends SubsystemBase {
 
     // This method will be called once per scheduler run.
     try {
-      LimelightHelpers.PoseEstimate mt2_Front = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Front");
-      LimelightHelpers.PoseEstimate mt2_Back = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Back");
-      LimelightHelpers.PoseEstimate mt2_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Side");
+      LimelightHelpers.PoseEstimate mt2_Front = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Front"); // IP: 10.29.87.16
+      LimelightHelpers.PoseEstimate mt2_Back = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Back"); // IP: 10.29.87.202
+      LimelightHelpers.PoseEstimate mt2_Side = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("LimeLight_Side"); // IP: 10.29.87.17
       // more code
       LimelightHelpers.SetRobotOrientation("LimeLight_Front", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.SetRobotOrientation("LimeLight_Back", AT_driveTrain.getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
@@ -70,6 +70,7 @@ public class ApriltagSubsystem extends SubsystemBase {
 
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,3));
           AT_driveTrain.addVisionMeasurement(mt1.pose, mt1.timestampSeconds); 
+          SmartDashboard.putBoolean("Front Camera Accpet mt1", true);
         } 
         else {
             AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
@@ -78,6 +79,7 @@ public class ApriltagSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Front Limelight X", mt2_Front.pose.getX());
             SmartDashboard.putNumber("Front LimelightY", mt2_Front.pose.getY());
             SmartDashboard.putNumber("Front Limelight Rotation", mt2_Front.pose.getRotation().getDegrees());
+            SmartDashboard.putBoolean("Front Camera Accpet mt1", false);
           }
       }  
 
@@ -126,7 +128,7 @@ public class ApriltagSubsystem extends SubsystemBase {
       }
 
     } catch(NullPointerException e){
-      //System.out.println("Catch in mt2" + e.toString());
+      //System.out.println("Catch error: " + e.toString());
     }
     field.setRobotPose((AT_driveTrain.getState().Pose));
     SmartDashboard.putData("Pose", field);

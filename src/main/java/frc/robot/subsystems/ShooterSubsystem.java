@@ -125,7 +125,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     final VelocityVoltage m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0); // COREY SAID COULD BE MEMBER VARIBLES
     final VelocityVoltage m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
-    // motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
+    motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
   }
 

@@ -65,7 +65,7 @@ public class Constants {
     public static final double indexOnSpeed = 20;
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 8; //15
+    public static final double kickerOnSpeed = 15; //15
     public static final double kickerOffSpeed = 0;
 
     public static double shooterOnSpeed = 35; //50;
