@@ -81,7 +81,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     // SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     // SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
-    // SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
     SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
 
     ally = DriverStation.getAlliance();
