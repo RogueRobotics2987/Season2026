@@ -58,7 +58,7 @@ public class Constants {
 
     // PID setpoints
     public static final double intakeOutAngle = 0.243;
-    public static final double intakeFeedAngle = 0.1; // TODO: Find the perfect setpoint.
+    public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
     public static final double intakeInAngle  = 0;
 
     public static final double intakeStartSpeed = 0.725; // 0.725
