@@ -136,6 +136,8 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   // TODO: Get more point/shots closer and further away.
   // TODO: Try passing and see if we want/need a different shooter curve for passing.
+
+  // polynomial degree: 2
   public static double CalculateShooterArmAngle(double Distance) {
     double[] coeffs = new double[] { -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
     double y = 0.0;
@@ -145,6 +147,17 @@ public class ShooterSubsystem extends SubsystemBase  {
     return y;
   }
 
+  //TODO: Test this shooter curve.
+  // polynomial degree: 3 (This one looks like a better curve on the graph)
+  // public static double CalculateShooterArmAngle(double Distance) {
+  //   coeffs = [0.00000518068357795517, -0.00204870423989741, 0.290772984959802, -6.71675436758993]
+  //   y = 0.0
+  //   for c in coeffs:
+  //       y = y * Distance + c
+  //   return y
+  // }
+
+  // polynomial degree: 2
   public static double CalculateShooterWheelSpeed(double Distance) {
     double[] coeffs = new double[] { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
     double y = 0.0;
@@ -153,6 +166,16 @@ public class ShooterSubsystem extends SubsystemBase  {
     }
     return y;
   }
+
+  // TODO: Test this shooter curve.
+  // polynomial degree: 3 (This one looks like a better curve on the graph)
+  // public static double CalculateShooterWheelSpeed(double Distance) {
+  //   coeffs = [-0.0000354529153824041, 0.0129527546023751, -1.36375527625008, 83.1657428816752]
+  //   y = 0.0
+  //   for c in coeffs:
+  //       y = y * Distance + c
+  //   return y
+  // }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
     double KickerSpeed = Constants.kickerOnSpeed; // SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); [This is used to manualy control the speed]
