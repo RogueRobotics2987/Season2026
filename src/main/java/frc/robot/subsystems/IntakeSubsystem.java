@@ -7,9 +7,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.Delayed;
-
 import org.opencv.core.Mat;
 
 import com.ctre.phoenix6.StatusSignal;
@@ -18,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
  /** Creates a new IntakeSubsystem. */
 public class IntakeSubsystem extends SubsystemBase {
