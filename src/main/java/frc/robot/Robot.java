@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
+        //TODO: commented out to test robot periodic timing, will comment back in if needed
         // m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run(); 
     }
