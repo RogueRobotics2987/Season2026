@@ -130,9 +130,31 @@ public class ShooterSubsystem extends SubsystemBase  {
     ShooterEnable = true;
   }
 
+  // public double CalculateShooterElevation(double Distance) {
+  //   return (-244.2500163983830000000 + 18.33245249610840000000 * Distance + -0.61129148599016500000000000 * Math.pow(Distance, 2) + 0.01191623128273760000000000 * Math.pow(Distance, 3) + -0.00015029375962969700000000 * Math.pow(Distance, 4) + 0.00000128096529744011000000 * Math.pow(Distance, 5) + -0.00000000746980202580367000 * Math.pow(Distance, 6) + 0.000000000029425639296377200000 * Math.pow(Distance, 7) + -0.000000000000074946047543541000 * Math.pow(Distance, 8) + 0.000000000000000111470318010063 * Math.pow(Distance, 9) + -0.000000000000000000073545502934 * Math.pow(Distance, 10)) * 1000;
+  // }
+
+  public static double CalculateShooterArmAngle(double Distance) {
+    double[] coeffs = new double[] { -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
+    double y = 0.0;
+    for (int i = 0; i < coeffs.length; i++) {
+      y = y * Distance + coeffs[i];
+    }
+    return y;
+  }
+
+  public static double CalculateShooterWheelSpeed(double Distance) {
+    double[] coeffs = new double[] { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
+    double y = 0.0;
+    for (int i = 0; i < coeffs.length; i++) {
+      y = y * Distance + coeffs[i];
+    }
+    return y;
+  }
+
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
-    double KickerSpeed = SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed);
-    double ShooterSpeed = SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed);
+    double KickerSpeed = Constants.kickerOnSpeed; // SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); [This is used to manualy control the speed]
+    double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
 
     m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0);
     m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
@@ -145,10 +167,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     m_shooterRequest = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
     motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOffSpeed));
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(Constants.shooterOffSpeed));
-  }
-
-  public double CalculateShooterElevation(double Distance) {
-    return (-244.2500163983830000000 + 18.33245249610840000000 * Distance + -0.61129148599016500000000000 * Math.pow(Distance, 2) + 0.01191623128273760000000000 * Math.pow(Distance, 3) + -0.00015029375962969700000000 * Math.pow(Distance, 4) + 0.00000128096529744011000000 * Math.pow(Distance, 5) + -0.00000000746980202580367000 * Math.pow(Distance, 6) + 0.000000000029425639296377200000 * Math.pow(Distance, 7) + -0.000000000000074946047543541000 * Math.pow(Distance, 8) + 0.000000000000000111470318010063 * Math.pow(Distance, 9) + -0.000000000000000000073545502934 * Math.pow(Distance, 10)) * 1000;
   }
 
   @Override
@@ -232,7 +250,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     // SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
 
-    SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
+    // SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
 
     // SmartDashboard.putNumber("Z Distance to Hub", zDistance);
     // SmartDashboard.putNumber("Y Difference", yDifference);
@@ -251,10 +269,11 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     
     if(ShooterEnable == true) {
-      // double elevationAngleRequest = CalculateShooterElevation(zDistance) + shooterTrim;
-      double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle);
+      double elevationAngleRequest = CalculateShooterArmAngle(zDistance) + shooterTrim;
+      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); [This is used to manualy control the Shooter Arm Angle]
+
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
+      // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
