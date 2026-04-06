@@ -135,7 +135,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   // }
 
   // TODO: Get more point/shots closer and further away.
-  // TODO: Try passing and see if we want/need a different shooter curve for it.
+  // TODO: Try passing and see if we want/need a different shooter curve for passing.
   public static double CalculateShooterArmAngle(double Distance) {
     double[] coeffs = new double[] { -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
     double y = 0.0;
@@ -193,36 +193,36 @@ public class ShooterSubsystem extends SubsystemBase  {
       if (ally.get() == Alliance.Red){
         targetX = Constants.redHubX;
         targetY = Constants.redHubY;
-        Constants.shooterOnSpeed = 50;
+        // Constants.shooterOnSpeed = 40;
 
         if (Target == AimTarget.LEFT) {
           targetX = Constants.redPassLeftX;
           targetY = Constants.redPassLeftY;
-          Constants.shooterOnSpeed = 40;
+          // Constants.shooterOnSpeed = 30;
         }
 
         if (Target == AimTarget.RIGHT) {
           targetX = Constants.redPassRightX;
           targetY = Constants.redPassRightY;
-          Constants.shooterOnSpeed = 40;
+          // Constants.shooterOnSpeed = 30;
         }
       }
 
       if (ally.get() == Alliance.Blue) {
         targetX = Constants.blueHubX;
         targetY = Constants.blueHubY;
-        Constants.shooterOnSpeed = 50;
+        // Constants.shooterOnSpeed = 40;
         
         if (Target == AimTarget.RIGHT) {
           targetX = Constants.bluePassRightX;
           targetY = Constants.bluePassRightY;
-          Constants.shooterOnSpeed = 40;
+          // Constants.shooterOnSpeed = 30;
         }
 
         if (Target == AimTarget.LEFT) {
           targetX = Constants.bluePassLeftX;
           targetY = Constants.bluePassLeftY;
-          Constants.shooterOnSpeed = 40;
+          // Constants.shooterOnSpeed = 30;
         }
       }
     } else {
