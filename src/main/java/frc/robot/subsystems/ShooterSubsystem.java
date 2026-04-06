@@ -134,6 +134,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   //   return (-244.2500163983830000000 + 18.33245249610840000000 * Distance + -0.61129148599016500000000000 * Math.pow(Distance, 2) + 0.01191623128273760000000000 * Math.pow(Distance, 3) + -0.00015029375962969700000000 * Math.pow(Distance, 4) + 0.00000128096529744011000000 * Math.pow(Distance, 5) + -0.00000000746980202580367000 * Math.pow(Distance, 6) + 0.000000000029425639296377200000 * Math.pow(Distance, 7) + -0.000000000000074946047543541000 * Math.pow(Distance, 8) + 0.000000000000000111470318010063 * Math.pow(Distance, 9) + -0.000000000000000000073545502934 * Math.pow(Distance, 10)) * 1000;
   // }
 
+  // TODO: get more point/shots closer and further away.
   public static double CalculateShooterArmAngle(double Distance) {
     double[] coeffs = new double[] { -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
     double y = 0.0;

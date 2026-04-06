@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+
 import org.opencv.core.Mat;
 
 import com.ctre.phoenix6.StatusSignal;
@@ -14,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
  /** Creates a new IntakeSubsystem. */
 public class IntakeSubsystem extends SubsystemBase {
@@ -40,6 +44,18 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeArmTargetPosition = Constants.intakeInAngle;
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
+  }
+
+  // TODO: Add delays between intake arm up and down.
+  public void intakeFeed() {
+    intakeWheelMotor.set(Constants.intakeStartSpeed);
+    intakeArmTargetPosition = Constants.intakeFeedAngle;
+    PositionVoltage m_request = new PositionVoltage(Constants.intakeFeedAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request);
+    // delay here
+    m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request);
+    // delay here
   }
 
   public void intakeOn() {

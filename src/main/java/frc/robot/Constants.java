@@ -36,7 +36,9 @@ public class Constants {
     // The X, Y turret offset on the robot in meters
     public static final double turretOffsetX = -155575; // set to 0.00635 for roomba testing
     public static final double turretOffsetY = 0.1016; // set to -0.10695 for roomba testing
-    public static final double turretOffsetH = 0.20263; // these three values are calculated from turretOffsetX and TurretOffsetY
+
+    // TODO: Ask Corey or Jeff about what these are used for and if we need to change them for the new robot.
+    public static final double turretOffsetH = 0.20263; // these three values are calculated from turretOffsetX and TurretOffsetY 
     public static final double turretOffsetAngle = 31.971;
     public static final double turretOffsetAngleRad = 2.5836;
 
@@ -56,19 +58,20 @@ public class Constants {
 
     // PID setpoints
     public static final double intakeOutAngle = 0.243;
+    public static final double intakeFeedAngle = 0.1; // TODO: Find the perfect setpoint.
     public static final double intakeInAngle  = 0;
 
-    public static final double intakeStartSpeed = 0.725; //0.6;
-    public static final double intakeReverseSpeed = -0.725; //-0.6;
+    public static final double intakeStartSpeed = 0.725; // 0.725
+    public static final double intakeReverseSpeed = -0.725; // -0.725
     public static final double intakeStopSpeed = 0;
 
-    public static final double indexOnSpeed = 75; //75
+    public static final double indexOnSpeed = 100; // 75 [trying a speed of 100 to try and maximize shots]
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 75; //75
+    public static final double kickerOnSpeed = 75; // 75
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 40; //40
+    public static double shooterOnSpeed = 40; // 40
     public static final double shooterOffSpeed = 0;
 
     public static final double shooterArmDisable = 0;
