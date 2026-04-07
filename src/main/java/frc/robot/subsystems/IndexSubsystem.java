@@ -36,3 +36,27 @@ public class IndexSubsystem extends SubsystemBase {
   }
 }
 
+// Replace 'm_armMotor' with your TalonFX object name
+//var motorState = m_armMotor.getStickyFaultField().getValue();
+//var controlStatus = m_armMotor.getAppliedControl().toString();
+
+// 1. Check for Hardware Limit Switches (even if not physically there)
+//boolean forwardLimit = m_armMotor.getForwardLimit().getValue() == ForwardLimitValue.ClosedToGround;
+//boolean reverseLimit = m_armMotor.getReverseLimit().getValue() == ReverseLimitValue.ClosedToGround;
+
+// 2. Check for Software Limits
+//boolean forwardSoftLimit = m_armMotor.getFault_ForwardSoftLimit().getValue();
+//boolean reverseSoftLimit = m_armMotor.getFault_ReverseSoftLimit().getValue();
+
+// 3. Log to SmartDashboard for easy viewing
+//SmartDashboard.putBoolean("Arm/Forward Limit Trig", forwardLimit);
+//SmartDashboard.putBoolean("Arm/Reverse Limit Trig", reverseLimit);
+//SmartDashboard.putBoolean("Arm/Forward Soft Limit Trig", forwardSoftLimit);
+//SmartDashboard.putBoolean("Arm/Reverse Soft Limit Trig", reverseSoftLimit);
+//SmartDashboard.putNumber("Arm/Current Position", m_armMotor.getPosition().getValueAsDouble());
+
+// 4. Print if a limit is actively killing power (The Red Blink)
+//if (forwardLimit || reverseLimit || forwardSoftLimit || reverseSoftLimit) {
+//    System.out.println("KRAKEN HALTED: Limit Triggered! Check Tuner X Configs.");
+//}
+
