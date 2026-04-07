@@ -35,12 +35,12 @@ public class Constants {
     
     // The X, Y turret offset on the robot in meters
     public static final double turretOffsetX = -155575; // set to 0.00635 for roomba testing
-    public static final double turretOffsetY = 0.1016; // set to -0.10695 for roomba testing
+    public static final double turretOffsetY = -0.1016; // set to -0.10695 for roomba testing
 
     // TODO: Ask Corey or Jeff about what these are used for and if we need to change them for the new robot.
-    public static final double turretOffsetH = 0.20263; // these three values are calculated from turretOffsetX and TurretOffsetY 
-    public static final double turretOffsetAngle = 31.971;
-    public static final double turretOffsetAngleRad = 2.5836;
+    public static final double turretOffsetH = 0.1858; // h = -/(x)^2 + (y)^2  -/ means square root
+    public static final double turretOffsetAngle = 33.15;
+    public static final double turretOffsetAngleRad = 0.579; // angleRad = tan^-1(y/x)
 
     // Can IDs
     public static final int intakeAngleArmMotorCanID = 15;
@@ -68,7 +68,7 @@ public class Constants {
     public static final double indexOnSpeed = 100; // 75 [trying a speed of 100 to try and maximize shots]
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 75; // 75
+    public static final double kickerOnSpeed = 100; // 75
     public static final double kickerOffSpeed = 0;
 
     public static double shooterOnSpeed = 40; // 40
