@@ -135,8 +135,8 @@ public class RobotContainer {
         //TODO: TEST INTAKE IN AND OUT, POSITIONS, AND VOLTAGE TOLERANCES.
         //TODO: (Once done with the intake feed function) Test intake feed function.
        
-        // joystick.leftTrigger().whileTrue(m_IntakeSubsystem.getIntakeOutCommand());
-        // joystick.leftTrigger().onFalse(m_IntakeSubsystem.getIntakeInCommand());
+        joystick.leftTrigger().whileTrue(m_IntakeSubsystem.getIntakeOutCommand());
+        joystick.leftTrigger().onFalse(m_IntakeSubsystem.getIntakeInCommand());
         
         //joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
