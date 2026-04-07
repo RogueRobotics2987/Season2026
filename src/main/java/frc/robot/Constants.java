@@ -57,9 +57,11 @@ public class Constants {
     public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.243;
-    public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
+    public static final double intakeOutAngle = -0.2;//0.243;
     public static final double intakeInAngle  = 0;
+    // at "home" or zero it is at -0.393 rotations and all the way out is -0.593
+    //Cancoder reads "home" is 0 rotations and out is -0.2
+     public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
 
     public static final double intakeStartSpeed = 0.725; // 0.725
     public static final double intakeReverseSpeed = -0.725; // -0.725
@@ -91,5 +93,5 @@ public class Constants {
 
     public static final double armCurrentThreshold = 15.0; //TODO: tune this
     public static final int overCurrentCycle = 5;
-    public static final double intakeArmPositionTolerance = 0.05; //TODO: tune this
+    public static final double intakeArmPositionTolerance = 0.01; //TODO: tune this
 }

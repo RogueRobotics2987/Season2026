@@ -11,6 +11,7 @@ import org.opencv.core.Mat;
 
 import com.ctre.phoenix6.StatusSignal;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
@@ -26,6 +27,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean armStalled = false;
   private double intakeArmTargetPosition = 0.0;
   private double currentPosition = 0.0;
+  private boolean forwardSoftLimit = false;
+  private boolean reverseSoftLimit = false;
 
   
   public IntakeSubsystem() {}
@@ -69,18 +72,20 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeWheelMotor.set(Constants.intakeReverseSpeed);
   }
   
-  public boolean isArmStalled(){
+  public boolean isArmStalled() {
     return armStalled;
   }
 
-  public void clearStall(){
+  public void clearStall() {
     armStalled = false;
     overCurrentCount = 0;
   }
 
   public boolean isIntakeArmAtTarget(){
     currentPosition = intakeArmMotor.getPosition().getValueAsDouble();
-    return Math.abs(currentPosition - intakeArmTargetPosition) < Constants.intakeArmPositionTolerance;
+    boolean atTarget = Math.abs(currentPosition - intakeArmTargetPosition) < Constants.intakeArmPositionTolerance;
+    SmartDashboard.putBoolean("Intake at target", atTarget);
+    return atTarget;
   }
 
   public Command getIntakeOutCommand(){
@@ -95,11 +100,30 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putString("Active Command", this.getCurrentCommand().getName().toString());
+    SmartDashboard.putNumber("Intake Arm Motor Voltage", intakeArmMotor.getMotorVoltage().getValueAsDouble());
     armCurrent = intakeArmMotor.getStatorCurrent().getValueAsDouble();
+    SmartDashboard.putBoolean("Volt Spike", armStalled);
+
+    // 2. Check for Software Limits
+    forwardSoftLimit = intakeArmMotor.getFault_ForwardSoftLimit().getValue();
+    reverseSoftLimit = intakeArmMotor.getFault_ReverseSoftLimit().getValue();
+
+    // 3. Log to SmartDashboard for easy viewing
+    //SmartDashboard.putBoolean("Arm/Forward Limit Trig", forwardLimit);
+    //SmartDashboard.putBoolean("Arm/Reverse Limit Trig", reverseLimit);
+    SmartDashboard.putBoolean("Arm/Forward Soft Limit Trig", forwardSoftLimit);
+    SmartDashboard.putBoolean("Arm/Reverse Soft Limit Trig", reverseSoftLimit);
+    SmartDashboard.putNumber("Arm/Current Position", intakeArmMotor.getPosition().getValueAsDouble());
+
+    // 4. Print if a limit is actively killing power (The Red Blink)
+    if (forwardSoftLimit || reverseSoftLimit) {
+        System.out.println("KRAKEN HALTED: Limit Triggered! Check Tuner X Configs.");
+    }
 
     if (armCurrent > Constants.armCurrentThreshold) {
       overCurrentCount++;
-      if (overCurrentCount >= Constants.armCurrentThreshold) {
+      if (overCurrentCount >= Constants.overCurrentCycle) {
         intakeArmMotor.set(0); // Kill the motor immediately
         armStalled = true;
       }
