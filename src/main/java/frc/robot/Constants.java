@@ -91,5 +91,5 @@ public class Constants {
 
     public static final double armCurrentThreshold = 15.0; //TODO: tune this
     public static final int overCurrentCycle = 5;
-    public static final double intakeArmPositionTolerance = 0.05; //TODO: tune this
+    public static final double intakeArmPositionTolerance = 0.01; //TODO: tune this
 }
