@@ -94,7 +94,7 @@ public class ApriltagSubsystem extends SubsystemBase {
           AT_driveTrain.addVisionMeasurement(mt1_Side.pose, mt1_Side.timestampSeconds);
         } else {
           AT_driveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,99999999)); 
-          AT_driveTrain.addVisionMeasurement(mt2_Back.pose, mt2_Side.timestampSeconds);
+          AT_driveTrain.addVisionMeasurement(mt2_Side.pose, mt2_Side.timestampSeconds);
           // SmartDashboard.putNumber("Side Limelight X", mt2_Side.pose.getX());
           // SmartDashboard.putNumber("Side Limelight Y", mt2_Side.pose.getY());
         }

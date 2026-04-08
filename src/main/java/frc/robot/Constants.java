@@ -57,7 +57,7 @@ public class Constants {
     public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.22;
+    public static final double intakeOutAngle = 0.246;
     public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
     public static final double intakeInAngle  = 0;
 
@@ -65,7 +65,7 @@ public class Constants {
     public static final double intakeReverseSpeed = -0.725; // -0.725
     public static final double intakeStopSpeed = 0;
 
-    public static final double indexOnSpeed = 100; // 75 [trying a speed of 100 to try and maximize shots]
+    public static final double indexOnSpeed = 85; // 75 [trying a speed of 100 to try and maximize shots]
     public static final double indexOffSpeed = 0;
 
     public static final double kickerOnSpeed = 100; // 75

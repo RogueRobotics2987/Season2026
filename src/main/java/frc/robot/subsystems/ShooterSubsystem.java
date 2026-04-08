@@ -139,43 +139,23 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   // polynomial degree: 2
   public static double CalculateShooterArmAngle(double Distance) {
-    double[] coeffs = new double[] { -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
-    double y = 0.0;
+    double[] coeffs = new double[] { -6.035101436077553e-8, 0.0000349912528441702, -0.00736187207442231, 0.688750116125717, -16.7063305092175 }; // { -4.099336833060573e-8, 0.0000239012179501468, -0.00503738332108565, 0.478908001536328, -9.84271516887961 }; // { -0.00031712809409377, 0.0914666401428832, 1.50742600505378 }; //{ -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
+    double y = 0.0;//                new semi fake curve ^                                                                                                           untested fake curve ^                                                                                 orginal -10 in curve ^                                           orginal curve ^
     for (int i = 0; i < coeffs.length; i++) {
       y = y * Distance + coeffs[i];
     }
     return y;
   }
-
-  //TODO: Test this shooter curve.
-  // polynomial degree: 3 (This one looks like a better curve on the graph)
-  // public static double CalculateShooterArmAngle(double Distance) {
-  //   coeffs = [0.00000518068357795517, -0.00204870423989741, 0.290772984959802, -6.71675436758993]
-  //   y = 0.0
-  //   for c in coeffs:
-  //       y = y * Distance + c
-  //   return y
-  // }
 
   // polynomial degree: 2
   public static double CalculateShooterWheelSpeed(double Distance) {
-    double[] coeffs = new double[] { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
-    double y = 0.0;
+    double[] coeffs = new double[] { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
+    double y = 0.0; //                new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve ^
     for (int i = 0; i < coeffs.length; i++) {
       y = y * Distance + coeffs[i];
     }
     return y;
   }
-
-  // TODO: Test this shooter curve.
-  // polynomial degree: 3 (This one looks like a better curve on the graph)
-  // public static double CalculateShooterWheelSpeed(double Distance) {
-  //   coeffs = [-0.0000354529153824041, 0.0129527546023751, -1.36375527625008, 83.1657428816752]
-  //   y = 0.0
-  //   for c in coeffs:
-  //       y = y * Distance + c
-  //   return y
-  // }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
     double KickerSpeed = Constants.kickerOnSpeed; // SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); [This is used to manualy control the speed]
@@ -265,7 +245,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     // Converts the turret angle in rads to motor rotation
     rotations = turretAngleGlobal / (2 * Math.PI);
     
-    rotations = rotations > 0.5 ? rotations - 1 : rotations;
+    rotations = rotations < 0 ? rotations + 1 : rotations;
     
     // SmartDashBoard Stuff
     // SmartDashboard.putNumber("Rotaions", rotations);
@@ -295,10 +275,10 @@ public class ShooterSubsystem extends SubsystemBase  {
     
     if(ShooterEnable == true) {
       double elevationAngleRequest = CalculateShooterArmAngle(zDistance) + shooterTrim;
-      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); [This is used to manualy control the Shooter Arm Angle]
+      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); // [This is used to manualy control the Shooter Arm Angle]
 
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-      // motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
+      motorTurret.setControl(m_request.withPosition(rotations + turretTrim));
     }
 
     if(ShooterEnable == false) {
