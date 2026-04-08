@@ -60,7 +60,7 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   public double turretTrim = 0;
   public double shooterTrim = 0;
-  private double armAngle = 0.032; // remove?
+  private double armAngle = 0.032;
 
   public static enum AimTarget {
     AUTO,
@@ -77,7 +77,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   public ShooterSubsystem(CommandSwerveDrivetrain T_driveTrain) {
     this.T_driveTrain = T_driveTrain;
 
-    // Set the follower motor. followerMotorShooterWheels follows motorShooterWheels.
+    // Sets the follower motor. followerMotorShooterWheels follows motorShooterWheels.
     followerMotorShooterWheels.setControl(new Follower(motorShooterWheels.getDeviceID(), MotorAlignmentValue.Opposed));
 
     // SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
@@ -148,10 +148,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   //   return (-244.2500163983830000000 + 18.33245249610840000000 * Distance + -0.61129148599016500000000000 * Math.pow(Distance, 2) + 0.01191623128273760000000000 * Math.pow(Distance, 3) + -0.00015029375962969700000000 * Math.pow(Distance, 4) + 0.00000128096529744011000000 * Math.pow(Distance, 5) + -0.00000000746980202580367000 * Math.pow(Distance, 6) + 0.000000000029425639296377200000 * Math.pow(Distance, 7) + -0.000000000000074946047543541000 * Math.pow(Distance, 8) + 0.000000000000000111470318010063 * Math.pow(Distance, 9) + -0.000000000000000000073545502934 * Math.pow(Distance, 10)) * 1000;
   // }
 
-  // TODO: Get more point/shots closer and further away.
   // TODO: Try passing and see if we want/need a different shooter curve for passing.
-
-  // polynomial degree: 2
   public static double CalculateShooterArmAngle(double Distance) {
     double[] coeffs = new double[] { -6.035101436077553e-8, 0.0000349912528441702, -0.00736187207442231, 0.688750116125717, -16.7063305092175 }; // { -4.099336833060573e-8, 0.0000239012179501468, -0.00503738332108565, 0.478908001536328, -9.84271516887961 }; // { -0.00031712809409377, 0.0914666401428832, 1.50742600505378 }; //{ -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
     double y = 0.0;//                new semi fake curve ^                                                                                                           untested fake curve ^                                                                                 orginal -10 in curve ^                                           orginal curve ^
@@ -161,7 +158,6 @@ public class ShooterSubsystem extends SubsystemBase  {
     return y;
   }
 
-  // polynomial degree: 2
   public static double CalculateShooterWheelSpeed(double Distance) {
     double[] coeffs = new double[] { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
     double y = 0.0; //                new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve ^
@@ -192,7 +188,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   public void periodic() {
     motorPose = motorTurret.getPosition();
     SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
-    //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldnt tell brodie was here
+    //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldn't tell brodie was here
 
     swerveDriveState = T_driveTrain.getState();
 

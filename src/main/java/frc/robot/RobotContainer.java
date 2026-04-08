@@ -138,7 +138,7 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
-        //TODO: TEST INTAKE IN AND OUT, POSITIONS, AND VOLTAGE TOLERANCES.
+        //TODO: TEST INTAKE IN AND OUT, POSITIONS, AND VOLTAGE TOLERANCES. <- Done?
         //TODO: (Once done with the intake feed function) Test intake feed function.
        
         joystick.leftTrigger().whileTrue(m_IntakeSubsystem.getIntakeOutCommand());

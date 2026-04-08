@@ -31,13 +31,10 @@ public class Constants {
     // The X, Y coordinates for Blue Passing Right in meters
     public static final double bluePassRightX = 2.000;
     public static final double bluePassRightY = 1.500;
-
     
     // The X, Y turret offset on the robot in meters
     public static final double turretOffsetX = -155575; // set to 0.00635 for roomba testing
     public static final double turretOffsetY = -0.1016; // set to -0.10695 for roomba testing
-
-    // TODO: Ask Corey or Jeff about what these are used for and if we need to change them for the new robot.
     public static final double turretOffsetH = 0.1858; // h = -/(x)^2 + (y)^2  -/ means square root
     public static final double turretOffsetAngle = 33.15;
     public static final double turretOffsetAngleRad = 0.579; // angleRad = tan^-1(y/x)
