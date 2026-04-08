@@ -20,13 +20,13 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public IntakeSubsystem() {}
   public void intakeOut() {
-    // intakeWheelMotor.set(Constants.intakeStartSpeed);
+    intakeWheelMotor.set(Constants.intakeStartSpeed);
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
   }
 
   public void intakeIn() {
-    // intakeWheelMotor.set(Constants.intakeStopSpeed);
+    intakeWheelMotor.set(Constants.intakeStopSpeed);
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
   }
@@ -57,11 +57,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public Command getIntakeOutCommand(){
-    return this.runOnce(() -> { intakeOut(); intakeOn(); });
+    return this.runOnce(() -> { intakeOut();});
   }
 
   public Command getIntakeInCommand(){
-    return this.runOnce(() -> { intakeOff(); intakeIn(); });
+    return this.runOnce(() -> { intakeIn(); });
   }
 
   @Override
