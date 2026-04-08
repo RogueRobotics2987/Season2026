@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
@@ -29,12 +30,25 @@ public class IndexSubsystem extends SubsystemBase {
    final VelocityVoltage m_request = new VelocityVoltage(Constants.indexOnSpeed).withSlot(0);
    IndexMotor.setControl(m_request.withVelocity(Constants.indexOnSpeed));
   }
+
+  public void startBackward(){
+   final VelocityVoltage m_request = new VelocityVoltage(Constants.indexReverseSpeed).withSlot(0);
+   IndexMotor.setControl(m_request.withVelocity(Constants.indexReverseSpeed));
+  }
+
   public void stop(){
     // SmartDashboard.putBoolean("Index", false);
    final VelocityVoltage m_request = new VelocityVoltage(Constants.indexOffSpeed).withSlot(0);
    IndexMotor.setControl(m_request.withVelocity(Constants.indexOffSpeed));
   }
+
+   public Command getStartBackwardsCommand(){
+    return this.runOnce(() -> { startBackward(); });
+  }
+
 }
+
+
 
 // Replace 'm_armMotor' with your TalonFX object name
 //var motorState = m_armMotor.getStickyFaultField().getValue();

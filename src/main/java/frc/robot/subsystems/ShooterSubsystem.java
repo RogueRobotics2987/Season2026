@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.units.measure.Angle;
 
@@ -128,6 +129,19 @@ public class ShooterSubsystem extends SubsystemBase  {
 
   public void EnableShooter() {
     ShooterEnable = true;
+  }
+
+  public void RunBeltsBackwards() {
+    m_kickerRequest = new VelocityVoltage(Constants.kickerReverseSpeed).withSlot(0);
+    motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerReverseSpeed));
+  }
+
+  public void stopKicker() {
+   motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOffSpeed));
+  }
+
+  public Command getRunBeltsBackwardsCommand() {
+    return this.runOnce(() -> { RunBeltsBackwards(); });
   }
 
   // public double CalculateShooterElevation(double Distance) {

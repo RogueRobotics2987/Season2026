@@ -147,8 +147,12 @@ public class RobotContainer {
         //joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
 
-        // auxJoystick.rightBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeFeed));
-        // auxJoystick.rightBumper().onFalse(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeFeed));
+        auxJoystick.rightBumper()
+            .whileTrue(turretSubsystem.getRunBeltsBackwardsCommand()
+            .alongWith(m_IndexSubsystem.getStartBackwardsCommand()));
+        auxJoystick.rightBumper()
+            .onFalse(turretSubsystem.runOnce(turretSubsystem::stopKicker)
+            .alongWith(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop)));
 
         auxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
         auxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
