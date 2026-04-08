@@ -30,22 +30,13 @@ public class ShooterCommand extends Command {
     //check to see if turret is at the angle its said to move to
     //if(Turretpose error <= #) { //make sure the turret PID error is small enough to make shot // line up blue or red
     m_shooterSubsystem.StartREV();
-    /* } else {
-      //dont run if turret is not lined up
-      }
-    */
-    try{
-      Thread.sleep(500);
-      }catch(InterruptedException e){}
-   
     m_indexSubsystem.start(); 
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

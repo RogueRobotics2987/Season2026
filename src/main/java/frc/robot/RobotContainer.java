@@ -32,6 +32,10 @@ import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.UtilitiesSubsystem;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.LowerShooterCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeInCommand;
+import frc.robot.commands.RaiseShooterCommand;
+
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -71,10 +75,12 @@ public class RobotContainer {
     private boolean brakeEnabled = false;
     public RobotContainer() {
 
-        // NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
-        // NamedCommands.registerCommand("Retreat intake", new RetreatIntakeCommand(m_IntakeSubsystem));
+        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
+        NamedCommands.registerCommand("Intake In", new IntakeInCommand(m_IntakeSubsystem));
         NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_IndexSubsystem));
         NamedCommands.registerCommand("Zero Shooter", new LowerShooterCommand(turretSubsystem));
+        NamedCommands.registerCommand("Raise Shooter", new RaiseShooterCommand(turretSubsystem));
+
 
         configureBindings();
         autoChooser = AutoBuilder.buildAutoChooser();
