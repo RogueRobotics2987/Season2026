@@ -159,6 +159,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public static double CalculateShooterWheelSpeed(double Distance) {
+    Distance = Math.abs(Distance);
     double[] coeffs = new double[] { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
     double y = 0.0; //                new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve or -10 in curve ^
     for (int i = 0; i < coeffs.length; i++) {
