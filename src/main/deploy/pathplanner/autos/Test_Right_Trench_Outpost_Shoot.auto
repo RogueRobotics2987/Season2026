@@ -24,19 +24,25 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Right_Intake_Neutral"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Intake"
+                  "pathName": "Neutral_Right_Move"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Right_Intake_Neutral"
+                  "name": "Intake In"
                 }
               }
             ]
@@ -45,24 +51,11 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Neutral_Right_Move"
+            "pathName": "Neutral_Move_Right"
           }
         },
         {
           "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Neutral_Move_Right"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -76,14 +69,14 @@
                 "data": {
                   "waitTime": 0.5
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot"
-                }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]
