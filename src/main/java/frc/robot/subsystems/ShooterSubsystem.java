@@ -57,6 +57,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   private double rotations;
   private final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
   private SwerveDriveState swerveDriveState;
+  private boolean Shoot = false;
 
   public double turretTrim = 0;
   public double shooterTrim = 0;
@@ -90,12 +91,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void ShooterTrimUp(){
-    shooterTrim += 0.0001;
+    shooterTrim += 0.025;
     // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ShooterTrimDown(){
-    shooterTrim -= 0.0001;
+    shooterTrim -= 0.025;
     // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
@@ -165,17 +166,15 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
+    Shoot = true;
     double KickerSpeed = Constants.kickerOnSpeed; // SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); [This is used to manualy control the speed]
-    double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
-    ShooterSpeed = Math.abs(ShooterSpeed);
 
     m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0);
-    m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
     motorKicker.setControl(m_kickerRequest.withVelocity(KickerSpeed));
-    motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
   }
 
   public void StopREV() {
+    Shoot = false;
     m_kickerRequest = new VelocityVoltage(Constants.kickerOffSpeed).withSlot(0);
     m_shooterRequest = new VelocityVoltage(Constants.shooterOffSpeed).withSlot(0);
     motorKicker.setControl(m_kickerRequest.withVelocity(Constants.kickerOffSpeed));
@@ -285,6 +284,12 @@ public class ShooterSubsystem extends SubsystemBase  {
     if(ShooterEnable == true) {
       double elevationAngleRequest = CalculateShooterArmAngle(zDistance) + shooterTrim;
       // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); // [This is used to manualy control the Shooter Arm Angle]
+      if (Shoot = true) {
+        double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
+        ShooterSpeed = Math.abs(ShooterSpeed);
+        m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+        motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
+      }
 
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       motorTurret.setControl(m_request.withPosition(rotations + turretTrim)); // TODO: Fix turret aiming error of being either to far left or right.
