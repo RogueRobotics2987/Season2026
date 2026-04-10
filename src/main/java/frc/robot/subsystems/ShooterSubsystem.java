@@ -284,7 +284,7 @@ public class ShooterSubsystem extends SubsystemBase  {
     if(ShooterEnable == true) {
       double elevationAngleRequest = CalculateShooterArmAngle(zDistance) + shooterTrim;
       // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); // [This is used to manualy control the Shooter Arm Angle]
-      if (Shoot = true) {
+      if (Shoot == true) {
         double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
         ShooterSpeed = Math.abs(ShooterSpeed);
         m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
