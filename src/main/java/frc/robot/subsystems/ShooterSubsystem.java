@@ -171,6 +171,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
     double KickerSpeed = Constants.kickerOnSpeed; // SmartDashboard.getNumber("Kicker Speed", Constants.kickerOnSpeed); [This is used to manualy control the speed]
     double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
+    ShooterSpeed = Math.abs(ShooterSpeed);
 
     m_kickerRequest = new VelocityVoltage(KickerSpeed).withSlot(0);
     m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
