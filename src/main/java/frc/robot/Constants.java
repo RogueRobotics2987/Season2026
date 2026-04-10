@@ -54,7 +54,7 @@ public class Constants {
     public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.195;
+    public static final double intakeOutAngle = 0.2;
     public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
     public static final double intakeInAngle  = 0;
 
