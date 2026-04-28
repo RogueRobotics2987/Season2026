@@ -106,12 +106,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void TurretTrimLeft(){
-    turretTrim += 0.0001;
+    turretTrim += 0.05;
     // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
-    turretTrim -= 0.0001;
+    turretTrim -= 0.05;
     // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
@@ -146,24 +146,24 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   // TODO: Try passing and see if we want/need a different shooter curve for passing.
-  public static double CalculateShooterArmAngle(double Distance) {
-    double[] coeffs = new double[] { -6.035101436075545e-8, 0.0000374052934185901, -0.00844782026836158, 0.846726337524652, -24.365613640898 }; // { -6.035101436077553e-8, 0.0000349912528441702, -0.00736187207442231, 0.688750116125717, -16.7063305092175 }; // { -4.099336833060573e-8, 0.0000239012179501468, -0.00503738332108565, 0.478908001536328, -9.84271516887961 }; // { -0.00031712809409377, 0.0914666401428832, 1.50742600505378 }; //{ -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
-    double y = 0.0;//                new semi fake curve ^                                                                                                           untested fake curve ^                                                                                 orginal -10 in curve ^                                           orginal curve ^
-    for (int i = 0; i < coeffs.length; i++) {
-      y = y * Distance + coeffs[i];
-    }
-    return y;
-  }
+  // public static double CalculateShooterArmAngle(double Distance) {
+  //   double[] coeffs = new double[] { -6.035101436075545e-8, 0.0000374052934185901, -0.00844782026836158, 0.846726337524652, -24.365613640898 }; // { -6.035101436077553e-8, 0.0000349912528441702, -0.00736187207442231, 0.688750116125717, -16.7063305092175 }; // { -4.099336833060573e-8, 0.0000239012179501468, -0.00503738332108565, 0.478908001536328, -9.84271516887961 }; // { -0.00031712809409377, 0.0914666401428832, 1.50742600505378 }; //{ -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
+  //   double y = 0.0;//                new semi fake curve ^                                                                                                           untested fake curve ^                                                                                 orginal -10 in curve ^                                           orginal curve ^
+  //   for (int i = 0; i < coeffs.length; i++) {
+  //     y = y * Distance + coeffs[i];
+  //   }
+  //   return y;
+  // }
 
-  public static double CalculateShooterWheelSpeed(double Distance) {
-    Distance = Math.abs(Distance);
-    double[] coeffs = new double[] { 0.00000269098598337347, -0.00128183799256672, 0.397407382298784, 12.0197750357969 }; // { -4.019650136329579e-9, 0.000002714566323836, -0.000715285651934125, 0.0915898387077836, -5.47388226056847, 157.133466347824 }; // { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
-    double y = 0.0; //                                                                                                                                                                                                                                                           new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve or -10 in curve ^
-    for (int i = 0; i < coeffs.length; i++) {
-      y = y * Distance + coeffs[i];
-    }
-    return y;
-  }
+  // public static double CalculateShooterWheelSpeed(double Distance) {
+  //   Distance = Math.abs(Distance);
+  //   double[] coeffs = new double[] { 0.00000269098598337347, -0.00128183799256672, 0.397407382298784, 12.0197750357969 }; // { -4.019650136329579e-9, 0.000002714566323836, -0.000715285651934125, 0.0915898387077836, -5.47388226056847, 157.133466347824 }; // { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
+  //   double y = 0.0; //                                                                                                                                                                                                                                                           new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve or -10 in curve ^
+  //   for (int i = 0; i < coeffs.length; i++) {
+  //     y = y * Distance + coeffs[i];
+  //   }
+  //   return y;
+  // }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
     Shoot = true;
@@ -282,10 +282,10 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     
     if(ShooterEnable == true) {
-      double elevationAngleRequest = CalculateShooterArmAngle(zDistance) + shooterTrim;
+      double elevationAngleRequest = shooterTrim; // CalculateShooterArmAngle(zDistance) + shooterTrim;
       // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); // [This is used to manualy control the Shooter Arm Angle]
       if (Shoot == true) {
-        double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
+        double ShooterSpeed = 20; // CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
         ShooterSpeed = Math.abs(ShooterSpeed);
         m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
         motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
