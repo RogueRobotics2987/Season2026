@@ -292,7 +292,7 @@ public class ShooterSubsystem extends SubsystemBase  {
       }
 
       m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-      motorTurret.setControl(m_request.withPosition(rotations + turretTrim)); // TODO: Fix turret aiming error of being either to far left or right.
+      motorTurret.setControl(m_request.withPosition(turretTrim)); // TODO: Fix turret aiming error of being either to far left or right.
     }
 
     if(ShooterEnable == false) {
