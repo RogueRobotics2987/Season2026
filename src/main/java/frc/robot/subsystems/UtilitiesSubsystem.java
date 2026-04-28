@@ -97,34 +97,34 @@ public class UtilitiesSubsystem extends SubsystemBase {
     } // end of periodic
 
     // command to rumble according to specific remaining shift time, 10 sec (0), and 5 sec (1) remaining
-    public Command rumbleController(int mode) {
-        if (mode == 0) {
-            return singleRumble(1.0);
-        }
-        else if (mode == 1) {
-            return Commands.sequence(
-                singleRumble(0.5),
-                Commands.waitSeconds(0.2),
-                singleRumble(0.5)
-            );
-        }
+    // public Command rumbleController(int mode) {  marked for death
+    //     if (mode == 0) {
+    //         return singleRumble(1.0);
+    //     }
+    //     else if (mode == 1) {
+    //         return Commands.sequence(
+    //             singleRumble(0.5),
+    //             Commands.waitSeconds(0.2),
+    //             singleRumble(0.5)
+    //         );
+    //     }
 
-        return Commands.none();
-    } // closes runbleController
+    //     return Commands.none();
+    // } // closes runbleController
 
     // function for a single rumble, can be set to 1 sec or half (0.5) sec
-    private Command singleRumble(double length) {
-        return Commands.startEnd(
-        () -> {
-            _joystick.setRumble(RumbleType.kBothRumble, 1.0);
-            _auxJoystick.setRumble(RumbleType.kBothRumble, 1.0);
+    // private Command singleRumble(double length) { marked for death
+    //     return Commands.startEnd(
+    //     () -> {
+    //         _joystick.setRumble(RumbleType.kBothRumble, 1.0);
+    //         _auxJoystick.setRumble(RumbleType.kBothRumble, 1.0);
 
-        },
-        () -> {
-            _joystick.setRumble(RumbleType.kBothRumble, 0.0);
-            _auxJoystick.setRumble(RumbleType.kBothRumble, 0.0);
-        }
-        ) .withTimeout(length);
-    } // closes singleRumble
+    //     },
+    //     () -> {
+    //         _joystick.setRumble(RumbleType.kBothRumble, 0.0);
+    //         _auxJoystick.setRumble(RumbleType.kBothRumble, 0.0);
+    //     }
+    //     ) .withTimeout(length);
+    // } // closes singleRumble
 
 }  // closes subsystem

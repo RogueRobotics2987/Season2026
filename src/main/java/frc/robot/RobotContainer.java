@@ -120,9 +120,6 @@ public class RobotContainer {
         );
 
         joystick.a().onTrue(Commands.runOnce(() -> {brakeEnabled = !brakeEnabled;}));
-        joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        ));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -170,22 +167,9 @@ public class RobotContainer {
         
         
         drivetrain.registerTelemetry(logger::telemeterize);
-
-        addRumbleTrigger(Constants.shift1_05, 1);
-        addRumbleTrigger(Constants.shift2_10, 0);
-        addRumbleTrigger(Constants.shift2_05, 1);
-        addRumbleTrigger(Constants.shift3_10, 0);
-        addRumbleTrigger(Constants.shift3_05, 1);
-        addRumbleTrigger(Constants.shift4_10, 0);
-        addRumbleTrigger(Constants.shift4_05, 1);
     }
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();  
-    }
-
-    private void addRumbleTrigger(double timeThreshold, int mode){
-        new Trigger(() -> Timer.getMatchTime() <- timeThreshold)
-            .onTrue(m_UtilitiesSubsystem.rumbleController(mode));
     }
 }
