@@ -27,7 +27,7 @@ public class ApriltagSubsystem extends SubsystemBase {
   public ApriltagSubsystem(CommandSwerveDrivetrain AT_driveTrain) {
     this.AT_driveTrain = AT_driveTrain;
     this.apriltagAngle = true;
-    SmartDashboard.putData("Field", field); 
+    // SmartDashboard.putData("Field", field); 
   }
 
   public void disableApriltagAngle() {
@@ -104,6 +104,6 @@ public class ApriltagSubsystem extends SubsystemBase {
     }
 
     field.setRobotPose((AT_driveTrain.getState().Pose));
-    SmartDashboard.putData("Pose", field);
+    // SmartDashboard.putData("Pose", field);
   }
 }

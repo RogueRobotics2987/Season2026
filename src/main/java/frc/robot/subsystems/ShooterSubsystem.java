@@ -83,8 +83,8 @@ public class ShooterSubsystem extends SubsystemBase  {
 
     // SmartDashboard.putBoolean("Get Auto Aim Enabled", true);
     // SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
-    SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
-    SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
+    // SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
+    // SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
 
     ally = DriverStation.getAlliance();
     //  SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
@@ -184,7 +184,7 @@ public class ShooterSubsystem extends SubsystemBase  {
   @Override
   public void periodic() {
     motorPose = motorTurret.getPosition();
-    SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
+    // SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
     //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldn't tell brodie was here
 
     swerveDriveState = T_driveTrain.getState();

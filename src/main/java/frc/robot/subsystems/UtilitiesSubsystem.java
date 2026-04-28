@@ -92,7 +92,7 @@ public class UtilitiesSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         matchTime = DriverStation.getMatchTime();
-        SmartDashboard.putBoolean("Hub Enabled", isHubActive(matchTime));
+        // SmartDashboard.putBoolean("Hub Enabled", isHubActive(matchTime));
 
     } // end of periodic
 

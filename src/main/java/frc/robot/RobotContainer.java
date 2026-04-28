@@ -75,16 +75,9 @@ public class RobotContainer {
     private boolean brakeEnabled = false;
     public RobotContainer() {
 
-        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Intake In", new IntakeInCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Shoot", new ShooterCommand(turretSubsystem, m_IndexSubsystem));
-        NamedCommands.registerCommand("Zero Shooter", new LowerShooterCommand(turretSubsystem));
-        NamedCommands.registerCommand("Raise Shooter", new RaiseShooterCommand(turretSubsystem));
-
-
         configureBindings();
         autoChooser = AutoBuilder.buildAutoChooser();
-        SmartDashboard.putData("Auto Chooser", autoChooser);
+        // SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     void disableApriltagAngle(){
