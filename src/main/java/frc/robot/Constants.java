@@ -77,7 +77,7 @@ public class Constants {
 
     public static final double deadband = 0.03;
 
-    public static final double gasPedalLimit = 0.25;
+    public static final double speedCap = 0.5; 
 
     //variables for the match times where we want the controller to rumble
     public static final int shift1_05 = 135;

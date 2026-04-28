@@ -94,10 +94,10 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() -> {
-                double outputMultiplier = Math.min(joystick.getRightTriggerAxis() + Constants.gasPedalLimit, 1);
-                double velocityX = joystick.getLeftY() * MaxSpeed * outputMultiplier;
-                double velocityY = joystick.getLeftX() * MaxSpeed * outputMultiplier;
-                double angularRate = -joystick.getRightX() * MaxAngularRate * outputMultiplier;
+
+                double velocityX = joystick.getLeftY() * MaxSpeed * Constants.speedCap;
+                double velocityY = joystick.getLeftX() * MaxSpeed * Constants.speedCap;
+                double angularRate = -joystick.getRightX() * MaxAngularRate * Constants.speedCap;
 
                 if (brakeEnabled &&
                     Math.abs(velocityX) < MinSpeed &&
