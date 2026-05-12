@@ -38,7 +38,7 @@ import frc.robot.commands.RaiseShooterCommand;
 
 
 public class RobotContainer {
-    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = 0.25 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     private double MinSpeed = MaxSpeed * Constants.deadband;
     private double MinAngularRate = MaxAngularRate * Constants.deadband;

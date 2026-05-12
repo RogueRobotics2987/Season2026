@@ -91,33 +91,33 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void ShooterTrimUp(){
-    shooterTrim += 0.025;
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    shooterTrim += 0.05;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ShooterTrimDown(){
-    shooterTrim -= 0.025;
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    shooterTrim -= 0.05;
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void ResetShooterTrim(){
     shooterTrim = 0;
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
+    SmartDashboard.putNumber("Shooter Trim", shooterTrim);
   }
 
   public void TurretTrimLeft(){
     turretTrim += 0.05;
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
     turretTrim -= 0.05;
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void ResetTurretTrim(){
     turretTrim = 0;
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void SetTarget(AimTarget NewTarget) {
