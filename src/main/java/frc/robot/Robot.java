@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
-import com.ctre.phoenix6.swerve.jni.SwerveJNI.DriveState;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,7 +26,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        m_timeAndJoystickReplay.update();
+        //TODO: commented out to test robot periodic timing, will comment back in if needed
+        // m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run(); 
     }
 
