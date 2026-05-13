@@ -106,12 +106,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   }
 
   public void TurretTrimLeft(){
-    turretTrim += 0.0001;
+    turretTrim += 0.01;
     // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
-    turretTrim -= 0.0001;
+    turretTrim -= 0.01;
     // SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
