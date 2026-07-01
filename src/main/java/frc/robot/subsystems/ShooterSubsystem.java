@@ -45,6 +45,12 @@ public class ShooterSubsystem extends SubsystemBase  {
   private StatusSignal <Angle> motorPose;
   private double RobotX;
   private double RobotY;
+  private double RobotVelocityX;
+  private double RobotVelocityY;
+  private double RobotPredictionSpeedX;
+  private double RobotPredictionSpeedY;
+  private double MovingRobotX;
+  private double MovingRobotY;
   private double RobotYawRad;
   private double TurretXGlobal;
   private double TurretYGlobal;
@@ -194,9 +200,21 @@ public class ShooterSubsystem extends SubsystemBase  {
     RobotY = swerveDriveState.Pose.getY();
     RobotYawRad = swerveDriveState.Pose.getRotation().getRadians();
 
+    // Gets Robot's speed in the X and Y axis
+    RobotVelocityX = swerveDriveState.Speeds.vxMetersPerSecond;
+    RobotVelocityY = swerveDriveState.Speeds.vyMetersPerSecond;
+
+    // Calculates X and Y meters pre second to meters pre 0.1 of a second
+    RobotPredictionSpeedX = RobotVelocityX / 10;
+    RobotPredictionSpeedY = RobotVelocityY / 10;
+
+    // Calculates the Robot Pose 100 miliseconds ahead of time
+    MovingRobotX = RobotX + RobotPredictionSpeedX;
+    MovingRobotY = RobotY + RobotPredictionSpeedY;
+
     // Calculates the global postion of the turret anywhere on the field
-    TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
-    TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
+    TurretXGlobal = MovingRobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
+    TurretYGlobal = MovingRobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
     // SmartDashboard.putNumber("YawRad", RobotYawRad);
 
     if (ally.isPresent()) {
