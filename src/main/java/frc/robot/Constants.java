@@ -13,11 +13,11 @@ public class Constants {
     public static final double redHubY = 4.035;
 
     // The X, Y coordinates for Red Passing Left in meters
-    public static final double redPassLeftX = 14.500;
+    public static final double redPassLeftX = 13.000;
     public static final double redPassLeftY = 1.500;
 
     // The X, Y coordinates for Red Passing Right in meters
-    public static final double redPassRightX = 14.500;
+    public static final double redPassRightX = 13.000;
     public static final double redPassRightY = 6.600;
 
     // The X, Y coordinates for the Blue Hub in meters
@@ -25,25 +25,24 @@ public class Constants {
     public static final double blueHubY = 4.035;
 
     // The X, Y coordinates for Blue Passing Left in meters
-    public static final double bluePassLeftX = 2.000; 
+    public static final double bluePassLeftX = 3.500; 
     public static final double bluePassLeftY = 6.600; 
 
     // The X, Y coordinates for Blue Passing Right in meters
-    public static final double bluePassRightX = 2.000;
+    public static final double bluePassRightX = 3.500;
     public static final double bluePassRightY = 1.500;
-
     
     // The X, Y turret offset on the robot in meters
-    public static final double turretOffsetX = -0.17145; // set to 0.00635 for roomba testing
-    public static final double turretOffsetY = 0.108; // set to -0.10695 for roomba testing
-    public static final double turretOffsetH = 0.20263; // these three values are calculated from turretOffsetX and TurretOffsetY
-    public static final double turretOffsetAngle = 31.971;
-    public static final double turretOffsetAngleRad = 2.5836;
+    public static final double turretOffsetX = -155575; // set to 0.00635 for roomba testing
+    public static final double turretOffsetY = -0.1016; // set to -0.10695 for roomba testing
+    public static final double turretOffsetH = 0.1858; // h = -/(x)^2 + (y)^2  -/ means square root
+    public static final double turretOffsetAngle = 33.15;
+    public static final double turretOffsetAngleRad = 0.579; // angleRad = tan^-1(y/x)
 
     // Can IDs
-    public static final int intakeAngleArmMotorCanID = 14;
-    public static final int intakeAngleArmCanCoderCanID = 19;
-    public static final int intakeArmWheelMotorCanID = 15;
+    public static final int intakeAngleArmMotorCanID = 15;
+    public static final int intakeAngleArmCanCoderCanID = 23;
+    public static final int intakeArmWheelMotorCanID = 16;
 
     public static final int indexMotorCanID = 22;
     public static final int TurretCanID = 20;
@@ -55,20 +54,23 @@ public class Constants {
     public static final int FollowerWheelsCanID = 19;
 
     // PID setpoints
-    public static final double intakeOutAngle = 0.38;
+    public static final double intakeOutAngle = 0.289;
+    public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
     public static final double intakeInAngle  = 0;
 
-    public static final double intakeStartSpeed = 0.05; //0.6;
-    public static final double intakeReverseSpeed = 0.05; //-0.6;
+    public static final double intakeStartSpeed = 0.725; // 0.725
+    public static final double intakeReverseSpeed = -0.725; // -0.725
     public static final double intakeStopSpeed = 0;
 
-    public static final double indexOnSpeed = 0; //20
+    public static final double indexOnSpeed = 100; // 75 [trying a speed of 100 to try and maximize shots]
+    public static final double indexReverseSpeed = -100;
     public static final double indexOffSpeed = 0;
 
-    public static final double kickerOnSpeed = 8; //15
+    public static final double kickerOnSpeed = 100; // 75
+    public static final double kickerReverseSpeed = -100;
     public static final double kickerOffSpeed = 0;
 
-    public static double shooterOnSpeed = 5; //50;
+    public static double shooterOnSpeed = 40; // 40
     public static final double shooterOffSpeed = 0;
 
     public static final double shooterArmDisable = 0;
@@ -76,4 +78,17 @@ public class Constants {
     public static final double deadband = 0.03;
 
     public static final double gasPedalLimit = 0.25;
+
+    //variables for the match times where we want the controller to rumble
+    public static final int shift1_05 = 135;
+    public static final int shift2_10 = 115;
+    public static final int shift2_05 = 110;
+    public static final int shift3_10 = 90;
+    public static final int shift3_05 = 85;
+    public static final int shift4_10 = 65;
+    public static final int shift4_05 = 60;
+
+    public static final double armCurrentThreshold = 15.0; //TODO: tune this
+    public static final int overCurrentCycle = 5;
+    public static final double intakeArmPositionTolerance = 0.01; //TODO: tune this
 }

@@ -4,24 +4,26 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.IntakeSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeCommand extends Command {
-  /** Creates a new IntakeCommand. */
+public class RaiseShooterCommand extends Command {
+  /** Creates a new RaiseShooterCommand. */
 
-  private final IntakeSubsystem m_IntakeSubsystem;
+  private final ShooterSubsystem m_shooterSubsystem;
 
-  public IntakeCommand(IntakeSubsystem intakeSubsystem) {
+  public RaiseShooterCommand(ShooterSubsystem shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_IntakeSubsystem = intakeSubsystem;
+    m_shooterSubsystem = shooterSubsystem;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.intakeOut();
+    m_shooterSubsystem.EnableShooter();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,7 +33,6 @@ public class IntakeCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
-
 
   // Returns true when the command should end.
   @Override
