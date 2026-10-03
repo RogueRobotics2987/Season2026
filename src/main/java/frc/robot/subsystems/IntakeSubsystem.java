@@ -28,10 +28,22 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
   }
 
+  public void intakeDown() {
+    intakeWheelMotor.set(Constants.intakeStopSpeed);
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+  }
+
   public void intakeIn() {
     intakeWheelMotor.set(Constants.intakeStopSpeed);
     final PositionVoltage m_request = new PositionVoltage(Constants.intakeInAngle).withSlot(0);
     intakeArmMotor.setControl(m_request.withPosition(Constants.intakeInAngle));
+  }
+
+  public void intakeReverse() {
+    intakeWheelMotor.set(Constants.intakeReverseSpeed);
+    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
   }
 
   // TODO: Add delays between intake arm up and down.
@@ -53,11 +65,11 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeWheelMotor.set(Constants.intakeStopSpeed);
   }
 
-  public void intakeReverse() {
-    final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
-    intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
-    intakeWheelMotor.set(Constants.intakeReverseSpeed);
-  }
+  // public void intakeReverse() {
+  //   final PositionVoltage m_request = new PositionVoltage(Constants.intakeOutAngle).withSlot(0);
+  //   intakeArmMotor.setControl(m_request.withPosition(Constants.intakeOutAngle));
+  //   intakeWheelMotor.set(Constants.intakeReverseSpeed);
+  // }
 
   public Command getIntakeOutCommand(){
     return this.runOnce(() -> { intakeOut();});
@@ -65,6 +77,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public Command getIntakeInCommand(){
     return this.runOnce(() -> { intakeIn(); });
+  }
+  
+  public Command getIntakeDownCommand(){
+    return this.runOnce(() -> { intakeDown();});
+  }
+
+  public Command getIntakeReverseCommand(){
+    return this.runOnce(() -> { intakeReverse(); });
   }
 
   @Override
