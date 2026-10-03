@@ -58,8 +58,8 @@ public class Constants {
     public static final double intakeFeedAngle = 0.1; // TODO: Find/Tune this setpoint.
     public static final double intakeInAngle  = 0;
 
-    public static final double intakeStartSpeed = 0.725; // 0.725
-    public static final double intakeReverseSpeed = -0.725; // -0.725
+    public static final double intakeStartSpeed = -1; // 0.725
+    public static final double intakeReverseSpeed = 0.725; // -0.725
     public static final double intakeStopSpeed = 0;
 
     public static final double indexOnSpeed = 100; // 75 [trying a speed of 100 to try and maximize shots]

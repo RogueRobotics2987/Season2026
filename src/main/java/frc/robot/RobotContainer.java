@@ -142,8 +142,13 @@ public class RobotContainer {
         //TODO: (Once done with the intake feed function) Test intake feed function.
        
         joystick.leftTrigger().whileTrue(m_IntakeSubsystem.getIntakeOutCommand());
-        joystick.leftTrigger().onFalse(m_IntakeSubsystem.getIntakeInCommand());
+        joystick.leftTrigger().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
+
+        joystick.leftBumper().whileTrue(m_IntakeSubsystem.getIntakeInCommand());
+        joystick.leftBumper().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
         
+        joystick.rightBumper().whileTrue(m_IntakeSubsystem.getIntakeReverseCommand());
+        joystick.rightBumper().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
         //joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
 
 
