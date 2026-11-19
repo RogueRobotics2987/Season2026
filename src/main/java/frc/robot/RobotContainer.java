@@ -126,10 +126,10 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        joystick.a().onTrue(Commands.runOnce(() -> {brakeEnabled = !brakeEnabled;}));
-        joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        ));
+       // joystick.a().onTrue(Commands.runOnce(() -> {brakeEnabled = !brakeEnabled;}));
+        //joystick.b().whileTrue(drivetrain.applyRequest(() ->
+        //    point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+       // ));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -144,41 +144,58 @@ public class RobotContainer {
         joystick.leftTrigger().whileTrue(m_IntakeSubsystem.getIntakeOutCommand());
         joystick.leftTrigger().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
 
-        joystick.leftBumper().whileTrue(m_IntakeSubsystem.getIntakeInCommand());
-        joystick.leftBumper().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
+        // joystick.leftBumper().whileTrue(m_IntakeSubsystem.getIntakeInCommand());
+        // joystick.leftBumper().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
         
-        joystick.rightBumper().whileTrue(m_IntakeSubsystem.getIntakeReverseCommand());
-        joystick.rightBumper().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
+        // joystick.rightBumper().whileTrue(m_IntakeSubsystem.getIntakeReverseCommand());
+        // joystick.rightBumper().onFalse(m_IntakeSubsystem.getIntakeDownCommand());
         //joystick.leftBumper().onTrue(m_IntakeSubsystem.runOnce(m_IntakeSubsystem::intakeReverse));
+        joystick.leftBumper().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        joystick.leftBumper().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV));
 
+        joystick.rightBumper().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
+        joystick.rightBumper().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
 
-        auxJoystick.rightBumper()
-            .whileTrue(turretSubsystem.getRunBeltsBackwardsCommand()
-            .alongWith(m_IndexSubsystem.getStartBackwardsCommand()));
-        auxJoystick.rightBumper()
-            .onFalse(turretSubsystem.runOnce(turretSubsystem::stopKicker)
-            .alongWith(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop)));
-
-        auxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
-        auxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
-       
-        auxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
-        auxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
-
-        auxJoystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
-        auxJoystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
-        auxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
+        joystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
+        joystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
+        joystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
         
-        auxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
-        auxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
-        auxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
+        joystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        joystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        joystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
 
-        auxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
-        auxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
+        joystick.a().whileTrue(turretSubsystem.getRunBeltsBackwardsCommand() 
+            .alongWith(m_IndexSubsystem.getStartBackwardsCommand()));
 
-        auxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
-        auxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
-        auxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
+        joystick.a().onFalse(turretSubsystem.runOnce(turretSubsystem::stopKicker)
+            .alongWith(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop)));
+        // auxJoystick.rightBumper()
+        //     .whileTrue(turretSubsystem.getRunBeltsBackwardsCommand()
+        //     .alongWith(m_IndexSubsystem.getStartBackwardsCommand()));
+        // auxJoystick.rightBumper()
+        //     .onFalse(turretSubsystem.runOnce(turretSubsystem::stopKicker)
+        //     .alongWith(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop)));
+
+        // auxJoystick.rightTrigger().onTrue(m_IndexSubsystem.runOnce(m_IndexSubsystem::start));
+        // auxJoystick.rightTrigger().onFalse(m_IndexSubsystem.runOnce(m_IndexSubsystem::stop));
+       
+        // auxJoystick.leftTrigger().onTrue(turretSubsystem.runOnce(turretSubsystem::StartREV));
+        // auxJoystick.leftTrigger().onFalse(turretSubsystem.runOnce(turretSubsystem::StopREV)); 
+
+        // auxJoystick.povUp().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimUp));
+        // auxJoystick.povDown().whileTrue(turretSubsystem.run(turretSubsystem::ShooterTrimDown));
+        // auxJoystick.start().whileTrue(turretSubsystem.run(turretSubsystem::ResetShooterTrim));
+        
+        // auxJoystick.povLeft().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimLeft));
+        // auxJoystick.povRight().whileTrue(turretSubsystem.run(turretSubsystem::TurretTrimRight));
+        // auxJoystick.back().whileTrue(turretSubsystem.run(turretSubsystem::ResetTurretTrim));
+
+        // auxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
+        // auxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
+
+        // auxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
+        // auxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
+        // auxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
         
         
         drivetrain.registerTelemetry(logger::telemeterize);

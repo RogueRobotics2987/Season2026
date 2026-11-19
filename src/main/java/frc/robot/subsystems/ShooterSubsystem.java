@@ -66,7 +66,8 @@ public class ShooterSubsystem extends SubsystemBase  {
   public static enum AimTarget {
     AUTO,
     LEFT,
-    RIGHT
+    RIGHT,
+    None
   }
 
   private AimTarget Target = AimTarget.AUTO;
@@ -90,34 +91,31 @@ public class ShooterSubsystem extends SubsystemBase  {
     //  SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
   }
 
-  public void ShooterTrimUp(){
-    shooterTrim += 0.025;
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
-  }
+  public void ShooterTrimUp() {
+    shooterTrim += 0.05;
+}
 
-  public void ShooterTrimDown(){
-    shooterTrim -= 0.025;
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
-  }
+public void ShooterTrimDown() {
+    shooterTrim -= 0.05;
+}
 
-  public void ResetShooterTrim(){
+public void ResetShooterTrim() {
     shooterTrim = 0;
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
-  }
+}
 
   public void TurretTrimLeft(){
-    turretTrim += 0.01;
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
+    turretTrim += .01;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void TurretTrimRight(){
-    turretTrim -= 0.01;
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
+    turretTrim -= .01;
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void ResetTurretTrim(){
     turretTrim = 0;
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
+    SmartDashboard.putNumber("Turret Trim", turretTrim);
   }
 
   public void SetTarget(AimTarget NewTarget) {
@@ -145,25 +143,25 @@ public class ShooterSubsystem extends SubsystemBase  {
     return this.runOnce(() -> { RunBeltsBackwards(); });
   }
 
-  // TODO: Try passing and see if we want/need a different shooter curve for passing.
-  public static double CalculateShooterArmAngle(double Distance) {
-    double[] coeffs = new double[] { -6.035101436075545e-8, 0.0000374052934185901, -0.00844782026836158, 0.846726337524652, -24.365613640898 }; // { -6.035101436077553e-8, 0.0000349912528441702, -0.00736187207442231, 0.688750116125717, -16.7063305092175 }; // { -4.099336833060573e-8, 0.0000239012179501468, -0.00503738332108565, 0.478908001536328, -9.84271516887961 }; // { -0.00031712809409377, 0.0914666401428832, 1.50742600505378 }; //{ -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
-    double y = 0.0;//                new semi fake curve ^                                                                                                           untested fake curve ^                                                                                 orginal -10 in curve ^                                           orginal curve ^
-    for (int i = 0; i < coeffs.length; i++) {
-      y = y * Distance + coeffs[i];
-    }
-    return y;
-  }
+  // // TODO: Try passing and see if we want/need a different shooter curve for passing.
+  // public static double CalculateShooterArmAngle(double Distance) {
+  //   double[] coeffs = new double[] { -6.035101436075545e-8, 0.0000374052934185901, -0.00844782026836158, 0.846726337524652, -24.365613640898 }; // { -6.035101436077553e-8, 0.0000349912528441702, -0.00736187207442231, 0.688750116125717, -16.7063305092175 }; // { -4.099336833060573e-8, 0.0000239012179501468, -0.00503738332108565, 0.478908001536328, -9.84271516887961 }; // { -0.00031712809409377, 0.0914666401428832, 1.50742600505378 }; //{ -0.000214507983170006, 0.0766951684161614, 1.51713305455971 };
+  //   double y = 0.0;//                new semi fake curve ^                                                                                                           untested fake curve ^                                                                                 orginal -10 in curve ^                                           orginal curve ^
+  //   for (int i = 0; i < coeffs.length; i++) {
+  //     y = y * Distance + coeffs[i];
+  //   }
+  //   return y;
+  // }
 
-  public static double CalculateShooterWheelSpeed(double Distance) {
-    Distance = Math.abs(Distance);
-    double[] coeffs = new double[] { 0.00000269098598337347, -0.00128183799256672, 0.397407382298784, 12.0197750357969 }; // { -4.019650136329579e-9, 0.000002714566323836, -0.000715285651934125, 0.0915898387077836, -5.47388226056847, 157.133466347824 }; // { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
-    double y = 0.0; //                                                                                                                                                                                                                                                           new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve or -10 in curve ^
-    for (int i = 0; i < coeffs.length; i++) {
-      y = y * Distance + coeffs[i];
-    }
-    return y;
-  }
+  // public static double CalculateShooterWheelSpeed(double Distance) {
+  //   Distance = Math.abs(Distance);
+  //   double[] coeffs = new double[] { 0.00000269098598337347, -0.00128183799256672, 0.397407382298784, 12.0197750357969 }; // { -4.019650136329579e-9, 0.000002714566323836, -0.000715285651934125, 0.0915898387077836, -5.47388226056847, 157.133466347824 }; // { -1.687528626629400e-7, 0.0000866148330315965, -0.0167943991239346, 1.64193708461437, -21.8448031293099 }; // { 0.0000107351997489714, -0.00406788058148555, 0.704035863776255, 3.65076121531093 }; // { 0.000614828163898388, 0.05264576064905, 29.534836246623 };
+  //   double y = 0.0; //                                                                                                                                                                                                                                                           new semi fake curve ^                                                                                                           untested fake curve ^                                                         orginal curve or -10 in curve ^
+  //   for (int i = 0; i < coeffs.length; i++) {
+  //     y = y * Distance + coeffs[i];
+  //   }
+  //   return y;
+  // }
 
   public void StartREV() { // JEFF DOESNT LIKE THE NAME
     Shoot = true;
@@ -181,123 +179,80 @@ public class ShooterSubsystem extends SubsystemBase  {
     motorShooterWheels.setControl(m_shooterRequest.withVelocity(Constants.shooterOffSpeed));
   }
 
-  @Override
-  public void periodic() {
+
+@Override
+public void periodic() {
+
     motorPose = motorTurret.getPosition();
-    SmartDashboard.putNumber("Turret position", motorPose.getValueAsDouble());
-    //System.out.println(motorPose.getValueAsDouble()); // JeFf DoEsNt LiKe ThIs CoMmEnT // jEfF dOeSnT lIkE tHiS cOmMeNt // if you couldn't tell brodie was here
 
-    swerveDriveState = T_driveTrain.getState();
+    // MANUAL HOOD CONTROL
+    if (ShooterEnable == true) {
 
-    // Gets Robot X, Y, Yaw
-    RobotX = swerveDriveState.Pose.getX();
-    RobotY = swerveDriveState.Pose.getY();
-    RobotYawRad = swerveDriveState.Pose.getRotation().getRadians();
+        double elevationAngleRequest = shooterTrim;// + armAngle;
 
-    // Calculates the global postion of the turret anywhere on the field
-    TurretXGlobal = RobotX + Constants.turretOffsetH * Math.cos(RobotYawRad + Constants.turretOffsetAngleRad);
-    TurretYGlobal = RobotY + Constants.turretOffsetH * Math.sin(RobotYawRad + Constants.turretOffsetAngleRad);
-    // SmartDashboard.putNumber("YawRad", RobotYawRad);
+        m_shooterArmClosedLoopController.setSetpoint(
+            elevationAngleRequest,
+            ControlType.kPosition,
+            ClosedLoopSlot.kSlot0
+        );
 
-    if (ally.isPresent()) {
-      if (ally.get() == Alliance.Red){
-        targetX = Constants.redHubX;
-        targetY = Constants.redHubY;
-        // Constants.shooterOnSpeed = 40;
+        // SHOOTER WHEELS
+        if (Shoot == true) {
 
-        if (Target == AimTarget.LEFT) {
-          targetX = Constants.redPassLeftX;
-          targetY = Constants.redPassLeftY;
-          // Constants.shooterOnSpeed = 30;
+            double ShooterSpeed = 25;
+
+            m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+
+            motorShooterWheels.setControl(
+                m_shooterRequest.withVelocity(ShooterSpeed)
+            );
         }
-
-        if (Target == AimTarget.RIGHT) {
-          targetX = Constants.redPassRightX;
-          targetY = Constants.redPassRightY;
-          // Constants.shooterOnSpeed = 30;
-        }
-      }
-
-      if (ally.get() == Alliance.Blue) {
-        targetX = Constants.blueHubX;
-        targetY = Constants.blueHubY;
-        // Constants.shooterOnSpeed = 40;
-        
-        if (Target == AimTarget.RIGHT) {
-          targetX = Constants.bluePassRightX;
-          targetY = Constants.bluePassRightY;
-          // Constants.shooterOnSpeed = 30;
-        }
-
-        if (Target == AimTarget.LEFT) {
-          targetX = Constants.bluePassLeftX;
-          targetY = Constants.bluePassLeftY;
-          // Constants.shooterOnSpeed = 30;
-        }
-      }
-    } else {
-          ally = DriverStation.getAlliance();
     }
 
-    // Calculates the difference in the X, Y for the target
-    xDifference = targetX - TurretXGlobal;
-    yDifference = targetY - TurretYGlobal;
+    // // DISABLE HOOD
+    // if (ShooterEnable == false) {
 
-    zDistance = 39.3701 * Math.sqrt(Math.pow(yDifference, 2) + Math.pow(xDifference, 2));
+    //     m_shooterArmClosedLoopController.setSetpoint(
+    //         Constants.shooterArmDisable,
+    //         ControlType.kPosition,
+    //         ClosedLoopSlot.kSlot0
+    //     );
+    // }
 
-    // Calculates the turret angle for the target in rads
-    turretAngleGlobal = -(Math.atan2(yDifference, xDifference)) + RobotYawRad;
-    // SmartDashboard.putNumber("rad Turret Angle Red Hub", turretAngleGlobal);
+    // MANUAL TURRET CONTROL
+    motorTurret.setControl(
+        m_request.withPosition(turretTrim)
+    );
 
-    // Converts the turret angle in rads to motor rotation
-    rotations = turretAngleGlobal / (2 * Math.PI);
-    
-    rotations = rotations < 0 ? rotations + 1 : rotations;
-    
-    // TODO: Go through with drivers/Calise what they want to have up on elastic during comp.
-    // SmartDashBoard Stuff 
-    // SmartDashboard.putNumber("Rotaions", rotations);
-
-    // SmartDashboard.putNumber("Shooter Trim", shooterTrim);
-    // SmartDashboard.putNumber("Turret Trim", turretTrim);
-
-    // SmartDashboard.putNumber("PID output", motorTurret.getClosedLoopOutput().getValueAsDouble());
-
-    // SmartDashboard.putNumber("Shooter elevation angle", CalculateShooterElevation(zDistance));
-
-    // SmartDashboard.putNumber("Z Distance to Hub", zDistance);
-    // SmartDashboard.putNumber("Y Difference", yDifference);
-    // SmartDashboard.putNumber("X Difference", xDifference);
-
-    // SmartDashboard.putNumber("Target X", targetX);
-    // SmartDashboard.putNumber("Target Y", targetY);
-
-    // SmartDashboard.putNumber("Turret X Global", TurretXGlobal);
-    // SmartDashboard.putNumber("Turret Y Global", TurretYGlobal);
-
-    // SmartDashboard.putNumber("Robot X", RobotX);
-    // SmartDashboard.putNumber("Robot Y", RobotY);
-
-    // SmartDashboard.putString("Aim Target", Target.name());
-
-    
-    if(ShooterEnable == true) {
-      double elevationAngleRequest = CalculateShooterArmAngle(zDistance) + shooterTrim;
-      // double elevationAngleRequest = SmartDashboard.getNumber("Shooter Arm Angle", armAngle); // [This is used to manualy control the Shooter Arm Angle]
-      if (Shoot == true) {
-        double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
-        ShooterSpeed = Math.abs(ShooterSpeed);
-        m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
-        motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
-      }
-
-      m_shooterArmClosedLoopController.setSetpoint(elevationAngleRequest, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-      motorTurret.setControl(m_request.withPosition(rotations + turretTrim)); // TODO: Fix turret aiming error of being either to far left or right.
-    }
-
-    if(ShooterEnable == false) {
+        if(ShooterEnable == false) {
       m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       motorTurret.setControl(m_request.withPosition(0));
     }
-  }
+    // MANUAL TURRET CONTROL
+    motorTurret.setControl(m_request.withPosition(turretTrim));
 }
+
+
+
+// if (ShooterEnable == true) {
+
+//     if (Shoot == true) {
+//         double ShooterSpeed = 25;
+
+//         m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+
+//         motorShooterWheels.setControl(
+//             m_shooterRequest.withVelocity(ShooterSpeed)
+//         );
+//     }
+// }
+
+// if (ShooterEnable == false) {
+//     m_shooterArmClosedLoopController.setSetpoint(
+//         Constants.shooterArmDisable,
+//         ControlType.kPosition,
+//         ClosedLoopSlot.kSlot0
+   // );
+}
+
+
