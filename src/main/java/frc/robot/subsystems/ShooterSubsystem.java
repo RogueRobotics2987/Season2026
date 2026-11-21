@@ -60,6 +60,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private SwerveDriveState swerveDriveState;
   private boolean Shoot = false;
   private boolean OverrideShoot = false;
+  private String AngleOverrideKey = "Shooter Angle Override";
+  private String SpeedOverrideKey = "Shooter Speed Override";
 
   public double turretTrim = 0;
   public double shooterTrim = 0;
@@ -88,6 +90,8 @@ public class ShooterSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Kicker Speed", Constants.kickerOnSpeed);
     SmartDashboard.putNumber("Shooter Speed", Constants.shooterOnSpeed);
     SmartDashboard.putNumber("Shooter Arm Angle", armAngle);
+    SmartDashboard.putNumber(AngleOverrideKey, 12.5);
+    SmartDashboard.putNumber(SpeedOverrideKey, 42);
 
     ally = DriverStation.getAlliance();
     // SmartDashboard.putNumber("Shooter Arm Angle Setpoint", 0);
@@ -337,8 +341,8 @@ public class ShooterSubsystem extends SubsystemBase {
       double ShooterArm;
       double ShooterSpeed;
       if (OverrideShoot == true) { //when b be pushed = new values
-        ShooterSpeed = 42;
-        ShooterArm = 12.5;
+        ShooterSpeed = SmartDashboard.getNumber(SpeedOverrideKey, 42);
+        ShooterArm = SmartDashboard.getNumber(AngleOverrideKey, 12.5);
       } else {
         ShooterSpeed = 40;
         ShooterArm = Constants.shooterArmDisable;
