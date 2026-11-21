@@ -336,7 +336,7 @@ public class ShooterSubsystem extends SubsystemBase {
     if (ShooterEnable == false) {
       double ShooterArm;
       double ShooterSpeed;
-      if (OverrideShoot == true) {
+      if (OverrideShoot == true) { //when b be pushed = new values
         ShooterSpeed = 42;
         ShooterArm = 12.5;
       } else {
