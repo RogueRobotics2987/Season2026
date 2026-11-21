@@ -176,6 +176,9 @@ public class RobotContainer {
         auxJoystick.a().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.DisableShooter()));
         auxJoystick.a().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.EnableShooter()));
 
+        auxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.OverrideShootStart()));
+        auxJoystick.b().onFalse(turretSubsystem.runOnce(() -> turretSubsystem.OverrideShootStop()));
+
         auxJoystick.x().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.LEFT)));
         auxJoystick.b().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.RIGHT)));
         auxJoystick.y().onTrue(turretSubsystem.runOnce(() -> turretSubsystem.SetTarget(ShooterSubsystem.AimTarget.AUTO)));
