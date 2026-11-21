@@ -287,7 +287,7 @@ public class ShooterSubsystem extends SubsystemBase  {
       if (Shoot == true) {
         double ShooterSpeed = CalculateShooterWheelSpeed(zDistance); // SmartDashboard.getNumber("Shooter Speed", Constants.shooterOnSpeed); [This is used to manualy control the speed]
         ShooterSpeed = Math.abs(ShooterSpeed);
-        m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+        m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0); // fix plz (turrent wont shoot when zeroed) (delete later)
         motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
       }
 
@@ -298,6 +298,12 @@ public class ShooterSubsystem extends SubsystemBase  {
     if(ShooterEnable == false) {
       m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition, ClosedLoopSlot.kSlot0);
       motorTurret.setControl(m_request.withPosition(0));
+
+      if (Shoot == true){
+        double ShooterSpeed = 40;
+          m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0); // fix plz (turrent wont shoot when zeroed) (delete later)
+        motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
+      }
     }
   }
 }
