@@ -344,15 +344,19 @@ public class ShooterSubsystem extends SubsystemBase {
         ShooterArm = Constants.shooterArmDisable;
       }
 
+      motorTurret.setControl(m_request.withPosition(0));
+
       if (Shoot == true) {
         m_shooterArmClosedLoopController.setSetpoint(ShooterArm, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-        motorTurret.setControl(m_request.withPosition(0));
+
         m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
         motorShooterWheels.setControl(m_shooterRequest.withVelocity(ShooterSpeed));
       } else {
         m_shooterArmClosedLoopController.setSetpoint(Constants.shooterArmDisable, ControlType.kPosition,
             ClosedLoopSlot.kSlot0);
-        motorTurret.setControl(m_request.withPosition(0));
+
+        m_shooterRequest = new VelocityVoltage(ShooterSpeed).withSlot(0);
+        motorShooterWheels.setControl(m_shooterRequest.withVelocity(Constants.shooterOffSpeed));
       }
 
     }
